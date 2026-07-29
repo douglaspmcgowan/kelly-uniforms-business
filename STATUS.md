@@ -13,3 +13,4 @@
 - The Bitwarden Secrets Manager credential names and read-only machine-account pattern are documented in `ACCESS.md`; a reviewed browser-login broker is still required for agent use.
 - Client-project validation, official skill validation, shared project-state verification, seven asset hash checks, and the repository secret scan passed on 2026-07-26.
 - No live website changes have been made.
+- Public repository authority: `https://github.com/douglaspmcgowan/kelly-uniforms-business` on `master`, tagged with the `agent-project` topic.
