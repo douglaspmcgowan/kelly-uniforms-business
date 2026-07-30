@@ -17,11 +17,9 @@ $requiredFiles = @(
     'CLIENT.md',
     'DELIVERABLES.md',
     'SOURCES.md',
-    'CURRENT-TASK.md',
-    'WORK_QUEUE.md',
+    'TASK.md',
     'STATUS.md',
     'LOG.md',
-    'VERIFY.md',
     'data-manifest.yaml',
     'secret-manifest.json',
     'skills-manifest.json'
