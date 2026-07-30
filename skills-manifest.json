@@ -1,0 +1,29 @@
+{
+    "schemaVersion":  1,
+    "project":  "kelly-uniforms-business",
+    "selectionPolicy":  [
+                            "recurring-workflow",
+                            "fragile-verification",
+                            "project-owned-resources",
+                            "cloud-required"
+                        ],
+    "bindings":  [
+                     {
+                         "id":  "binding:kelly-uniforms-business:client",
+                         "name":  "client",
+                         "skill":  "skill:client",
+                         "reason":  "The repository is a client engagement that requires repeatable source provenance, client-profile refreshes, delivery-state governance, and cloud-ready intake instructions.",
+                         "source":  "global",
+                         "requiredSurfaces":  [
+                                                   "claude",
+                                                   "codex",
+                                                   "cursor",
+                                                   "cloud"
+                                               ],
+                         "dependencies":  [
+                                              "shared-agent-project-harness"
+                                          ],
+                         "cloudRequired":  true
+                     }
+                 ]
+}
