@@ -2,52 +2,28 @@
 
 This file is the portable project contract for local and cloud agents.
 
-<!-- agent-harness:portable-principles:v2:start -->
-## Portable operating principles
+<!-- agent-harness:portable:v3:start -->
+## Portable operating rules
 
-These standing rules travel with the repository so local, cloud, and background agents receive the same core judgment.
+Use subagents immediately for every independent, file-disjoint workstream. This is explicit authorization to parallelize. Keep only destructive or dependent final gates serial.
 
-### Communication and truth
+Agents may create local commits for in-scope work without asking. Never push, merge, force-update, discard, delete a worktree, or remove a task workspace unless the user explicitly authorizes that action.
 
-- Address the user as Douglas.
-- Answer direct and embedded questions before task narration. Repeat every unresolved question at the end of the turn.
-- Never invent facts, paths, APIs, versions, source content, measurements, or passing results. Name the authoritative source checked.
-- Verify claims inherited from chats, summaries, comments, or memory against repository evidence.
-- For current or version-sensitive facts, consult current primary sources. Use practitioner evidence alongside primary sources for subjective workflow judgments.
-- Match commands and paths to the shell and environment Douglas will actually use.
-- Avoid the rhetorical â€œit is X, not Yâ€ construction in prose.
-- Before drafting publishable prose, use the project voice guide when one exists.
-
-### Safety, scope, and autonomy
-
-- Preserve unrelated changes and keep edits surgically scoped to the requested outcome.
-- Inspect exact targets before destructive or broad filesystem operations. Prefer reversible changes and backups.
-- Never read, display, log, or commit credential values.
-- Back up authored documents before replacement and check for unsaved/open application state before transforming them.
-- Proceed through safe, in-scope implementation steps. Stop for missing authority, ambiguous irreversible changes, contradictory requirements, or credentials that require Douglas.
-- Treat a request for a plan as plan-only work until Douglas gives an implementation instruction.
-
-### Engineering judgment
-
-- State key assumptions, surface materially different interpretations, and choose the simplest sufficient design.
-- Convert work into verifiable goals. Reproduce bugs before fixing them and add a regression test when practical.
-- Exercise the assembled system under the condition that exposed the bug; isolated mocks and unit tests are supporting evidence.
-- Reproduce a claimed root cause before writing it to durable memory. Preserve unresolved causes as hypotheses.
-- Use comments for non-obvious rationale and public interfaces; remove comments that merely restate code.
-- Use code-graph or symbol navigation when available before loading large files.
-- Keep bulk research and large file content out of the main conversation when targeted reads or isolated analysis can answer the question.
-- Use matching repository skills when their trigger applies. Keep task workflows in skills and standing cross-tool invariants in this file.
-- Delegate only independent work with one writer per file or isolated worktree.
-- For browser-visible changes, run the repositoryâ€™s browser/end-to-end verifier.
-
-### Completion and durable learning
-
-- Run `VERIFY.md`, relevant tests, and an adversarial pass before claiming non-trivial work is complete.
-- A recurring-error fix requires a durable artifact that reaches future sessions: one or more rules, skills, memories, verifiers, hooks, permissions, tests, briefs, or backlog records.
-- Route corrections by evidence and scope. Use the narrowest proven scope and several enforcement mechanisms when they address different failure modes.
-- Append value-free correction records to `.agents/feedback/FEEDBACK-LOG.md`; preserve history through superseding entries.
-- Record failures, blockers, remaining uncertainty, created/updated file paths, and open questions plainly.
-<!-- agent-harness:portable-principles:v2:end -->
+- Answer questions before task narration. Keep routine updates concise.
+- Never invent facts, paths, APIs, versions, source content, measurements, credential state, or passing results. Name the source checked.
+- Verify inherited claims against repository, Git, runtime, or current primary evidence.
+- Match commands and paths to the user's actual shell and device.
+- Avoid the rhetorical "it is X, not Y" construction.
+- Preserve unrelated changes. Inspect exact targets before destructive or broad operations and prefer recoverable changes.
+- Before creating, replacing, renaming, or removing an artifact, search the repository and available shared harness for its existing owner, equivalents, consumers, wiring, tests, and documentation. Extend or consolidate the closest adequate owner. Record search evidence and the reason for a truly new owner in authoritative task state.
+- Extract every discrete obligation from a multi-step prompt into authoritative task state. In an enrolled project, use Work Scope tasks or discoveries; otherwise use legacy `TASK.md` checkboxes.
+- Read a named or clearly matching skill in full. Keep canonical workflows under `.agents\skills` and product adapters thin.
+- Reproduce bugs before fixing them and add a regression test when practical. Exercise the assembled system under the condition that exposed the failure.
+- For browser-visible changes, run the repository browser or end-to-end verifier.
+- When a correction requests permanent prevention, use the `correct` skill and implement a durable, narrowly scoped artifact.
+- Treat `MEMORY.md` as a lean index. Keep behavior in instructions, skills, hooks, permissions, tests, or verifiers.
+- Before claiming non-trivial work complete, run the verification recorded in authoritative task state, relevant tests, and an adversarial pass.
+<!-- agent-harness:portable:v3:end -->
 
 ## Project identity
 
@@ -59,8 +35,8 @@ These standing rules travel with the repository so local, cloud, and background 
 ## Start and resume
 
 1. Read this file.
-2. Read `CURRENT-TASK.md`, `STATUS.md`, and the last 5Ã¢â‚¬â€œ10 entries in `LOG.md`.
-3. Read `WORK_QUEUE.md` for multi-step work.
+2. Read `TASK.md` and the last 5Ã¢â‚¬â€œ10 entries in `LOG.md`.
+3. Read `BACKBURNER.md` for parked work.
 4. Run `git status --short --branch` and `git worktree list --porcelain`.
 5. Reconcile stale chat claims against files and Git before editing.
 6. Run the repository state verifier when the local shared harness is available.
@@ -80,7 +56,7 @@ These standing rules travel with the repository so local, cloud, and background 
 - Avoid destructive commands and broad recursive targets.
 - Back up authored files before replacement.
 - Never read, display, log, or commit secret values.
-- Run the repository verifier before a completion claim.
+- Use the repository-wide verifier when the changed files affect repository-wide invariants or the active task explicitly requires it. Record unrelated verifier failures separately without expanding the task.
 - Record failures and remaining uncertainty plainly.
 
 ## Data boundary
@@ -104,9 +80,6 @@ These standing rules travel with the repository so local, cloud, and background 
 
 ## Task and knowledge files
 
-- `CURRENT-TASK.md`: active goal, completed steps, remaining steps, next verifier.
-- `WORK_QUEUE.md`: actionable multi-step queue.
-- `STATUS.md`: durable project state.
 - `LOG.md`: append-only work log.
 - `BACKBURNER.md`: parked backlog.
 - `VERIFY.md`: required proof before completion.
@@ -114,14 +87,14 @@ These standing rules travel with the repository so local, cloud, and background 
 - `DESIGN.md`: current design decisions and constraints.
 - `MEMORY.md`: lean index to durable reference files.
 
-Use session-keyed active task files when concurrent sessions share one folder. Shared files remain `STATUS.md`, `LOG.md`, and `BACKBURNER.md`.
+Use session-keyed active task files when concurrent sessions share one folder. Shared files remain `LOG.md` and `BACKBURNER.md`.
 
 ### Update triggers
 
-- Start or resume: read `CURRENT-TASK.md`, `STATUS.md`, recent `LOG.md`, and `WORK_QUEUE.md` when the work has multiple steps.
-- Multi-step request: seed `WORK_QUEUE.md` before implementation and update checkboxes as evidence lands.
-- Active goal, completed step, next command, or verifier changes: update `CURRENT-TASK.md`.
-- Durable capability or project-state change: update `STATUS.md`.
+- Start or resume: read `TASK.md` and recent `LOG.md`.
+- Multi-step request: seed the queue in `TASK.md` before implementation and update it as evidence lands.
+- Active goal, completed step, next command, or verifier changes: update `TASK.md`.
+- Durable capability or project-state change: update `MAP.md`. `STATUS.md` is retired; do not create one.
 - Meaningful completed work: append one dated line to `LOG.md`.
 - Parked idea or deferred task: update `BACKBURNER.md`.
 - Architecture, data flow, ownership, integration, or important path changes: update `MAP.md`.
@@ -131,7 +104,7 @@ Use session-keyed active task files when concurrent sessions share one folder. S
 - Douglas corrects recurring behavior: record evidence, choose path/project/shared/platform/provider scope, implement the narrowest reliable rule or enforcement artifact, and add verification.
 - Before handoff or stopping: reconcile the queue, task narrative, durable status, log, and Git state.
 
-`CURRENT-TASK.md` explains the active goal and exact next verifier. `WORK_QUEUE.md` supplies machine-readable action state for loops, hooks, and concurrent work. Keep queue entries short and link to the current-task narrative instead of duplicating it.
+`TASK.md` owns the active goal, the actionable queue, blockers, completed evidence, and the exact next verifier. Keep queue entries short. `CURRENT-TASK.md` and `WORK_QUEUE.md` are retired: do not create either, and note that project setup fails while one is present.
 
 ## Secret handling
 
