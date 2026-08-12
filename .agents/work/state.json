@@ -1,5 +1,5 @@
 {
-  "revision": 182,
+  "revision": 183,
   "backburner": [
     {
       "id": "legacy-task-L73",
@@ -2055,8 +2055,8 @@
       ]
     }
   ],
-  "updated_at": "2026-08-12T17:18:34.7200828Z",
-  "last_event_hash": "64b8fea19ffdbcf76a9fb7e8e56bb732559c52dc281dc6a8ebb691c7fde72b54",
+  "updated_at": "2026-08-12T17:24:33.2326578Z",
+  "last_event_hash": "d76bfda8431900da4e0546215a48e6c5d5239c0aef5f5179a260f10380ab58a6",
   "schema_version": "1.0.0",
   "ownership": {
     "sessions": [
@@ -2205,7 +2205,7 @@
     ]
   },
   "created_at": "2026-08-09T06:14:25.2526853Z",
-  "last_event_id": "1ea388d2-8d33-4c62-91e9-fb97ebe2a196",
+  "last_event_id": "ba47fc58-08f0-4651-8325-352aa26b7812",
   "active": {
     "track_id": "business-continuity",
     "capability_id": "portable-recovery-repository-custody",
