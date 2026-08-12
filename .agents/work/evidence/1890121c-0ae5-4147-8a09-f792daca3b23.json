@@ -1,0 +1,68 @@
+{
+  "receipt_id": "1890121c-0ae5-4147-8a09-f792daca3b23",
+  "check_id": "rec010-source-ready-package-verify",
+  "verifier": "test",
+  "subject": "rec010-source-ready-package-v1",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "rebuild-ready-recovery",
+  "cell_id": "rebuild-ready-recovery@D5",
+  "task_id": "rec010-source-ready-package-v1",
+  "result": "pass",
+  "executable": "py.exe",
+  "executable_sha256": "c51dac136d24b196e887e777a0034e971f32ffd7219099ea002f2aaa9243f501",
+  "arguments_sha256": "bf03f1597c3470aa3c8296c3e07c54a46fd3ccf5bbc2a171f0137639ee84f24c",
+  "output_sha256": "dab487c728b29aa317c03ea34c79b2884ece4c1d21c79eeffc0b932c4bb0815a",
+  "output_size_bytes": 105,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 120,
+  "max_output_bytes": 200000,
+  "verifier_inputs": [
+    {
+      "reference": "docs/recovery/opencart-native-capture-runbook.md",
+      "sha256": "a4757da90e2cf5ffaa4dc4464f334e3c7183d45852e34faaed0930103e4f4d12",
+      "size_bytes": 3243
+    },
+    {
+      "reference": "scripts/capture_opencart_native_export.py",
+      "sha256": "af268520b5714db24a94da72f9cec7d2ac88596f25e9e729dd4fe84b2eb8d030",
+      "size_bytes": 6075
+    },
+    {
+      "reference": "scripts/package_capture_ready_generation.py",
+      "sha256": "b44d3fd38cab6cc5b68e2ea5f809e2341330629e869b9c7fefd8258e37282650",
+      "size_bytes": 12859
+    },
+    {
+      "reference": "scripts/recovery_package.py",
+      "sha256": "ac983607d290daf8fbe18c1e96a4af62abdbe6feb4068a4b1c6d98216e7abcbf",
+      "size_bytes": 15455
+    }
+  ],
+  "artifacts": [
+    {
+      "reference": "docs/recovery/source-ready-package-v1.md",
+      "sha256": "4337f1aa7cb5645bfe7258a4dce3d162cb299a07226c97fe44ab1df0b4a984c7",
+      "size_bytes": 1789
+    },
+    {
+      "reference": "evidence/2026-08-10-rec010-source-ready-package.md",
+      "sha256": "c6c3d09e421df8032d3dcc1ebb92af4328ef9472218df8c5529b12befdbc0515",
+      "size_bytes": 3119
+    },
+    {
+      "reference": "scripts/package_source_ready_generation.py",
+      "sha256": "4c9c5bf3e6fce12816036eb8398dd2dd0a7f412f82a1153f8a8d3915536b516c",
+      "size_bytes": 10538
+    },
+    {
+      "reference": "scripts/test_package_source_ready_generation.py",
+      "sha256": "8384f39190aaf21aa4caad6c837199168f026fbdc02a4d322a18862e68a2f309",
+      "size_bytes": 5478
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-10T01:12:12.8402493Z",
+  "finished_at": "2026-08-10T01:12:13.1720691Z"
+}

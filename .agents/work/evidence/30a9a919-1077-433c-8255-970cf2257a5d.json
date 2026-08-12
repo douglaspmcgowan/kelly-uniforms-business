@@ -1,0 +1,42 @@
+{
+  "receipt_id": "30a9a919-1077-433c-8255-970cf2257a5d",
+  "check_id": "public-runtime-rec004-verify",
+  "verifier": "command",
+  "subject": "public-runtime-rec004-v1",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "rebuild-ready-recovery",
+  "cell_id": "rebuild-ready-recovery@D1",
+  "task_id": "public-runtime-rec004-v1",
+  "result": "pass",
+  "executable": "py.exe",
+  "executable_sha256": "c51dac136d24b196e887e777a0034e971f32ffd7219099ea002f2aaa9243f501",
+  "arguments_sha256": "feb096f17737de8e5ec070366e27e51b2ec666a3e7d77c70842ca11e926cfd87",
+  "output_sha256": "b0e0f260672330480a6c71af0c5ba84ba538c2cbbeb4cc76a68e4c919419d848",
+  "output_size_bytes": 608,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 600,
+  "max_output_bytes": 1048576,
+  "verifier_inputs": [],
+  "artifacts": [
+    {
+      "reference": "evidence/2026-08-10-rec004-public-runtime.md",
+      "sha256": "22346f114ce6d53736ca33c9bd0bb420bb30fbc82add60e77040dfb0b6d1fddb",
+      "size_bytes": 3482
+    },
+    {
+      "reference": "scripts/capture_public_runtime.py",
+      "sha256": "b444627d4602bddd44a5164e13bba248a9d6991b34e2269c7d93d0f99f9694ad",
+      "size_bytes": 14628
+    },
+    {
+      "reference": "scripts/test_capture_public_runtime.py",
+      "sha256": "32318b17be72a7d40ad28dfcc54fadfc54154c046f64e163b5bfd30fcb7d840d",
+      "size_bytes": 9710
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-09T21:17:57.3544438Z",
+  "finished_at": "2026-08-09T21:18:02.2605973Z"
+}

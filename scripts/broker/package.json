@@ -1,0 +1,13 @@
+{
+  "name": "mtuniforms-login-broker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Headless login brokers invoked through the harness Bitwarden Secrets Manager broker. Credentials arrive as environment variables and are never printed or written.",
+  "scripts": {
+    "postinstall-note": "echo 'Run: npx playwright install chromium'"
+  },
+  "dependencies": {
+    "playwright": "^1.62.1"
+  }
+}

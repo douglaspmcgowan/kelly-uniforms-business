@@ -1,0 +1,42 @@
+{
+  "receipt_id": "144861d5-dd09-4ed9-a2b0-08e1d234d1eb",
+  "check_id": "commerce-schema-rec005-verify",
+  "verifier": "command",
+  "subject": "commerce-schema-rec005-v1",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "rebuild-ready-recovery",
+  "cell_id": "rebuild-ready-recovery@D2",
+  "task_id": "commerce-schema-rec005-v1",
+  "result": "pass",
+  "executable": "py.exe",
+  "executable_sha256": "c51dac136d24b196e887e777a0034e971f32ffd7219099ea002f2aaa9243f501",
+  "arguments_sha256": "ef013f883c89b3c25b3719e8be50e31cf9ca670f31a9b747fc14514ef0c22240",
+  "output_sha256": "35561213fc978fef720df4bc519aa195ab9b4eb6fbcc383b8238b75928cc95fc",
+  "output_size_bytes": 810,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 600,
+  "max_output_bytes": 1048576,
+  "verifier_inputs": [],
+  "artifacts": [
+    {
+      "reference": "evidence/2026-08-10-rec005-commerce-schema.md",
+      "sha256": "135fdd0bc3e278ffe42c46adaa34433473fc15fed50633fdf17c731e21a56f62",
+      "size_bytes": 3234
+    },
+    {
+      "reference": "scripts/test_upgrade_commerce_schema.py",
+      "sha256": "633d1d788345e20be0c73eb76140762a76a0c8f7ce3b8920172d1293e2b6fb32",
+      "size_bytes": 3297
+    },
+    {
+      "reference": "scripts/upgrade_commerce_schema.py",
+      "sha256": "904edf5762c385b3f2d4d6d26e207babd26f1feed41387f9a2a01812e09ecd8a",
+      "size_bytes": 17013
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-09T21:37:01.9989911Z",
+  "finished_at": "2026-08-09T21:37:06.9590545Z"
+}

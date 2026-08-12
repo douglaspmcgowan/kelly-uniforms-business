@@ -1,0 +1,113 @@
+{
+  "receipt_id": "3b41f6a2-1b91-46e6-b248-eb21c62f4e88",
+  "check_id": "rec008-package-verify-v1",
+  "verifier": "test",
+  "subject": "rec008-import-ready-package-v1",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "rebuild-ready-recovery",
+  "cell_id": "rebuild-ready-recovery@D5",
+  "task_id": "rec008-import-ready-package-v1",
+  "result": "pass",
+  "executable": "py.exe",
+  "executable_sha256": "c51dac136d24b196e887e777a0034e971f32ffd7219099ea002f2aaa9243f501",
+  "arguments_sha256": "7bed2d0f9aea81a50753fa6bbd43f73fc493cd12de900eeb2a129ba8d278c8a6",
+  "output_sha256": "7aac5fe8a4671ec336e2bde4a57a12d661b29eff10ee2745d8bf2faf2f6f9b1c",
+  "output_size_bytes": 107,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 120,
+  "max_output_bytes": 1048576,
+  "verifier_inputs": [
+    {
+      "reference": "schemas/commerce-import-bundle-v1.schema.json",
+      "sha256": "2acb16d9b3517f28d8dc5558540c970fd3cd2fb8b02fcb0e0f04091e0a86678b",
+      "size_bytes": 3024
+    },
+    {
+      "reference": "scripts/capture_missing_media.py",
+      "sha256": "629af6065e804264b500c6595113f0f047908a52da129032a9ab07dfb27114a1",
+      "size_bytes": 11720
+    },
+    {
+      "reference": "scripts/capture_public_runtime.py",
+      "sha256": "9965824690fd755e9e2d09bb6f4873c13d502bda95fb69d6aa2b6b17c436e1cf",
+      "size_bytes": 14871
+    },
+    {
+      "reference": "scripts/extend_import_schema.py",
+      "sha256": "74f068a9efbf4fa053a20f2903f7cf2576fb0f4c7e5eba02ca8623c2f87df779",
+      "size_bytes": 5467
+    },
+    {
+      "reference": "scripts/finalize_public_assets.py",
+      "sha256": "9f708c290204cfe977c7d0a50df642d08bb60eee10e11e07f30bc9f36e89f170",
+      "size_bytes": 11700
+    },
+    {
+      "reference": "scripts/import_commerce_bundle.py",
+      "sha256": "20c44793ea14801528ddca074baf4727bc5eacaafaf64226d040301be083a08d",
+      "size_bytes": 11001
+    },
+    {
+      "reference": "scripts/package_import_ready_generation.py",
+      "sha256": "94045c9e3dfea3d7099365c2ce93a2c6c57a20c904ba3628a9bf776b2266b4dd",
+      "size_bytes": 17963
+    },
+    {
+      "reference": "scripts/recovery_package.py",
+      "sha256": "ac983607d290daf8fbe18c1e96a4af62abdbe6feb4068a4b1c6d98216e7abcbf",
+      "size_bytes": 15455
+    },
+    {
+      "reference": "scripts/test_package_import_ready_generation.py",
+      "sha256": "3715c2c9ea24864c1ef35f6d2064d8e4655f8f831d0cfaa679c982dd3cad91ce",
+      "size_bytes": 10786
+    },
+    {
+      "reference": "scripts/upgrade_commerce_schema.py",
+      "sha256": "52ddc36bcf0c6272927082d8988e08aff820e304e7af2423324891a8a1f25837",
+      "size_bytes": 17096
+    },
+    {
+      "reference": "scripts/validate_import_bundle.py",
+      "sha256": "dfb8cc34160c38829cbed4e93dd740dd0eccb92d874d60471d3ef5ad1b84d58d",
+      "size_bytes": 13188
+    }
+  ],
+  "artifacts": [
+    {
+      "reference": "data-manifest.yaml",
+      "sha256": "c1ecf4ff6c1947b5b4acf726b9122975760ecfc868152cb4a762da02e83c0709",
+      "size_bytes": 8499
+    },
+    {
+      "reference": "DELIVERABLES.md",
+      "sha256": "ae54849a3704923767010ec16ea4f6578e4b12383b8be4828f501080914707d1",
+      "size_bytes": 19318
+    },
+    {
+      "reference": "evidence/2026-08-10-rec008-import-ready-package.md",
+      "sha256": "be073125fb169286a70c372d7651689f5c185ee833eedb81c046362de8f74e43",
+      "size_bytes": 3761
+    },
+    {
+      "reference": "MAP.md",
+      "sha256": "ec9f7ca998fece4e061f7c2fd1bf9c807f2b37da27c74a5f8b443129e54ea191",
+      "size_bytes": 13134
+    },
+    {
+      "reference": "scripts/package_import_ready_generation.py",
+      "sha256": "94045c9e3dfea3d7099365c2ce93a2c6c57a20c904ba3628a9bf776b2266b4dd",
+      "size_bytes": 17963
+    },
+    {
+      "reference": "scripts/test_package_import_ready_generation.py",
+      "sha256": "3715c2c9ea24864c1ef35f6d2064d8e4655f8f831d0cfaa679c982dd3cad91ce",
+      "size_bytes": 10786
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-09T23:00:20.2798585Z",
+  "finished_at": "2026-08-09T23:00:23.1781023Z"
+}

@@ -1,0 +1,58 @@
+{
+  "receipt_id": "dd2f83dc-620d-43cc-9408-c601abaf7fd0",
+  "check_id": "ecwid-core-api-capture-verify-v1",
+  "verifier": "test",
+  "subject": "ecwid-core-api-capture-v1",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "rebuild-ready-recovery",
+  "cell_id": "rebuild-ready-recovery@D5",
+  "task_id": "ecwid-core-api-capture-v1",
+  "result": "pass",
+  "executable": "py.exe",
+  "executable_sha256": "c51dac136d24b196e887e777a0034e971f32ffd7219099ea002f2aaa9243f501",
+  "arguments_sha256": "63fa36a93c1b54325f7f098ceccd83e8bd0a663e686f75ffe49661017927ec95",
+  "output_sha256": "e1c8ca5ab0ed84263af5e1dedb5341aa3d0551ad64ff4b2eee4ff51792ea3562",
+  "output_size_bytes": 106,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 120,
+  "max_output_bytes": 1048576,
+  "verifier_inputs": [
+    {
+      "reference": "scripts/capture_ecwid_api.py",
+      "sha256": "c3448c0b1ff440098af830318f95727ade3d8c1d28c8d80bb9c1708f312db5c2",
+      "size_bytes": 10130
+    },
+    {
+      "reference": "scripts/test_capture_ecwid_api.py",
+      "sha256": "458052d309f797af08160404fce11ff4c022f53ebf21e6f2d8cf73bc13bdc12b",
+      "size_bytes": 7326
+    }
+  ],
+  "artifacts": [
+    {
+      "reference": "docs/recovery/ecwid-api-capture-runbook.md",
+      "sha256": "84d0e03bdd4d9c1ea0d823cd44e387ee02518a03f256954b95772d3ac871f109",
+      "size_bytes": 4087
+    },
+    {
+      "reference": "evidence/2026-08-10-ecwid-capture-adapter.md",
+      "sha256": "9f9ecc1885d0a1bde009a3cc0286a36f17e6dbe58c6b42551e02230e3a97bb28",
+      "size_bytes": 2213
+    },
+    {
+      "reference": "scripts/capture_ecwid_api.py",
+      "sha256": "c3448c0b1ff440098af830318f95727ade3d8c1d28c8d80bb9c1708f312db5c2",
+      "size_bytes": 10130
+    },
+    {
+      "reference": "scripts/test_capture_ecwid_api.py",
+      "sha256": "458052d309f797af08160404fce11ff4c022f53ebf21e6f2d8cf73bc13bdc12b",
+      "size_bytes": 7326
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-09T23:23:57.7051571Z",
+  "finished_at": "2026-08-09T23:24:01.1354758Z"
+}
