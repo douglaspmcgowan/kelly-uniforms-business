@@ -10,7 +10,7 @@ Frontier mode: expand
 Depth ceiling: D5
 Breadth boundary: project
 Selection strategy: dependency-first
-Status: active
+Status: closed
 
 ## Goal
 
@@ -32,7 +32,7 @@ Complete and verify Commit and push the verified portable recovery system and Wo
 
 ## Tasks
 
-- [ ] publish-portable-recovery-system: Commit and push the portable recovery system and Work Scope authority (status: ready; acceptance: The remote master tree contains the complete value-safe recovery toolchain, contracts, schemas, tests, evidence, data adapter, brand gallery, generated Work Scope views, canonical state/event/import history, and current REC-016 routing; runtime locks and bytecode are excluded; Gitleaks finds no secrets; all 78 recovery tests, adapter tests, frontend tests/builds, and Work Scope gates pass; the final verifier proves the local tree equals origin/master.)
+- [x] publish-portable-recovery-system: Commit and push the portable recovery system and Work Scope authority (status: closed; acceptance: The remote master tree contains the complete value-safe recovery toolchain, contracts, schemas, tests, evidence, data adapter, brand gallery, generated Work Scope views, canonical state/event/import history, and current REC-016 routing; runtime locks and bytecode are excluded; Gitleaks finds no secrets; all 78 recovery tests, adapter tests, frontend tests/builds, and Work Scope gates pass; the final verifier proves the local tree equals origin/master.)
 
 ## Declared acceptance checks
 
@@ -44,7 +44,7 @@ Complete and verify Commit and push the verified portable recovery system and Wo
 
 ## Verification evidence
 
-- None
+- [test/pass] publish-portable-recovery-system | .agents/work/evidence/01bea106-cd4a-4fc8-b628-455dbe34f1e4.json | sha256:9c46594fab68 | receipt:01bea106-cd4a-4fc8-b628-455dbe34f1e4
 
 ## Discoveries captured
 
@@ -52,4 +52,4 @@ Complete and verify Commit and push the verified portable recovery system and Wo
 
 ## Next transition
 
-execute_task: publish-portable-recovery-system
+frontier_transition

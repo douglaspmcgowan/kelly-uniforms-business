@@ -64,4 +64,4 @@ This is a discovery queue. It does not become active until a verified frontier t
 | cloud-kit-rollout-prerequisite-20260811 | Enroll kelly-uniforms-business in the shared hosted-agent cloud kit | intake | intake.external | D1 | selected |
 | storefront-product-build-20260811 | Design, build, verify, and publish the modern M&T Uniforms storefront prototype | storefront-modernization | customer-storefront | D3 | closed |
 | rec016-manifest-consistency-successor-20260812 | Build an immutable REC-016 successor that reconciles stale REC-015 public-media and account-inventory manifest claims | business-continuity | recovery-package-maintenance | D2 | closed |
-| publish-portable-recovery-system-20260812 | Commit and push the verified portable recovery system and Work Scope authority to the remote repository | business-continuity | portable-recovery-repository-custody | D3 | selected |
+| publish-portable-recovery-system-20260812 | Commit and push the verified portable recovery system and Work Scope authority to the remote repository | business-continuity | portable-recovery-repository-custody | D3 | closed |

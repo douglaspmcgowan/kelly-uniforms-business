@@ -1,5 +1,5 @@
 {
-  "revision": 179,
+  "revision": 182,
   "backburner": [
     {
       "id": "legacy-task-L73",
@@ -1993,7 +1993,7 @@
           "captured_at": "2026-08-12T16:14:24.5491614Z"
         }
       ],
-      "status": "selected",
+      "status": "closed",
       "captured_at": "2026-08-12T16:14:24.5999668Z"
     }
   ],
@@ -2029,9 +2029,9 @@
         {
           "id": "portable-recovery-repository-custody",
           "name": "Commit and push the verified portable recovery system and Work Scope authority to the remote repository",
-          "current_depth": null,
+          "current_depth": "D3",
           "target_depth": "D3",
-          "status": "active",
+          "status": "closed",
           "dependencies": [],
           "blockers": [],
           "owner_session": "codex-mt-uniforms-20260809"
@@ -2055,8 +2055,8 @@
       ]
     }
   ],
-  "updated_at": "2026-08-12T17:11:15.2203850Z",
-  "last_event_hash": "5052c10bf5fbe8b06602aca50446028fced7b39b0880809c634633069c2b691d",
+  "updated_at": "2026-08-12T17:18:34.7200828Z",
+  "last_event_hash": "64b8fea19ffdbcf76a9fb7e8e56bb732559c52dc281dc6a8ebb691c7fde72b54",
   "schema_version": "1.0.0",
   "ownership": {
     "sessions": [
@@ -2205,15 +2205,15 @@
     ]
   },
   "created_at": "2026-08-09T06:14:25.2526853Z",
-  "last_event_id": "ff70ac15-61b8-459e-9d43-61b43b1c8626",
+  "last_event_id": "1ea388d2-8d33-4c62-91e9-fb97ebe2a196",
   "active": {
     "track_id": "business-continuity",
     "capability_id": "portable-recovery-repository-custody",
     "depth": "D3",
     "cell_id": "portable-recovery-repository-custody@D3",
-    "status": "active",
+    "status": "closed",
     "opened_at": "2026-08-12T16:14:46.1102566Z",
-    "closed_at": null,
+    "closed_at": "2026-08-12T17:18:06.1649595Z",
     "goal": "Complete and verify Commit and push the verified portable recovery system and Work Scope authority to the remote repository at D3.",
     "in_scope": [
       "portable-recovery-repository-custody"
@@ -2256,12 +2256,50 @@
           }
         ],
         "dependencies": [],
-        "status": "ready",
-        "evidence": [],
-        "closed_at": null
+        "status": "closed",
+        "evidence": [
+          {
+            "receipt_id": "01bea106-cd4a-4fc8-b628-455dbe34f1e4",
+            "check_id": "portable-recovery-repository-custody",
+            "verifier": "test",
+            "subject": "publish-portable-recovery-system",
+            "result": "pass",
+            "reference": ".agents/work/evidence/01bea106-cd4a-4fc8-b628-455dbe34f1e4.json",
+            "sha256": "9c46594fab683a8e3a16ed50c94fae25c6f8e345ae348b5c98ab8f94b2393945",
+            "size_bytes": 2150,
+            "captured_at": "2026-08-12T17:16:31.3126211Z",
+            "exit_code": 0,
+            "provenance_event_id": "e99ed99c-a3d5-4c69-8867-f1c77c7f9df3",
+            "project_id": "kelly-uniforms-business",
+            "track_id": "business-continuity",
+            "capability_id": "portable-recovery-repository-custody",
+            "cell_id": "portable-recovery-repository-custody@D3",
+            "task_id": "publish-portable-recovery-system"
+          }
+        ],
+        "closed_at": "2026-08-12T17:17:26.2405617Z"
       }
     ],
-    "evidence": [],
+    "evidence": [
+      {
+        "receipt_id": "01bea106-cd4a-4fc8-b628-455dbe34f1e4",
+        "check_id": "portable-recovery-repository-custody",
+        "verifier": "test",
+        "subject": "publish-portable-recovery-system",
+        "result": "pass",
+        "reference": ".agents/work/evidence/01bea106-cd4a-4fc8-b628-455dbe34f1e4.json",
+        "sha256": "9c46594fab683a8e3a16ed50c94fae25c6f8e345ae348b5c98ab8f94b2393945",
+        "size_bytes": 2150,
+        "captured_at": "2026-08-12T17:16:31.3126211Z",
+        "exit_code": 0,
+        "provenance_event_id": "e99ed99c-a3d5-4c69-8867-f1c77c7f9df3",
+        "project_id": "kelly-uniforms-business",
+        "track_id": "business-continuity",
+        "capability_id": "portable-recovery-repository-custody",
+        "cell_id": "portable-recovery-repository-custody@D3",
+        "task_id": "publish-portable-recovery-system"
+      }
+    ],
     "discoveries": []
   }
 }
