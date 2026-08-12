@@ -1,2 +1,6 @@
 .local/
 .validator-deps/
+node_modules/
+package-lock.json
+!storefront/package-lock.json
+.vercel/
