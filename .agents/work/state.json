@@ -1,5 +1,5 @@
 {
-  "revision": 199,
+  "revision": 211,
   "backburner": [
     {
       "id": "legacy-task-L73",
@@ -716,9 +716,19 @@
           "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
           "size_bytes": 17343,
           "captured_at": "2026-08-09T06:14:31.4383257Z"
+        },
+        {
+          "receipt_id": "ca251606-8615-4989-8f1e-8ee2ea0e110a",
+          "verifier": "test",
+          "subject": "www and bare-host cart-session split",
+          "result": "pass",
+          "reference": "evidence/2026-08-12-public-cart-host-session-split.json",
+          "sha256": "1b6d938d3d8d00847131f773085a5e413609994e6a47c5844a749a5f4b512121",
+          "size_bytes": 1927,
+          "captured_at": "2026-08-12T18:28:39.3990320Z"
         }
       ],
-      "status": "ready",
+      "status": "closed",
       "captured_at": "2026-08-09T06:14:31.4387323Z"
     },
     {
@@ -2005,6 +2015,76 @@
       ],
       "status": "closed",
       "captured_at": "2026-08-12T16:14:24.5999668Z"
+    },
+    {
+      "id": "public-cart-host-session-split-20260812",
+      "title": "Reproduce and record the public www/non-www OpenCart cart-session split without authenticated access",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "public-cart-session-diagnosis",
+      "entry_depth": "D1",
+      "discovered_from": "legacy-task-L97; original rebuild-ready-recovery capability is blocked by unrelated authenticated-export prerequisites",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [
+        "legacy-task-L97 is the original discovery and will be dispositioned from this result"
+      ],
+      "value": "high",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "69dd0374-0f6c-4161-9706-4d92705ae3aa",
+          "verifier": "inspection",
+          "subject": "legacy-task-L97 independent public proof",
+          "result": "verified",
+          "reference": ".agents/work/state.json",
+          "sha256": "96f8df1eb5b96ca9bc2af1e7d9ad833096798fe55eb92ddeecb7c18e29e3d92f",
+          "size_bytes": 101762,
+          "captured_at": "2026-08-12T18:20:35.1255467Z"
+        },
+        {
+          "receipt_id": "d57b3a17-5271-4151-9283-a1f9b274f38f",
+          "verifier": "inspection",
+          "subject": "selection refusal",
+          "result": "verified",
+          "reference": ".agents/work/state.json",
+          "sha256": "6eed95d9f0ba3604e71e8d880999abd5b7733662032cbfb5d6c9f341449d8ff6",
+          "size_bytes": 103167,
+          "captured_at": "2026-08-12T18:21:10.8037286Z"
+        }
+      ],
+      "status": "rejected",
+      "captured_at": "2026-08-12T18:20:35.1811317Z"
+    },
+    {
+      "id": "public-cart-host-session-split-proof-20260812",
+      "title": "Reproduce and record the public www/non-www OpenCart cart-session split without authenticated access",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "public-cart-session-diagnosis",
+      "entry_depth": "D1",
+      "discovered_from": "legacy-task-L97; original rebuild-ready-recovery capability is blocked by unrelated authenticated-export prerequisites",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "3f06523e-3003-4b35-9f14-9459e5cab4f4",
+          "verifier": "inspection",
+          "subject": "legacy-task-L97 independent public proof",
+          "result": "verified",
+          "reference": ".agents/work/state.json",
+          "sha256": "c688bceae7decd4f754b33943517f3a4115e9ab5dcea39084df7ba86f02308ef",
+          "size_bytes": 103599,
+          "captured_at": "2026-08-12T18:21:23.5225889Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-12T18:21:23.5410913Z"
     }
   ],
   "tracks": [
@@ -2045,6 +2125,16 @@
           "dependencies": [],
           "blockers": [],
           "owner_session": "codex-mt-uniforms-20260809"
+        },
+        {
+          "id": "public-cart-session-diagnosis",
+          "name": "Reproduce and record the public www/non-www OpenCart cart-session split without authenticated access",
+          "current_depth": "D1",
+          "target_depth": "D1",
+          "status": "closed",
+          "dependencies": [],
+          "blockers": [],
+          "owner_session": "codex-mt-uniforms-20260809"
         }
       ]
     },
@@ -2081,8 +2171,8 @@
       ]
     }
   ],
-  "updated_at": "2026-08-12T18:18:29.0488118Z",
-  "last_event_hash": "af722ed2b4e7f1b684967d425534f4835e51b04f132ed6645b0b12c459d9696e",
+  "updated_at": "2026-08-12T18:28:49.8533916Z",
+  "last_event_hash": "f40366c49be478daa69bd7c5fbd8a40199d6819667ffc8c0f67a337e0c4444a3",
   "schema_version": "1.0.0",
   "ownership": {
     "sessions": [
@@ -2244,91 +2334,55 @@
     ]
   },
   "created_at": "2026-08-09T06:14:25.2526853Z",
-  "last_event_id": "80b1f84d-6091-4c95-b464-5dccffc2e4d7",
+  "last_event_id": "c349d87b-f425-41e3-816c-a6d85a66a983",
   "active": {
-    "track_id": "intake",
-    "capability_id": "intake.external",
+    "track_id": "business-continuity",
+    "capability_id": "public-cart-session-diagnosis",
     "depth": "D1",
-    "cell_id": "intake.external@D1",
+    "cell_id": "public-cart-session-diagnosis@D1",
     "status": "closed",
-    "opened_at": "2026-08-12T17:52:15.2970417Z",
-    "closed_at": "2026-08-12T18:18:22.3056495Z",
-    "goal": "Complete and verify This project is the only one still on the portable:v3 project contract, because EnsureProject refuses on a legacy VERIFY.md at D1.",
+    "opened_at": "2026-08-12T18:21:40.7268145Z",
+    "closed_at": "2026-08-12T18:27:43.9650972Z",
+    "goal": "Complete and verify Reproduce and record the public www/non-www OpenCart cart-session split without authenticated access at D1.",
     "in_scope": [
-      "intake.external"
+      "public-cart-session-diagnosis"
     ],
     "out_of_scope": [],
     "tasks": [
       {
-        "id": "upgrade-portable-project-contract-v4",
-        "title": "Archive legacy root project architecture and upgrade the portable project contract to v4",
-        "acceptance": "The three legacy root files are losslessly archived with hashes, removed from the root, AGENTS.md and provenance declare portable v4, project-owned recovery verification remains routed from the archive/evidence, Manage-Harness VerifyProject passes, and Work Scope state/views remain valid without overwriting imported legacy history.",
+        "id": "prove-public-cart-host-session-split",
+        "title": "Prove the public OpenCart www/non-www cart-session split with an option-complete add",
+        "acceptance": "A disposable unauthenticated option-complete add succeeds on www, its generated cart link uses the bare host, the product is present only in the www cart, cookie domains prove separate sessions without recording values, and the source ledger and client runbook record the confirmed root cause and hosting repair boundary.",
         "acceptance_checks": [
           {
-            "id": "portable-v4-project-contract",
+            "id": "public-cart-host-session-split-live",
             "verifier": "test",
             "executable": "C:\\Program Files\\WindowsApps\\Microsoft.PowerShell_7.6.4.0_x64__8wekyb3d8bbwe\\pwsh.exe",
             "executable_sha256": "db6dd81183fe57d22e03b911ec9a30a2fd7c40542e97743615355a6fb44f458f",
             "arguments": [
               "-NoProfile",
               "-File",
-              "scripts/Test-PortableV4ProjectContract.ps1"
+              "scripts/Test-PublicCartHostSessionSplit.ps1",
+              "-OutputPath",
+              "evidence/2026-08-12-public-cart-host-session-split.json"
             ],
-            "arguments_sha256": "f729332dbb57377d20d815f98d39d1bf16bb5a3df104b39422b94d5aa9f53985",
+            "arguments_sha256": "aa5c0a252ec51bce25a08bedc2c3d6bb2cfc229335c87b02d049ace3788aa4a8",
             "verifier_inputs": [
               {
-                "reference": "scripts/Test-PortableV4ProjectContract.ps1",
-                "sha256": "c558f4ace3b57cb795ad82a27bb7a6ff28aa40a6026401a596f62b09fbbc2888",
-                "size_bytes": 2557
+                "reference": "scripts/Test-PublicCartHostSessionSplit.ps1",
+                "sha256": "d7d66178d1e3d1967d0aa53bfa871c5a6ec337b72ebad45b8abc757aca4e5125",
+                "size_bytes": 3974
               }
             ],
             "artifacts": [
-              ".agents/archive/task-state-migration/archive-manifest.json",
-              ".agents/harness-provenance.json",
-              "AGENTS.md",
-              "evidence/2026-08-12-portable-v4-project-contract.md"
+              "CLIENT.md",
+              "evidence/2026-08-12-public-cart-host-session-split.json",
+              "evidence/2026-08-12-public-cart-host-session-split.md",
+              "scripts/Test-PublicCartHostSessionSplit.ps1",
+              "SOURCES.md",
+              "WEBSITE-UPDATE-RUNBOOK.md"
             ],
-            "timeout_seconds": 1800,
-            "max_output_bytes": 1048576
-          }
-        ],
-        "dependencies": [],
-        "status": "retired",
-        "evidence": [],
-        "closed_at": null,
-        "retired_reason": "The original check incorrectly expected the v4 AGENTS block version in the generator provenance authority; Manage-Harness intentionally retains portable-project-contract/v3 provenance.",
-        "retired_at": "2026-08-12T18:14:27.5825514Z"
-      },
-      {
-        "id": "verify-portable-project-contract-v4",
-        "title": "Verify the generated portable-v4 project contract and lossless task-state archive",
-        "acceptance": "The three legacy root files are losslessly archived with hashes and absent from root; AGENTS carries only the v4 marked block; provenance matches the generator-supported authority; Manage-Harness VerifyProject passes; Work Scope remains valid and reconciled.",
-        "acceptance_checks": [
-          {
-            "id": "portable-v4-project-contract-corrected",
-            "verifier": "test",
-            "executable": "C:\\Program Files\\WindowsApps\\Microsoft.PowerShell_7.6.4.0_x64__8wekyb3d8bbwe\\pwsh.exe",
-            "executable_sha256": "db6dd81183fe57d22e03b911ec9a30a2fd7c40542e97743615355a6fb44f458f",
-            "arguments": [
-              "-NoProfile",
-              "-File",
-              "scripts/Test-PortableV4ProjectContract.ps1"
-            ],
-            "arguments_sha256": "f729332dbb57377d20d815f98d39d1bf16bb5a3df104b39422b94d5aa9f53985",
-            "verifier_inputs": [
-              {
-                "reference": "scripts/Test-PortableV4ProjectContract.ps1",
-                "sha256": "18b769b2d5c555f64ea61f44244dfd93f3085bbf64d7c5388bc77bbb9d0140be",
-                "size_bytes": 2848
-              }
-            ],
-            "artifacts": [
-              ".agents/archive/task-state-migration/archive-manifest.json",
-              ".agents/harness-provenance.json",
-              "AGENTS.md",
-              "evidence/2026-08-12-portable-v4-project-contract.md"
-            ],
-            "timeout_seconds": 1800,
+            "timeout_seconds": 300,
             "max_output_bytes": 1048576
           }
         ],
@@ -2336,45 +2390,45 @@
         "status": "closed",
         "evidence": [
           {
-            "receipt_id": "53a3f255-7f28-403c-8b24-1e42a84ff4a9",
-            "check_id": "portable-v4-project-contract-corrected",
+            "receipt_id": "b9b95b57-a941-4fe6-8851-540df6a52034",
+            "check_id": "public-cart-host-session-split-live",
             "verifier": "test",
-            "subject": "verify-portable-project-contract-v4",
+            "subject": "prove-public-cart-host-session-split",
             "result": "pass",
-            "reference": ".agents/work/evidence/53a3f255-7f28-403c-8b24-1e42a84ff4a9.json",
-            "sha256": "2990d5c47003ae35e8aca7aceb275738981a752f8f0ca0b61422efbc8d9247c6",
-            "size_bytes": 1971,
-            "captured_at": "2026-08-12T18:17:08.9661165Z",
+            "reference": ".agents/work/evidence/b9b95b57-a941-4fe6-8851-540df6a52034.json",
+            "sha256": "0f84e9af20a761d04e206e78ebda5caac10addfb8d6526d72b7038bb4fd7d3a7",
+            "size_bytes": 2361,
+            "captured_at": "2026-08-12T18:25:53.0047002Z",
             "exit_code": 0,
-            "provenance_event_id": "ed537c5c-2fc4-4968-883f-1838a7dd7d3a",
+            "provenance_event_id": "2e7290f3-59a9-456b-ac1e-08884a7d9eac",
             "project_id": "kelly-uniforms-business",
-            "track_id": "intake",
-            "capability_id": "intake.external",
-            "cell_id": "intake.external@D1",
-            "task_id": "verify-portable-project-contract-v4"
+            "track_id": "business-continuity",
+            "capability_id": "public-cart-session-diagnosis",
+            "cell_id": "public-cart-session-diagnosis@D1",
+            "task_id": "prove-public-cart-host-session-split"
           }
         ],
-        "closed_at": "2026-08-12T18:18:13.8681121Z"
+        "closed_at": "2026-08-12T18:26:27.2925682Z"
       }
     ],
     "evidence": [
       {
-        "receipt_id": "53a3f255-7f28-403c-8b24-1e42a84ff4a9",
-        "check_id": "portable-v4-project-contract-corrected",
+        "receipt_id": "b9b95b57-a941-4fe6-8851-540df6a52034",
+        "check_id": "public-cart-host-session-split-live",
         "verifier": "test",
-        "subject": "verify-portable-project-contract-v4",
+        "subject": "prove-public-cart-host-session-split",
         "result": "pass",
-        "reference": ".agents/work/evidence/53a3f255-7f28-403c-8b24-1e42a84ff4a9.json",
-        "sha256": "2990d5c47003ae35e8aca7aceb275738981a752f8f0ca0b61422efbc8d9247c6",
-        "size_bytes": 1971,
-        "captured_at": "2026-08-12T18:17:08.9661165Z",
+        "reference": ".agents/work/evidence/b9b95b57-a941-4fe6-8851-540df6a52034.json",
+        "sha256": "0f84e9af20a761d04e206e78ebda5caac10addfb8d6526d72b7038bb4fd7d3a7",
+        "size_bytes": 2361,
+        "captured_at": "2026-08-12T18:25:53.0047002Z",
         "exit_code": 0,
-        "provenance_event_id": "ed537c5c-2fc4-4968-883f-1838a7dd7d3a",
+        "provenance_event_id": "2e7290f3-59a9-456b-ac1e-08884a7d9eac",
         "project_id": "kelly-uniforms-business",
-        "track_id": "intake",
-        "capability_id": "intake.external",
-        "cell_id": "intake.external@D1",
-        "task_id": "verify-portable-project-contract-v4"
+        "track_id": "business-continuity",
+        "capability_id": "public-cart-session-diagnosis",
+        "cell_id": "public-cart-session-diagnosis@D1",
+        "task_id": "prove-public-cart-host-session-split"
       }
     ],
     "discoveries": []

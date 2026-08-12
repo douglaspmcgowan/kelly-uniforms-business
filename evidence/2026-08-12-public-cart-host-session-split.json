@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "captured_at_utc": "2026-08-12T18:25:52.8401278Z",
+  "product": {
+    "public_product_id": 814,
+    "name": "Elbeco Tek2 Cargo Pocket Trousers",
+    "selected_option_value_ids": [
+      4824,
+      4839,
+      4854
+    ]
+  },
+  "add_to_cart": {
+    "request_host": "www.mtuniforms.com",
+    "http_status": 200,
+    "success": true,
+    "generated_cart_link_uses_bare_host": true
+  },
+  "cart_reads": {
+    "www": {
+      "http_status": 200,
+      "contains_added_product": true
+    },
+    "bare": {
+      "http_status": 200,
+      "contains_added_product": false
+    }
+  },
+  "cookie_metadata": {
+    "www": [
+      {
+        "name": "OCSESSID",
+        "domain": "www.mtuniforms.com",
+        "path": "/",
+        "secure": true
+      },
+      {
+        "name": "language",
+        "domain": "www.mtuniforms.com",
+        "path": "/",
+        "secure": false
+      },
+      {
+        "name": "currency",
+        "domain": "www.mtuniforms.com",
+        "path": "/",
+        "secure": false
+      },
+      {
+        "name": "language",
+        "domain": "mtuniforms.com",
+        "path": "/",
+        "secure": false
+      },
+      {
+        "name": "currency",
+        "domain": "mtuniforms.com",
+        "path": "/",
+        "secure": false
+      }
+    ],
+    "bare": [
+      {
+        "name": "OCSESSID",
+        "domain": "mtuniforms.com",
+        "path": "/",
+        "secure": true
+      },
+      {
+        "name": "language",
+        "domain": "mtuniforms.com",
+        "path": "/",
+        "secure": false
+      },
+      {
+        "name": "currency",
+        "domain": "mtuniforms.com",
+        "path": "/",
+        "secure": false
+      }
+    ],
+    "session_cookie_domains": [
+      "www.mtuniforms.com"
+    ],
+    "values_recorded": false
+  },
+  "conclusion": "confirmed-www-bare-host-session-split"
+}

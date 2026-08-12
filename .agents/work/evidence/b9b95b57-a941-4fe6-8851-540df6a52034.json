@@ -1,0 +1,63 @@
+{
+  "receipt_id": "b9b95b57-a941-4fe6-8851-540df6a52034",
+  "check_id": "public-cart-host-session-split-live",
+  "verifier": "test",
+  "subject": "prove-public-cart-host-session-split",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "public-cart-session-diagnosis",
+  "cell_id": "public-cart-session-diagnosis@D1",
+  "task_id": "prove-public-cart-host-session-split",
+  "result": "pass",
+  "executable": "pwsh.exe",
+  "executable_sha256": "db6dd81183fe57d22e03b911ec9a30a2fd7c40542e97743615355a6fb44f458f",
+  "arguments_sha256": "aa5c0a252ec51bce25a08bedc2c3d6bb2cfc229335c87b02d049ace3788aa4a8",
+  "output_sha256": "4290a40c63cca23e36bf1d1d3ceaced4f47e8a596191b55f9248538dfb381e6e",
+  "output_size_bytes": 1927,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 300,
+  "max_output_bytes": 1048576,
+  "verifier_inputs": [
+    {
+      "reference": "scripts/Test-PublicCartHostSessionSplit.ps1",
+      "sha256": "d7d66178d1e3d1967d0aa53bfa871c5a6ec337b72ebad45b8abc757aca4e5125",
+      "size_bytes": 3974
+    }
+  ],
+  "artifacts": [
+    {
+      "reference": "CLIENT.md",
+      "sha256": "16fb0021747d7c14cedc22fafb92a67d630849ec2ed4912637837cac810ce3ff",
+      "size_bytes": 15801
+    },
+    {
+      "reference": "evidence/2026-08-12-public-cart-host-session-split.json",
+      "sha256": "1b6d938d3d8d00847131f773085a5e413609994e6a47c5844a749a5f4b512121",
+      "size_bytes": 1927
+    },
+    {
+      "reference": "evidence/2026-08-12-public-cart-host-session-split.md",
+      "sha256": "72b594f35d7e1e23ad9841259ac23f497b472cff9ebb0ae6fceea174c2dc8749",
+      "size_bytes": 2408
+    },
+    {
+      "reference": "scripts/Test-PublicCartHostSessionSplit.ps1",
+      "sha256": "d7d66178d1e3d1967d0aa53bfa871c5a6ec337b72ebad45b8abc757aca4e5125",
+      "size_bytes": 3974
+    },
+    {
+      "reference": "SOURCES.md",
+      "sha256": "0fea0d2c17f66c87f18a5c0dff48e1b08947a0ae556d00f0749b77eb5db04398",
+      "size_bytes": 32120
+    },
+    {
+      "reference": "WEBSITE-UPDATE-RUNBOOK.md",
+      "sha256": "576770546ec7c047e7c4994101c0996fdbb1d853d6793a84c100d4796f7ac71d",
+      "size_bytes": 11495
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-12T18:25:51.5108634Z",
+  "finished_at": "2026-08-12T18:25:53.0047002Z"
+}

@@ -184,14 +184,20 @@ Source: `OBS-002`.
 
 The 2026-07-31 scope went further. `POST index.php?route=checkout/cart/add` works
 and returns correct server-side option validation, so the endpoint itself is not
-broken. The leading root-cause hypothesis is a **www/non-www host split**:
+broken. The leading root-cause hypothesis was a **www/non-www host split**:
 `https://www.mtuniforms.com/` serves 200 without redirecting, yet declares
 `<base href="https://mtuniforms.com/">` and a non-www canonical, while `OCSESSID`
 is set host-only — so the two hosts hold separate carts, and the required-options
-popup is fetched from the host the customer's cart is not on. That is a
+popup is fetched from the host the customer's cart is not on.
+
+The option-complete 2026-08-12 reproduction confirmed it. A successful add on
+`www` generated a bare-host cart link; the product remained in the `www` cart
+and was absent from the bare-host cart, with separate host-scoped `OCSESSID`
+cookies. No cookie values were retained. That is a
 server/OpenCart configuration fix, not a theme edit, and it belongs to `DEL-002`,
 not this runbook. Source: `OBS-004`,
-`evidence/2026-07-31-site-architecture-scope.md`.
+`OBS-006`, `evidence/2026-07-31-site-architecture-scope.md`, and
+`evidence/2026-08-12-public-cart-host-session-split.md`.
 
 ## Logo and asset boundary
 
