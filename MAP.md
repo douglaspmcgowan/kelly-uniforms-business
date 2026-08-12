@@ -72,7 +72,8 @@
 | `%PROJECT_DATA_ROOT%\outputs\brand-directions\2026-08-08` | Three visual direction boards and selection rationale | Yes | No |
 | `brand-gallery` | Static, tested Vercel gallery with copied public boards and a scoped `DESIGN.md` | No | Yes |
 | `storefront` | Vite/React storefront prototype, exact public fixture media, request-flow verifier, and responsive screenshots | No | Yes |
-| `VERIFY.md` | Current repository verification owner | No | Yes |
+| `scripts\Test-PortableRecoveryRepository.ps1` | Current repository-wide verification owner; Work Scope tasks bind their own exact acceptance commands | No | Yes |
+| `.agents\archive\task-state-migration` | Byte-verified archive of retired root `CURRENT-TASK.md`, `WORK_QUEUE.md`, and `VERIFY.md` | No | Yes |
 | `.agents\skills\client` | Project-bound reusable intake skill | No | Yes |
 | `.validator-deps` | Disposable PyYAML dependency for the official skill validator | Yes | No |
 

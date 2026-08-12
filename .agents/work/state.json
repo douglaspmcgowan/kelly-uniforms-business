@@ -1,5 +1,5 @@
 {
-  "revision": 183,
+  "revision": 194,
   "backburner": [
     {
       "id": "legacy-task-L73",
@@ -1855,9 +1855,19 @@
           "sha256": "53856c15aa80302151b945daa4e1ae26d30199813772b70719cd06c94b7fd19c",
           "size_bytes": 11724,
           "captured_at": "2026-08-10T04:00:23.2937636Z"
+        },
+        {
+          "receipt_id": "d55dd767-f970-42db-af61-7e95e6c5601e",
+          "verifier": "artifact",
+          "subject": "generated portable-v4 independent-track handoff",
+          "result": "verified",
+          "reference": ".agents/handoffs/agents-contract-stuck-on-portable-v3-20260810.md",
+          "sha256": "47ff3b265e4d5c82049a6943faed90c3ff6b93befa239191676dda5fbdec95e7",
+          "size_bytes": 5091,
+          "captured_at": "2026-08-12T17:50:55.3458354Z"
         }
       ],
-      "status": "ready",
+      "status": "selected",
       "captured_at": "2026-08-10T04:00:23.3576664Z"
     },
     {
@@ -2053,29 +2063,53 @@
           "owner_session": "codex-mt-uniforms-20260809"
         }
       ]
+    },
+    {
+      "id": "intake",
+      "status": "active",
+      "capabilities": [
+        {
+          "id": "intake.external",
+          "name": "This project is the only one still on the portable:v3 project contract, because EnsureProject refuses on a legacy VERIFY.md",
+          "current_depth": null,
+          "target_depth": "D1",
+          "status": "active",
+          "dependencies": [],
+          "blockers": [],
+          "owner_session": "codex-mt-uniforms-20260809"
+        }
+      ]
     }
   ],
-  "updated_at": "2026-08-12T17:24:33.2326578Z",
-  "last_event_hash": "d76bfda8431900da4e0546215a48e6c5d5239c0aef5f5179a260f10380ab58a6",
+  "updated_at": "2026-08-12T17:57:13.2646777Z",
+  "last_event_hash": "f5f4b54bdd6bc6950dd4ff33b15adb251f773c924b6c1a5d69fd934eb2553fbb",
   "schema_version": "1.0.0",
   "ownership": {
     "sessions": [
       {
         "session_id": "codex-mt-uniforms-20260809",
-        "track_id": "business-continuity",
-        "capability_id": "portable-recovery-repository-custody",
+        "track_id": "intake",
+        "capability_id": "intake.external",
         "artifacts": [
+          ".agents/archive",
           ".agents/data",
+          ".agents/feedback",
           ".agents/harness-provenance.json",
           ".agents/skill-pathways.json",
           ".agents/work",
+          ".cursor",
           ".env.example",
           ".gitattributes",
+          ".github",
           ".gitignore",
+          ".gitleaks.toml",
           "ACCESS.md",
+          "AGENTS.md",
           "BACKBURNER.md",
           "brand-gallery",
+          "CLAUDE.md",
           "CLIENT.md",
+          "CURRENT-TASK.md",
           "data-manifest.yaml",
           "DELIVERABLES.md",
           "DESIGN.md",
@@ -2110,10 +2144,12 @@
           "evidence/2026-08-10-rec011-complete-source-package.md",
           "evidence/2026-08-10-rec012-binary-ready-package.md",
           "evidence/2026-08-11-storefront-prototype.md",
+          "evidence/2026-08-12-portable-v4-project-contract.md",
           "evidence/2026-08-12-rec016-manifest-consistency-successor.md",
           "INTENT.md",
           "LOG.md",
           "MAP.md",
+          "MEMORY.md",
           "PLATFORM-RECOMMENDATION.md",
           "PRODUCT.md",
           "PROJECT.md",
@@ -2155,10 +2191,12 @@
           "scripts/test_recovery_package.py",
           "scripts/test_upgrade_commerce_schema.py",
           "scripts/test_validate_import_bundle.py",
+          "scripts/Test-PortableV4ProjectContract.ps1",
           "scripts/upgrade_commerce_schema.py",
           "scripts/validate_import_bundle.py",
           "secret-manifest.json",
           "secret-manifest.md",
+          "skills-manifest.json",
           "SOURCES.md",
           "SPEC.md",
           "STATUS.md",
@@ -2167,7 +2205,8 @@
           "TASK.md",
           "TRACKS.md",
           "VERIFY.md",
-          "WEBSITE-UPDATE-RUNBOOK.md"
+          "WEBSITE-UPDATE-RUNBOOK.md",
+          "WORK_QUEUE.md"
         ]
       },
       {
@@ -2205,101 +2244,61 @@
     ]
   },
   "created_at": "2026-08-09T06:14:25.2526853Z",
-  "last_event_id": "ba47fc58-08f0-4651-8325-352aa26b7812",
+  "last_event_id": "f8c82123-fb95-424e-9519-c2d98f20b02a",
   "active": {
-    "track_id": "business-continuity",
-    "capability_id": "portable-recovery-repository-custody",
-    "depth": "D3",
-    "cell_id": "portable-recovery-repository-custody@D3",
-    "status": "closed",
-    "opened_at": "2026-08-12T16:14:46.1102566Z",
-    "closed_at": "2026-08-12T17:18:06.1649595Z",
-    "goal": "Complete and verify Commit and push the verified portable recovery system and Work Scope authority to the remote repository at D3.",
+    "track_id": "intake",
+    "capability_id": "intake.external",
+    "depth": "D1",
+    "cell_id": "intake.external@D1",
+    "status": "active",
+    "opened_at": "2026-08-12T17:52:15.2970417Z",
+    "closed_at": null,
+    "goal": "Complete and verify This project is the only one still on the portable:v3 project contract, because EnsureProject refuses on a legacy VERIFY.md at D1.",
     "in_scope": [
-      "portable-recovery-repository-custody"
+      "intake.external"
     ],
     "out_of_scope": [],
     "tasks": [
       {
-        "id": "publish-portable-recovery-system",
-        "title": "Commit and push the portable recovery system and Work Scope authority",
-        "acceptance": "The remote master tree contains the complete value-safe recovery toolchain, contracts, schemas, tests, evidence, data adapter, brand gallery, generated Work Scope views, canonical state/event/import history, and current REC-016 routing; runtime locks and bytecode are excluded; Gitleaks finds no secrets; all 78 recovery tests, adapter tests, frontend tests/builds, and Work Scope gates pass; the final verifier proves the local tree equals origin/master.",
+        "id": "upgrade-portable-project-contract-v4",
+        "title": "Archive legacy root project architecture and upgrade the portable project contract to v4",
+        "acceptance": "The three legacy root files are losslessly archived with hashes, removed from the root, AGENTS.md and provenance declare portable v4, project-owned recovery verification remains routed from the archive/evidence, Manage-Harness VerifyProject passes, and Work Scope state/views remain valid without overwriting imported legacy history.",
         "acceptance_checks": [
           {
-            "id": "portable-recovery-repository-custody",
+            "id": "portable-v4-project-contract",
             "verifier": "test",
             "executable": "C:\\Program Files\\WindowsApps\\Microsoft.PowerShell_7.6.4.0_x64__8wekyb3d8bbwe\\pwsh.exe",
             "executable_sha256": "db6dd81183fe57d22e03b911ec9a30a2fd7c40542e97743615355a6fb44f458f",
             "arguments": [
               "-NoProfile",
               "-File",
-              "scripts/Test-PortableRecoveryRepository.ps1",
-              "-RequireRemoteTree"
+              "scripts/Test-PortableV4ProjectContract.ps1"
             ],
-            "arguments_sha256": "77b7d64389d0502679f5127f3f4cb7b058d8375b72a2cbfe8e091e6556e2d5b7",
+            "arguments_sha256": "f729332dbb57377d20d815f98d39d1bf16bb5a3df104b39422b94d5aa9f53985",
             "verifier_inputs": [
               {
-                "reference": "scripts/Test-PortableRecoveryRepository.ps1",
-                "sha256": "94b4b87b7af26e25dac0be3bb7f87ab8f1ae70105b47b7b8ff7144ab362b6f5f",
-                "size_bytes": 3788
+                "reference": "scripts/Test-PortableV4ProjectContract.ps1",
+                "sha256": "c558f4ace3b57cb795ad82a27bb7a6ff28aa40a6026401a596f62b09fbbc2888",
+                "size_bytes": 2557
               }
             ],
             "artifacts": [
-              "evidence/2026-08-12-portable-recovery-repository-custody.md",
-              "MAP.md",
-              "scripts/Test-PortableRecoveryRepository.ps1",
-              "SOURCES.md",
-              "VERIFY.md"
+              ".agents/archive/task-state-migration/archive-manifest.json",
+              ".agents/harness-provenance.json",
+              "AGENTS.md",
+              "evidence/2026-08-12-portable-v4-project-contract.md"
             ],
-            "timeout_seconds": 3600,
+            "timeout_seconds": 1800,
             "max_output_bytes": 1048576
           }
         ],
         "dependencies": [],
-        "status": "closed",
-        "evidence": [
-          {
-            "receipt_id": "01bea106-cd4a-4fc8-b628-455dbe34f1e4",
-            "check_id": "portable-recovery-repository-custody",
-            "verifier": "test",
-            "subject": "publish-portable-recovery-system",
-            "result": "pass",
-            "reference": ".agents/work/evidence/01bea106-cd4a-4fc8-b628-455dbe34f1e4.json",
-            "sha256": "9c46594fab683a8e3a16ed50c94fae25c6f8e345ae348b5c98ab8f94b2393945",
-            "size_bytes": 2150,
-            "captured_at": "2026-08-12T17:16:31.3126211Z",
-            "exit_code": 0,
-            "provenance_event_id": "e99ed99c-a3d5-4c69-8867-f1c77c7f9df3",
-            "project_id": "kelly-uniforms-business",
-            "track_id": "business-continuity",
-            "capability_id": "portable-recovery-repository-custody",
-            "cell_id": "portable-recovery-repository-custody@D3",
-            "task_id": "publish-portable-recovery-system"
-          }
-        ],
-        "closed_at": "2026-08-12T17:17:26.2405617Z"
+        "status": "ready",
+        "evidence": [],
+        "closed_at": null
       }
     ],
-    "evidence": [
-      {
-        "receipt_id": "01bea106-cd4a-4fc8-b628-455dbe34f1e4",
-        "check_id": "portable-recovery-repository-custody",
-        "verifier": "test",
-        "subject": "publish-portable-recovery-system",
-        "result": "pass",
-        "reference": ".agents/work/evidence/01bea106-cd4a-4fc8-b628-455dbe34f1e4.json",
-        "sha256": "9c46594fab683a8e3a16ed50c94fae25c6f8e345ae348b5c98ab8f94b2393945",
-        "size_bytes": 2150,
-        "captured_at": "2026-08-12T17:16:31.3126211Z",
-        "exit_code": 0,
-        "provenance_event_id": "e99ed99c-a3d5-4c69-8867-f1c77c7f9df3",
-        "project_id": "kelly-uniforms-business",
-        "track_id": "business-continuity",
-        "capability_id": "portable-recovery-repository-custody",
-        "cell_id": "portable-recovery-repository-custody@D3",
-        "task_id": "publish-portable-recovery-system"
-      }
-    ],
+    "evidence": [],
     "discoveries": []
   }
 }

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "purpose": "Lossless preservation of retired root task and verification files before the portable v4 project-contract upgrade.",
+  "files": [
+    {
+      "path": "CURRENT-TASK.md",
+      "sha256": "41bb44498fa428b7897df928cfd93cc11808fc47630782d2d47090b2d194d1b8",
+      "size_bytes": 1424
+    },
+    {
+      "path": "WORK_QUEUE.md",
+      "sha256": "19cffafe12a4bc10b02035d9f2eafb30b5c16208f5d34ac42d5b6c9fb849d784",
+      "size_bytes": 941
+    },
+    {
+      "path": "VERIFY.md",
+      "sha256": "32ec282e081c495f316d57dde622ae4c7651376fa0a763462cebf1fe488b2dce",
+      "size_bytes": 2017
+    }
+  ]
+}

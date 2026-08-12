@@ -21,8 +21,8 @@ Ecwid role. See `evidence/2026-07-30-public-site-recheck.md`.
 ## Resumption and authority
 
 This runbook is the single detailed execution owner for `DEL-001`. Cross-agent
-resumption starts in `CURRENT-TASK.md`; `WORK_QUEUE.md` tracks evidence-backed
-state.
+resumption starts from `.agents/work/state.json` through `Get-WorkResume.ps1`;
+the generated `TASK.md` view exposes evidence-backed state for human readers.
 
 Persisting this plan does not authorize a live website change. Before execution,
 Douglas must:

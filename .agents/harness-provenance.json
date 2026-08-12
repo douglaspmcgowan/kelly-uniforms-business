@@ -4,7 +4,7 @@
   "files": [
     {
       "path": "AGENTS.md",
-      "sha256": "52fa06a7c3fe69c0f499d7f7270d9657d27331cbfd2119de62e8c2a5dd6c458d"
+      "sha256": "1fdf52a11e1da88dbe5b0da5e9a57266db0f41d20ff5917f87b3f729319be1ad"
     },
     {
       "path": "CLAUDE.md",
@@ -16,11 +16,11 @@
     },
     {
       "path": "DESIGN.md",
-      "sha256": "95d5ff47d5462fe54c243082e24dd7b6f5d35f1f6a4c08f6c940a450ef16bcd9"
+      "sha256": "3c00caeaaf4c5bb67a794d03138bd41caabe48f0f8850d4a03722725abc0ce66"
     },
     {
       "path": "MAP.md",
-      "sha256": "21d55df50d8432ef7e3c6c75ca68a12695cb41a22d92c1771b0b9810ecaca570"
+      "sha256": "f5c6626a9f433de265b611d570e56f1d6f0b54567794f6b3b5bc6e154296199d"
     },
     {
       "path": "MEMORY.md",
@@ -32,15 +32,15 @@
     },
     {
       "path": "data-manifest.yaml",
-      "sha256": "8c4c9c444f28aaeedca1bce3d4a99b2f0b227c051330589ee6b59d42344a23f9"
+      "sha256": "b7b0adee7766442e9d9537d47804811bccb06c94e2d1bd27be6cc411a7e64b48"
     },
     {
       "path": "secret-manifest.json",
-      "sha256": "68f0173c6b0f6e8ca08ee864545ef6afa6745d4a2e05fa3162e1fc6ab38f5bff"
+      "sha256": "7904cb3764fb09887a68ba21a429847c3b64c04db3fe5bb738b79c9db47576f1"
     },
     {
       "path": "secret-manifest.md",
-      "sha256": "90f476643dc22394043f5eef997d7cf794e66c9ede05b1f10414fa35fe824770"
+      "sha256": "97d4557b2d6c75703d3fb719b5319fd40d791e40efd9391cfc11cec1f137d19c"
     },
     {
       "path": ".env.example",
@@ -61,6 +61,10 @@
     {
       "path": ".agents\\skill-pathways.json",
       "sha256": "33d529030f3723bc185f94090cf9fcd1007646f9c7d15a76f962104aa78a3b9b"
+    },
+    {
+      "path": "PRODUCT.md",
+      "sha256": "7ac775b75ed9aa9864e4b9a693d43898d8ae5ccccdcfc3899ffbb9e5788f338e"
     }
   ]
 }

@@ -1,24 +1,25 @@
 <!-- GENERATED FROM .agents/work/state.json. DO NOT EDIT DIRECTLY. -->
 # Active Work
 
+
 Project: kelly-uniforms-business
 Initiative: mt-uniforms-replatform
-Primary track: business-continuity
-Capability: portable-recovery-repository-custody
-Depth: D3 (Hardened)
+Primary track: intake
+Capability: intake.external
+Depth: D1 (Direct)
 Frontier mode: expand
 Depth ceiling: D5
 Breadth boundary: project
 Selection strategy: dependency-first
-Status: closed
+Status: active
 
 ## Goal
 
-Complete and verify Commit and push the verified portable recovery system and Work Scope authority to the remote repository at D3.
+Complete and verify This project is the only one still on the portable:v3 project contract, because EnsureProject refuses on a legacy VERIFY.md at D1.
 
 ## In scope
 
-- portable-recovery-repository-custody
+- intake.external
 
 ## Out of scope
 
@@ -32,11 +33,11 @@ Complete and verify Commit and push the verified portable recovery system and Wo
 
 ## Tasks
 
-- [x] publish-portable-recovery-system: Commit and push the portable recovery system and Work Scope authority (status: closed; acceptance: The remote master tree contains the complete value-safe recovery toolchain, contracts, schemas, tests, evidence, data adapter, brand gallery, generated Work Scope views, canonical state/event/import history, and current REC-016 routing; runtime locks and bytecode are excluded; Gitleaks finds no secrets; all 78 recovery tests, adapter tests, frontend tests/builds, and Work Scope gates pass; the final verifier proves the local tree equals origin/master.)
+- [ ] upgrade-portable-project-contract-v4: Archive legacy root project architecture and upgrade the portable project contract to v4 (status: ready; acceptance: The three legacy root files are losslessly archived with hashes, removed from the root, AGENTS.md and provenance declare portable v4, project-owned recovery verification remains routed from the archive/evidence, Manage-Harness VerifyProject passes, and Work Scope state/views remain valid without overwriting imported legacy history.)
 
 ## Declared acceptance checks
 
-- publish-portable-recovery-system/portable-recovery-repository-custody: C:\Program Files\WindowsApps\Microsoft.PowerShell_7.6.4.0_x64__8wekyb3d8bbwe\pwsh.exe argv=["-NoProfile","-File","scripts/Test-PortableRecoveryRepository.ps1","-RequireRemoteTree"]; inputs=[scripts/Test-PortableRecoveryRepository.ps1]; artifacts=[evidence/2026-08-12-portable-recovery-repository-custody.md, MAP.md, scripts/Test-PortableRecoveryRepository.ps1, SOURCES.md, VERIFY.md]; timeout=3600s; max-output=1048576B
+- upgrade-portable-project-contract-v4/portable-v4-project-contract: C:\Program Files\WindowsApps\Microsoft.PowerShell_7.6.4.0_x64__8wekyb3d8bbwe\pwsh.exe argv=["-NoProfile","-File","scripts/Test-PortableV4ProjectContract.ps1"]; inputs=[scripts/Test-PortableV4ProjectContract.ps1]; artifacts=[.agents/archive/task-state-migration/archive-manifest.json, .agents/harness-provenance.json, AGENTS.md, evidence/2026-08-12-portable-v4-project-contract.md]; timeout=1800s; max-output=1048576B
 
 ## Blockers and dependencies
 
@@ -44,7 +45,7 @@ Complete and verify Commit and push the verified portable recovery system and Wo
 
 ## Verification evidence
 
-- [test/pass] publish-portable-recovery-system | .agents/work/evidence/01bea106-cd4a-4fc8-b628-455dbe34f1e4.json | sha256:9c46594fab68 | receipt:01bea106-cd4a-4fc8-b628-455dbe34f1e4
+- None
 
 ## Discoveries captured
 
@@ -52,4 +53,4 @@ Complete and verify Commit and push the verified portable recovery system and Wo
 
 ## Next transition
 
-frontier_transition
+execute_task: upgrade-portable-project-contract-v4

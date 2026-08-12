@@ -184,3 +184,14 @@
 - 08/12/2026 17:17:41 [task_completed] cell=portable-recovery-repository-custody@D3 event=32f2bf0b-2490-47ea-b6a0-fcf0c3446510
 - 08/12/2026 17:18:25 [scope_cell_closed] cell=portable-recovery-repository-custody@D3 event=1ea388d2-8d33-4c62-91e9-fb97ebe2a196
 - 08/12/2026 17:24:26 [dependencies_resolved] cell=portable-recovery-repository-custody@D3 event=ba47fc58-08f0-4651-8325-352aa26b7812
+- 08/12/2026 17:29:51 [dependencies_resolved] cell=portable-recovery-repository-custody@D3 event=2352019c-13d7-48b0-a715-4ec790fa684f
+- 08/12/2026 17:30:36 [handoff_generated] cell=portable-recovery-repository-custody@D3 event=da884ea0-3a66-40ce-b189-2648282c54be
+- 08/12/2026 17:30:55 [frontier_handoff_selected] cell=portable-recovery-repository-custody@D3 event=e9d32b58-3bda-4ac6-986e-93aa2244d9cb
+- 08/12/2026 17:37:52 [dependencies_resolved] cell=portable-recovery-repository-custody@D3 event=251f0996-f4ea-443c-b01c-34bec7d5ead5
+- 08/12/2026 17:45:43 [dependencies_resolved] cell=portable-recovery-repository-custody@D3 event=27902217-2b0f-433f-b3d1-27324ab695f7
+- 08/12/2026 17:49:15 [dependencies_resolved] cell=portable-recovery-repository-custody@D3 event=98598b42-443c-4ac0-8dde-cac61e834bf1
+- 08/12/2026 17:51:36 [selected_discovery_recovered] cell=portable-recovery-repository-custody@D3 event=af1add0b-4b79-4019-91f5-0aefe5258909
+- 08/12/2026 17:52:01 [dependencies_resolved] cell=portable-recovery-repository-custody@D3 event=970a363e-2d04-41e5-ac92-bf9e98876564
+- 08/12/2026 17:52:34 [frontier_item_selected] cell=intake.external@D1 event=17d54b54-215d-4a20-99cb-27045c0d23cb
+- 08/12/2026 17:53:41 [ownership_updated] cell=intake.external@D1 event=466bdd23-1962-4ba0-ae77-5484e2099a6d
+- 08/12/2026 17:56:46 [task_added] cell=intake.external@D1 event=f8c82123-fb95-424e-9519-c2d98f20b02a
