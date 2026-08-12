@@ -27,7 +27,7 @@ The hashes and sizes are machine-recorded in `.agents/archive/task-state-migrati
 
 ## Touch list
 
-- `AGENTS.md`, `.agents/harness-provenance.json`, `skills-manifest.json`, `.gitattributes`, and `.gitignore`: generated portable-v4 contract and project harness metadata.
+- `AGENTS.md`, `.agents/harness-provenance.json`, `skills-manifest.json`, `.gitattributes`, and `.gitignore`: generated portable-v4 contract and project harness metadata. The generator intentionally retains the `portable-project-contract/v3` provenance authority while using the v4 AGENTS marked block.
 - `.agents/work/state.json`, `.agents/work/events.jsonl`, `TASK.md`, `TRACKS.md`, `BACKBURNER.md`, and `LOG.md`: guarded Work Scope selection, task materialization, and generated views.
 - `MAP.md` and `WEBSITE-UPDATE-RUNBOOK.md`: task and verification routing corrected to Work Scope and the repository verifier.
 - `DESIGN.md`: managed design contract refreshed by `EnsureProject`.
@@ -51,9 +51,8 @@ These private recovery bytes remain outside Git. The repository contains only va
 
 1. the retired root files are absent and their archived bytes match the manifest;
 2. `AGENTS.md` contains portable v4 and no portable v3 marker;
-3. harness provenance declares portable project contract v4;
+3. harness provenance declares the generator's supported `portable-project-contract/v3` authority while the AGENTS marked block declares v4;
 4. `Manage-Harness.ps1 -Action VerifyProject` passes;
 5. Work Scope state validates and all generated views reconcile.
 
 The final bound receipt must be generated from a real worktree whose folder basename is `kelly-uniforms-business`, because the shared project validator intentionally rejects a checkout whose directory name does not match the project identity. A filesystem junction was tested and rejected by the validator, so no verifier or custody rule was weakened.
-

@@ -1,0 +1,53 @@
+{
+  "receipt_id": "53a3f255-7f28-403c-8b24-1e42a84ff4a9",
+  "check_id": "portable-v4-project-contract-corrected",
+  "verifier": "test",
+  "subject": "verify-portable-project-contract-v4",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "intake",
+  "capability_id": "intake.external",
+  "cell_id": "intake.external@D1",
+  "task_id": "verify-portable-project-contract-v4",
+  "result": "pass",
+  "executable": "pwsh.exe",
+  "executable_sha256": "db6dd81183fe57d22e03b911ec9a30a2fd7c40542e97743615355a6fb44f458f",
+  "arguments_sha256": "f729332dbb57377d20d815f98d39d1bf16bb5a3df104b39422b94d5aa9f53985",
+  "output_sha256": "023a54d03dce688bc7df91b5e8894f7a444dd14212d8856354a7da00135d18cf",
+  "output_size_bytes": 102,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 1800,
+  "max_output_bytes": 1048576,
+  "verifier_inputs": [
+    {
+      "reference": "scripts/Test-PortableV4ProjectContract.ps1",
+      "sha256": "18b769b2d5c555f64ea61f44244dfd93f3085bbf64d7c5388bc77bbb9d0140be",
+      "size_bytes": 2848
+    }
+  ],
+  "artifacts": [
+    {
+      "reference": ".agents/archive/task-state-migration/archive-manifest.json",
+      "sha256": "3517c3bc932348fec54795cca8e6c4236304d13a92b8cfd07c8c4ec4450b67be",
+      "size_bytes": 651
+    },
+    {
+      "reference": ".agents/harness-provenance.json",
+      "sha256": "cfd560bbc1741c5db1520b4759b8f911cd6ad79beec63ecd8161dca85d731344",
+      "size_bytes": 2284
+    },
+    {
+      "reference": "AGENTS.md",
+      "sha256": "b18d397448dfa084d366da4ac35b1652aec034d6b35d68a60b501e58aa6f6795",
+      "size_bytes": 18892
+    },
+    {
+      "reference": "evidence/2026-08-12-portable-v4-project-contract.md",
+      "sha256": "28d781da6158a5a901353ae546fdc3ddc0f4b1d93b166a94606ba63ef0e8b820",
+      "size_bytes": 4190
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-12T18:16:24.7915815Z",
+  "finished_at": "2026-08-12T18:17:08.9661165Z"
+}

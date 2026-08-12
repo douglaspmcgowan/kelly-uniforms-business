@@ -35,8 +35,11 @@ if ($agents -notmatch '<!-- agent-harness:portable:v4:start -->' -or
     throw 'AGENTS.md is not exclusively on the portable v4 contract.'
 }
 $provenance = Get-Content -LiteralPath (Join-Path $root '.agents\harness-provenance.json') -Raw | ConvertFrom-Json
-if ([string]$provenance.authority -notmatch 'portable-project-contract/v4') {
-    throw 'Harness provenance does not declare portable project contract v4.'
+# Manage-Harness v4 deliberately retains the v3 provenance schema/authority while
+# the AGENTS marked block carries the portable contract version. Verify both
+# generated surfaces according to their actual contracts.
+if ([string]$provenance.authority -ne 'agent-harness/portable-project-contract/v3') {
+    throw 'Harness provenance does not declare the supported portable project authority.'
 }
 
 & (Join-Path $harnessTools 'Manage-Harness.ps1') `

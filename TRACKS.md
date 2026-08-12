@@ -7,7 +7,7 @@
 | business-continuity | recovery-package-maintenance | D2 | D2 | closed | codex-mt-uniforms-20260809 |
 | business-continuity | portable-recovery-repository-custody | D3 | D3 | closed | codex-mt-uniforms-20260809 |
 | storefront-modernization | customer-storefront | D3 | D3 | closed | codex-mt-uniforms-20260809 |
-| intake | intake.external |  | D1 | active | codex-mt-uniforms-20260809 |
+| intake | intake.external | D1 | D1 | closed | codex-mt-uniforms-20260809 |
 
 ## Active cell
 

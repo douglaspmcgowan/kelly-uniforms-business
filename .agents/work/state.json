@@ -1,5 +1,5 @@
 {
-  "revision": 194,
+  "revision": 199,
   "backburner": [
     {
       "id": "legacy-task-L73",
@@ -1867,7 +1867,7 @@
           "captured_at": "2026-08-12T17:50:55.3458354Z"
         }
       ],
-      "status": "selected",
+      "status": "closed",
       "captured_at": "2026-08-10T04:00:23.3576664Z"
     },
     {
@@ -2071,9 +2071,9 @@
         {
           "id": "intake.external",
           "name": "This project is the only one still on the portable:v3 project contract, because EnsureProject refuses on a legacy VERIFY.md",
-          "current_depth": null,
+          "current_depth": "D1",
           "target_depth": "D1",
-          "status": "active",
+          "status": "closed",
           "dependencies": [],
           "blockers": [],
           "owner_session": "codex-mt-uniforms-20260809"
@@ -2081,8 +2081,8 @@
       ]
     }
   ],
-  "updated_at": "2026-08-12T17:57:13.2646777Z",
-  "last_event_hash": "f5f4b54bdd6bc6950dd4ff33b15adb251f773c924b6c1a5d69fd934eb2553fbb",
+  "updated_at": "2026-08-12T18:18:29.0488118Z",
+  "last_event_hash": "af722ed2b4e7f1b684967d425534f4835e51b04f132ed6645b0b12c459d9696e",
   "schema_version": "1.0.0",
   "ownership": {
     "sessions": [
@@ -2244,15 +2244,15 @@
     ]
   },
   "created_at": "2026-08-09T06:14:25.2526853Z",
-  "last_event_id": "f8c82123-fb95-424e-9519-c2d98f20b02a",
+  "last_event_id": "80b1f84d-6091-4c95-b464-5dccffc2e4d7",
   "active": {
     "track_id": "intake",
     "capability_id": "intake.external",
     "depth": "D1",
     "cell_id": "intake.external@D1",
-    "status": "active",
+    "status": "closed",
     "opened_at": "2026-08-12T17:52:15.2970417Z",
-    "closed_at": null,
+    "closed_at": "2026-08-12T18:18:22.3056495Z",
     "goal": "Complete and verify This project is the only one still on the portable:v3 project contract, because EnsureProject refuses on a legacy VERIFY.md at D1.",
     "in_scope": [
       "intake.external"
@@ -2293,12 +2293,90 @@
           }
         ],
         "dependencies": [],
-        "status": "ready",
+        "status": "retired",
         "evidence": [],
-        "closed_at": null
+        "closed_at": null,
+        "retired_reason": "The original check incorrectly expected the v4 AGENTS block version in the generator provenance authority; Manage-Harness intentionally retains portable-project-contract/v3 provenance.",
+        "retired_at": "2026-08-12T18:14:27.5825514Z"
+      },
+      {
+        "id": "verify-portable-project-contract-v4",
+        "title": "Verify the generated portable-v4 project contract and lossless task-state archive",
+        "acceptance": "The three legacy root files are losslessly archived with hashes and absent from root; AGENTS carries only the v4 marked block; provenance matches the generator-supported authority; Manage-Harness VerifyProject passes; Work Scope remains valid and reconciled.",
+        "acceptance_checks": [
+          {
+            "id": "portable-v4-project-contract-corrected",
+            "verifier": "test",
+            "executable": "C:\\Program Files\\WindowsApps\\Microsoft.PowerShell_7.6.4.0_x64__8wekyb3d8bbwe\\pwsh.exe",
+            "executable_sha256": "db6dd81183fe57d22e03b911ec9a30a2fd7c40542e97743615355a6fb44f458f",
+            "arguments": [
+              "-NoProfile",
+              "-File",
+              "scripts/Test-PortableV4ProjectContract.ps1"
+            ],
+            "arguments_sha256": "f729332dbb57377d20d815f98d39d1bf16bb5a3df104b39422b94d5aa9f53985",
+            "verifier_inputs": [
+              {
+                "reference": "scripts/Test-PortableV4ProjectContract.ps1",
+                "sha256": "18b769b2d5c555f64ea61f44244dfd93f3085bbf64d7c5388bc77bbb9d0140be",
+                "size_bytes": 2848
+              }
+            ],
+            "artifacts": [
+              ".agents/archive/task-state-migration/archive-manifest.json",
+              ".agents/harness-provenance.json",
+              "AGENTS.md",
+              "evidence/2026-08-12-portable-v4-project-contract.md"
+            ],
+            "timeout_seconds": 1800,
+            "max_output_bytes": 1048576
+          }
+        ],
+        "dependencies": [],
+        "status": "closed",
+        "evidence": [
+          {
+            "receipt_id": "53a3f255-7f28-403c-8b24-1e42a84ff4a9",
+            "check_id": "portable-v4-project-contract-corrected",
+            "verifier": "test",
+            "subject": "verify-portable-project-contract-v4",
+            "result": "pass",
+            "reference": ".agents/work/evidence/53a3f255-7f28-403c-8b24-1e42a84ff4a9.json",
+            "sha256": "2990d5c47003ae35e8aca7aceb275738981a752f8f0ca0b61422efbc8d9247c6",
+            "size_bytes": 1971,
+            "captured_at": "2026-08-12T18:17:08.9661165Z",
+            "exit_code": 0,
+            "provenance_event_id": "ed537c5c-2fc4-4968-883f-1838a7dd7d3a",
+            "project_id": "kelly-uniforms-business",
+            "track_id": "intake",
+            "capability_id": "intake.external",
+            "cell_id": "intake.external@D1",
+            "task_id": "verify-portable-project-contract-v4"
+          }
+        ],
+        "closed_at": "2026-08-12T18:18:13.8681121Z"
       }
     ],
-    "evidence": [],
+    "evidence": [
+      {
+        "receipt_id": "53a3f255-7f28-403c-8b24-1e42a84ff4a9",
+        "check_id": "portable-v4-project-contract-corrected",
+        "verifier": "test",
+        "subject": "verify-portable-project-contract-v4",
+        "result": "pass",
+        "reference": ".agents/work/evidence/53a3f255-7f28-403c-8b24-1e42a84ff4a9.json",
+        "sha256": "2990d5c47003ae35e8aca7aceb275738981a752f8f0ca0b61422efbc8d9247c6",
+        "size_bytes": 1971,
+        "captured_at": "2026-08-12T18:17:08.9661165Z",
+        "exit_code": 0,
+        "provenance_event_id": "ed537c5c-2fc4-4968-883f-1838a7dd7d3a",
+        "project_id": "kelly-uniforms-business",
+        "track_id": "intake",
+        "capability_id": "intake.external",
+        "cell_id": "intake.external@D1",
+        "task_id": "verify-portable-project-contract-v4"
+      }
+    ],
     "discoveries": []
   }
 }
