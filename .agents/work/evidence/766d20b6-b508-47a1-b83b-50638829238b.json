@@ -1,0 +1,62 @@
+{
+  "receipt_id": "766d20b6-b508-47a1-b83b-50638829238b",
+  "check_id": "storefront-prototype-verification",
+  "verifier": "test",
+  "subject": "build-storefront-prototype-v1",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "storefront-modernization",
+  "capability_id": "customer-storefront",
+  "cell_id": "customer-storefront@D3",
+  "task_id": "build-storefront-prototype-v1",
+  "result": "fail",
+  "executable": "node.exe",
+  "executable_sha256": "e3be0545990c90995d7bf3a7af5d64af1f2e0fc1bbd9b79c27f7abc1e9676e50",
+  "arguments_sha256": "775f3eeb92242df3e09373f134c992360c3ede80895ab79552dbdd176852892e",
+  "output_sha256": "d364bc7675566984c4c0e1d08a5186b81ecc36835787a02c03cacc24a8c52e09",
+  "output_size_bytes": 99,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 300,
+  "max_output_bytes": 200000,
+  "verifier_inputs": [],
+  "artifacts": [
+    {
+      "reference": "PRODUCT.md",
+      "sha256": "7ac775b75ed9aa9864e4b9a693d43898d8ae5ccccdcfc3899ffbb9e5788f338e",
+      "size_bytes": 8619
+    },
+    {
+      "reference": "SPEC.md",
+      "sha256": "def7dd774919f52c220670f5251d36a1ba595c94642b3313f4b0d9121cf8a901",
+      "size_bytes": 17981
+    },
+    {
+      "reference": "storefront/DEPLOYMENT.md",
+      "sha256": "54ac20f435a796928a7accb21044e0c0b1524b2fe4e82f94643ea593483db1fa",
+      "size_bytes": 651
+    },
+    {
+      "reference": "storefront/DESIGN.md",
+      "sha256": "2974c50f5dc2db530aca72461b299e42b826801ed403bc2e9ab5746816e548f8",
+      "size_bytes": 4759
+    },
+    {
+      "reference": "storefront/dist/index.html",
+      "sha256": "e1c176183834ea6373eab30c2b9611eb443a8ef29dcfe1b98c213a2f89933e24",
+      "size_bytes": 1128
+    },
+    {
+      "reference": "storefront/evidence/desktop.png",
+      "sha256": "0211a49fab3ad2a66b65050629df94c42799c7077392b2534e42c342caf5cfc9",
+      "size_bytes": 150121
+    },
+    {
+      "reference": "storefront/evidence/mobile.png",
+      "sha256": "32322ffa6d9f69af3a190985e19651a2d1273d48d07a39e180e11c1c8f2f0149",
+      "size_bytes": 29437
+    }
+  ],
+  "exit_code": 1,
+  "started_at": "2026-08-12T04:15:46.7366128Z",
+  "finished_at": "2026-08-12T04:15:47.1675449Z"
+}

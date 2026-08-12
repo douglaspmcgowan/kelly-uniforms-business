@@ -1,16 +1,55 @@
-# Task
+<!-- GENERATED FROM .agents/work/state.json. DO NOT EDIT DIRECTLY. -->
+# Active Work
 
-Goal: publish the requested temporary ordering notice through an authorized, reversible production edit.
+Project: kelly-uniforms-business
+Initiative: mt-uniforms-replatform
+Primary track: business-continuity
+Capability: portable-recovery-repository-custody
+Depth: D3 (Hardened)
+Frontier mode: expand
+Depth ceiling: D5
+Breadth boundary: project
+Selection strategy: dependency-first
+Status: active
 
-## Queue
+## Goal
 
-- [x] T1 — Document the client, storefront, access, and reversible notice workflow | evidence: `CLIENT.md`, `ACCESS.md`, `DELIVERABLES.md`, and `WEBSITE-UPDATE-RUNBOOK.md`.
-- [x] T2 — Verify the live storefront platform and administration route | evidence: current project status and verification records.
-- [?] T3 — Confirm the website-admin Secrets Manager values and ordering-channel readiness | evidence: value presence checks without displaying credentials, plus Douglas's readiness confirmation.
-- [ ] T4 — Build and adversarially verify the approved Secrets Manager-to-browser broker | after: T3.
-- [ ] T5 — Authenticate and inspect the installed Journal controls and permissions | after: T3, T4.
-- [ ] T6 — Preview, publish, and verify the temporary notice on desktop and mobile | after: T5.
+Complete and verify Commit and push the verified portable recovery system and Work Scope authority to the remote repository at D3.
 
-## Next verifier
+## In scope
 
-Verify the authenticated OpenCart identity and current Journal configuration before any production mutation.
+- portable-recovery-repository-custody
+
+## Out of scope
+
+- None
+
+## Done when
+
+- Every task below is closed.
+- Scope-cell verification evidence is recorded.
+- Generated views reconcile with canonical state.
+
+## Tasks
+
+- [ ] publish-portable-recovery-system: Commit and push the portable recovery system and Work Scope authority (status: ready; acceptance: The remote master tree contains the complete value-safe recovery toolchain, contracts, schemas, tests, evidence, data adapter, brand gallery, generated Work Scope views, canonical state/event/import history, and current REC-016 routing; runtime locks and bytecode are excluded; Gitleaks finds no secrets; all 78 recovery tests, adapter tests, frontend tests/builds, and Work Scope gates pass; the final verifier proves the local tree equals origin/master.)
+
+## Declared acceptance checks
+
+- publish-portable-recovery-system/portable-recovery-repository-custody: C:\Program Files\WindowsApps\Microsoft.PowerShell_7.6.4.0_x64__8wekyb3d8bbwe\pwsh.exe argv=["-NoProfile","-File","scripts/Test-PortableRecoveryRepository.ps1","-RequireRemoteTree"]; inputs=[scripts/Test-PortableRecoveryRepository.ps1]; artifacts=[evidence/2026-08-12-portable-recovery-repository-custody.md, MAP.md, scripts/Test-PortableRecoveryRepository.ps1, SOURCES.md, VERIFY.md]; timeout=3600s; max-output=1048576B
+
+## Blockers and dependencies
+
+- None
+
+## Verification evidence
+
+- None
+
+## Discoveries captured
+
+- None
+
+## Next transition
+
+execute_task: publish-portable-recovery-system

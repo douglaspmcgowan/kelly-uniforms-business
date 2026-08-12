@@ -1,0 +1,42 @@
+{
+  "receipt_id": "3ab9d71a-1808-4ad9-bb31-c2bd368ddb39",
+  "check_id": "public-media-rec006-verify",
+  "verifier": "command",
+  "subject": "public-media-rec006-v1",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "rebuild-ready-recovery",
+  "cell_id": "rebuild-ready-recovery@D3",
+  "task_id": "public-media-rec006-v1",
+  "result": "pass",
+  "executable": "py.exe",
+  "executable_sha256": "c51dac136d24b196e887e777a0034e971f32ffd7219099ea002f2aaa9243f501",
+  "arguments_sha256": "5c02765c92435803bfe847ac14369dad01e505d466bcd57961ea95da8a8dbb12",
+  "output_sha256": "c54b1326de7c65cdffba002498c657db27d569643badf6e01eda00e9de2f31f5",
+  "output_size_bytes": 997,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 900,
+  "max_output_bytes": 1048576,
+  "verifier_inputs": [],
+  "artifacts": [
+    {
+      "reference": "evidence/2026-08-10-rec006-public-media.md",
+      "sha256": "39d93d3b37b52f8e761ba9fe6182112acb1fff1291bda2c566279a0402e348ca",
+      "size_bytes": 2551
+    },
+    {
+      "reference": "scripts/capture_missing_media.py",
+      "sha256": "f69d78a3bd8f214ab9f948c0e15bba543b23592295b90602ee4070251a5336ad",
+      "size_bytes": 11662
+    },
+    {
+      "reference": "scripts/test_capture_missing_media.py",
+      "sha256": "fd74e108c931412d0f9edef2e892a4298b68bcf34415ef3879115f160092e590",
+      "size_bytes": 2625
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-09T21:49:50.2959702Z",
+  "finished_at": "2026-08-09T21:49:56.1210531Z"
+}

@@ -1,0 +1,83 @@
+{
+  "receipt_id": "321e01c1-d421-44d7-8cfe-5f18a1286445",
+  "check_id": "commerce-bundle-importer-verify-v2",
+  "verifier": "test",
+  "subject": "commerce-bundle-importer-v2",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "rebuild-ready-recovery",
+  "cell_id": "rebuild-ready-recovery@D5",
+  "task_id": "commerce-bundle-importer-v2",
+  "result": "pass",
+  "executable": "py.exe",
+  "executable_sha256": "c51dac136d24b196e887e777a0034e971f32ffd7219099ea002f2aaa9243f501",
+  "arguments_sha256": "17d91fb36fce54416346b725d1c41aba131315b2e65ce699a8e73cd0cd9a5be8",
+  "output_sha256": "1f9ef23f212890bece472c3f327db978382fa22ee29c52fb3d21b70c27f561d0",
+  "output_size_bytes": 109,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 120,
+  "max_output_bytes": 1048576,
+  "verifier_inputs": [
+    {
+      "reference": "schemas/commerce-import-bundle-v1.schema.json",
+      "sha256": "2acb16d9b3517f28d8dc5558540c970fd3cd2fb8b02fcb0e0f04091e0a86678b",
+      "size_bytes": 3024
+    },
+    {
+      "reference": "scripts/extend_import_schema.py",
+      "sha256": "74f068a9efbf4fa053a20f2903f7cf2576fb0f4c7e5eba02ca8623c2f87df779",
+      "size_bytes": 5467
+    },
+    {
+      "reference": "scripts/import_commerce_bundle.py",
+      "sha256": "20c44793ea14801528ddca074baf4727bc5eacaafaf64226d040301be083a08d",
+      "size_bytes": 11001
+    },
+    {
+      "reference": "scripts/recovery_package.py",
+      "sha256": "ac983607d290daf8fbe18c1e96a4af62abdbe6feb4068a4b1c6d98216e7abcbf",
+      "size_bytes": 15455
+    },
+    {
+      "reference": "scripts/test_import_commerce_bundle.py",
+      "sha256": "ffe9299bb7d9ac4aa5a9702fdd7cceff2e4e1aaa4972005489355cf6be9dc978",
+      "size_bytes": 11923
+    },
+    {
+      "reference": "scripts/upgrade_commerce_schema.py",
+      "sha256": "52ddc36bcf0c6272927082d8988e08aff820e304e7af2423324891a8a1f25837",
+      "size_bytes": 17096
+    },
+    {
+      "reference": "scripts/validate_import_bundle.py",
+      "sha256": "dfb8cc34160c38829cbed4e93dd740dd0eccb92d874d60471d3ef5ad1b84d58d",
+      "size_bytes": 13188
+    }
+  ],
+  "artifacts": [
+    {
+      "reference": "docs/recovery/commerce-normalization-payload-v1.md",
+      "sha256": "1ed8193e3e577f0cf2395b7edc3b9c6ac62b9e649cc76403341caf1f8a66b1ba",
+      "size_bytes": 2534
+    },
+    {
+      "reference": "scripts/extend_import_schema.py",
+      "sha256": "74f068a9efbf4fa053a20f2903f7cf2576fb0f4c7e5eba02ca8623c2f87df779",
+      "size_bytes": 5467
+    },
+    {
+      "reference": "scripts/import_commerce_bundle.py",
+      "sha256": "20c44793ea14801528ddca074baf4727bc5eacaafaf64226d040301be083a08d",
+      "size_bytes": 11001
+    },
+    {
+      "reference": "scripts/test_import_commerce_bundle.py",
+      "sha256": "ffe9299bb7d9ac4aa5a9702fdd7cceff2e4e1aaa4972005489355cf6be9dc978",
+      "size_bytes": 11923
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-09T22:40:12.5291329Z",
+  "finished_at": "2026-08-09T22:40:13.1168194Z"
+}

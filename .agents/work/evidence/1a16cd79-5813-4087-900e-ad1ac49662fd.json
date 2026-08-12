@@ -1,0 +1,47 @@
+{
+  "receipt_id": "1a16cd79-5813-4087-900e-ad1ac49662fd",
+  "check_id": "ecwid-secret-platform-contract-check",
+  "verifier": "test",
+  "subject": "ecwid-secret-and-platform-clarification-20260811",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "rebuild-ready-recovery",
+  "cell_id": "rebuild-ready-recovery@D5",
+  "task_id": "ecwid-secret-and-platform-clarification-20260811",
+  "result": "pass",
+  "executable": "powershell.exe",
+  "executable_sha256": "7600ffe12da441fe89d035b13801e8e91d064bc544a27b19a5cf49f6ab8b18f5",
+  "arguments_sha256": "d65235365c7fbbf268bb73b9b01bca150587161cf5aa38f7a42cb1f5a4bddb9c",
+  "output_sha256": "8afb00cbb8505f66630936169bd771b411722420b1b902ec98feb3778867747e",
+  "output_size_bytes": 0,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 30,
+  "max_output_bytes": 10000,
+  "verifier_inputs": [],
+  "artifacts": [
+    {
+      "reference": "ACCESS.md",
+      "sha256": "59832886939f391a8c589951504e40092323822b56e55b3f0b5afc8a1f1e9546",
+      "size_bytes": 13404
+    },
+    {
+      "reference": "PLATFORM-RECOMMENDATION.md",
+      "sha256": "bca962864b028d53795d89d2bffe08b755f91b015269de39a32c828607842126",
+      "size_bytes": 33491
+    },
+    {
+      "reference": "secret-manifest.json",
+      "sha256": "7904cb3764fb09887a68ba21a429847c3b64c04db3fe5bb738b79c9db47576f1",
+      "size_bytes": 4174
+    },
+    {
+      "reference": "secret-manifest.md",
+      "sha256": "97d4557b2d6c75703d3fb719b5319fd40d791e40efd9391cfc11cec1f137d19c",
+      "size_bytes": 2632
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-12T01:56:50.2507976Z",
+  "finished_at": "2026-08-12T01:56:50.5855213Z"
+}

@@ -1,0 +1,73 @@
+{
+  "receipt_id": "d68e0652-c2ef-4b52-b544-f3244b70977c",
+  "check_id": "rec009-capture-ready-package-verify",
+  "verifier": "test",
+  "subject": "rec009-capture-ready-package-v1",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "rebuild-ready-recovery",
+  "cell_id": "rebuild-ready-recovery@D5",
+  "task_id": "rec009-capture-ready-package-v1",
+  "result": "pass",
+  "executable": "py.exe",
+  "executable_sha256": "c51dac136d24b196e887e777a0034e971f32ffd7219099ea002f2aaa9243f501",
+  "arguments_sha256": "1622c56fff1d529db0692e157d38e7dc9f9e2d3661d28d37b835090a02591987",
+  "output_sha256": "52e8ff26f1fafc1f063db6015e27971dfbe0edab850bbfd06fd7de268a99bc04",
+  "output_size_bytes": 106,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 120,
+  "max_output_bytes": 200000,
+  "verifier_inputs": [
+    {
+      "reference": "docs/recovery/commerce-normalization-payload-v2.md",
+      "sha256": "08a26e184c1aa985b9eeae150a6d89afdfe4ab556c543ab04d1c792a9fe7819c",
+      "size_bytes": 2815
+    },
+    {
+      "reference": "schemas/commerce-import-bundle-v1.schema.json",
+      "sha256": "2acb16d9b3517f28d8dc5558540c970fd3cd2fb8b02fcb0e0f04091e0a86678b",
+      "size_bytes": 3024
+    },
+    {
+      "reference": "scripts/capture_ecwid_api.py",
+      "sha256": "c3448c0b1ff440098af830318f95727ade3d8c1d28c8d80bb9c1708f312db5c2",
+      "size_bytes": 10130
+    },
+    {
+      "reference": "scripts/import_commerce_bundle_v2.py",
+      "sha256": "cefa4bf9e0465dd41ca248bd7816475b9e9a8b23ab3d60fb15220aeb4d045131",
+      "size_bytes": 12993
+    },
+    {
+      "reference": "scripts/package_import_ready_generation.py",
+      "sha256": "94045c9e3dfea3d7099365c2ce93a2c6c57a20c904ba3628a9bf776b2266b4dd",
+      "size_bytes": 17963
+    }
+  ],
+  "artifacts": [
+    {
+      "reference": "docs/recovery/capture-ready-package-v1.md",
+      "sha256": "a013278d936fd3a3e63839f5a2fa43f9a419377fce4e5fd66f7d81975dfa304b",
+      "size_bytes": 2272
+    },
+    {
+      "reference": "evidence/2026-08-10-rec009-capture-ready-package.md",
+      "sha256": "22c01cb6e15a2fbe5b45c96f1e9a9391f757e2daa9c129f6ab1d9f6f6bec7b54",
+      "size_bytes": 3257
+    },
+    {
+      "reference": "scripts/package_capture_ready_generation.py",
+      "sha256": "b44d3fd38cab6cc5b68e2ea5f809e2341330629e869b9c7fefd8258e37282650",
+      "size_bytes": 12859
+    },
+    {
+      "reference": "scripts/test_package_capture_ready_generation.py",
+      "sha256": "dd8ba8f6ba902f9cdf80cd96aa90c5c8aa7bc5438d187f5b3ea1fdab22530223",
+      "size_bytes": 6309
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-10T00:58:24.0953031Z",
+  "finished_at": "2026-08-10T00:58:24.5260750Z"
+}

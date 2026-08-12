@@ -4,3 +4,9 @@ node_modules/
 package-lock.json
 !storefront/package-lock.json
 .vercel/
+
+# Local interpreter and guarded-state runtime artifacts.
+__pycache__/
+*.pyc
+.agents/work/state.lock
+*.lock.json

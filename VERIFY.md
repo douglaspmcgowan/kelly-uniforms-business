@@ -1,30 +1,32 @@
 # Verification
 
-## Commands
+This file preserves the useful verification owner found in `origin/master` while updating it for the repository's current Work Scope state and brand-gallery deliverable. The retired `CURRENT-TASK.md`, `WORK_QUEUE.md`, and `STATUS.md` files from that history are intentionally not restored.
 
-Setup and shared repository state:
+## Project and task state
 
 ```powershell
-C:\Users\dougl\.agents\tools\Test-AgentProjectState.cmd -Repository C:\Users\dougl\projects\kelly-uniforms-business
+pwsh -NoProfile -File C:\Users\dougl\.agents\tools\Test-WorkState.ps1 -Root C:\Users\dougl\Projects\kelly-uniforms-business
+pwsh -NoProfile -File C:\Users\dougl\.agents\tools\Reconcile-WorkState.ps1 -Root C:\Users\dougl\Projects\kelly-uniforms-business
+pwsh -NoProfile -File C:\Users\dougl\.agents\tools\Test-TaskStateFormat.ps1 -Root C:\Users\dougl\Projects\kelly-uniforms-business
 ```
 
-Client operating record:
+## Brand gallery
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\dougl\projects\kelly-uniforms-business\.agents\skills\client\scripts\Test-ClientProject.ps1 -Repository C:\Users\dougl\projects\kelly-uniforms-business
+Set-Location C:\Users\dougl\Projects\kelly-uniforms-business\brand-gallery
+npm test
 ```
 
-Client skill structure:
+After a production deployment, verify the canonical URL returns HTTP 200, includes the `Quartermaster` recommendation, serves all three full-size direction boards and the self-hosted font, and contains no credential values or private recovery mechanics.
+
+## Recovery packages
+
+Run each acceptance command recorded in `.agents/work/state.json` through `Invoke-WorkScopeEvidence.ps1`. Do not substitute an ad hoc command for a recorded evidence gate.
+
+## Secret and source scan
 
 ```powershell
-$env:PYTHONPATH = "C:\Users\dougl\projects\kelly-uniforms-business\.validator-deps"
-C:\Users\dougl\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -B -X utf8 C:\Users\dougl\.codex\skills\.system\skill-creator\scripts\quick_validate.py C:\Users\dougl\projects\kelly-uniforms-business\.agents\skills\client
-```
-
-Secret and source scan:
-
-```powershell
-C:\Users\dougl\Tools\gitleaks\gitleaks.exe dir --no-banner --redact C:\Users\dougl\projects\kelly-uniforms-business
+C:\Users\dougl\Tools\gitleaks\gitleaks.exe dir --no-banner --redact C:\Users\dougl\Projects\kelly-uniforms-business
 ```
 
 ## Manual evidence
@@ -32,10 +34,6 @@ C:\Users\dougl\Tools\gitleaks\gitleaks.exe dir --no-banner --redact C:\Users\dou
 - Trace every `Confirmed` and `Observed` claim in `CLIENT.md` to `SOURCES.md`.
 - Confirm every supplied request appears once in `DELIVERABLES.md`.
 - Confirm active, verified, and delivered items define acceptance evidence.
-- Confirm the seven data-root asset checksums match `data-manifest.yaml`.
-- Confirm the administrative account identifier and credential value remain outside tracked files.
-- For future live-site work, capture desktop/mobile evidence and a recovery record.
-
-## Current build status
-
-The repository is in intake and delivery-governance mode. Application lint, build, and browser test commands will be added when a software deliverable becomes active.
+- Confirm every data-root asset checksum matches `data-manifest.yaml`.
+- Confirm administrative account identifiers and credential values remain outside tracked files.
+- For browser-visible work, preserve desktop and mobile evidence and verify the published result.

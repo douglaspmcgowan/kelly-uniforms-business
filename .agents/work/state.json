@@ -1,0 +1,2267 @@
+{
+  "revision": 178,
+  "backburner": [
+    {
+      "id": "legacy-task-L73",
+      "title": "**Rotate the OpenCart administrator password** — owner: Douglas; decision id: `mtu-opencart-credential-rotation-20260730`. The credential was exposed in a prior session transcript; rotate the Ecwid credential too.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L73",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "8c206419-f4ca-465e-ad79-07a810afd101",
+          "verifier": "inspection",
+          "subject": "legacy-task-L73",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4184718Z"
+        },
+        {
+          "receipt_id": "08c45cf7-265f-458f-a4ee-0f4983310238",
+          "verifier": "source",
+          "subject": "mtu-opencart-credential-rotation-20260730",
+          "result": "verified",
+          "reference": "SOURCES.md",
+          "sha256": "3369d6b8688c99f79d5e1e226f51a36eb8bae6004551a390a8f13bf55b52a618",
+          "size_bytes": 23480,
+          "captured_at": "2026-08-09T20:41:15.3680025Z"
+        }
+      ],
+      "status": "rejected",
+      "captured_at": "2026-08-09T06:14:31.4218327Z"
+    },
+    {
+      "id": "legacy-task-L74",
+      "title": "Authenticated export and banner work — owner: Douglas; decision id: `mtu-production-access-path-20260806`. The preserved OpenCart tab and the Ecwid/Clover tabs resolve to login screens with no saved autofill. Resume through a fresh signed-in handoff or the approved broker; never copy a plaintext password into agent-visible input.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L74",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "64c4bb33-98f7-42d3-a8c1-aca8c0f399ea",
+          "verifier": "inspection",
+          "subject": "legacy-task-L74",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.422282Z"
+        },
+        {
+          "receipt_id": "8777ceff-29e8-41b9-9bd9-df63f71c0f01",
+          "verifier": "source",
+          "subject": "mtu-production-access-path-20260806",
+          "result": "verified",
+          "reference": "SOURCES.md",
+          "sha256": "3369d6b8688c99f79d5e1e226f51a36eb8bae6004551a390a8f13bf55b52a618",
+          "size_bytes": 23480,
+          "captured_at": "2026-08-09T20:42:45.5306987Z"
+        }
+      ],
+      "status": "rejected",
+      "captured_at": "2026-08-09T06:14:31.4231762Z"
+    },
+    {
+      "id": "legacy-task-L75",
+      "title": "Path B (unattended Bitwarden-brokered login) — blocked on: Douglas. Create the four `mtuniforms.*` secrets in the `Agent Runtime` Bitwarden project, grant the machine account read access, run `Set-BwsMachineToken.ps1`, and return the non-secret project ID plus four resource IDs. (`bws.exe` 2.1.0 is checksum-verified; broker Playwright self-test passed; the pipeline stops at credential retrieval.)",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L75",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [
+        "Legacy [!] item remains explicitly blocked."
+      ],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "f1d471be-279f-49e9-8331-3951813a7f23",
+          "verifier": "inspection",
+          "subject": "legacy-task-L75",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4235201Z"
+        }
+      ],
+      "status": "blocked",
+      "captured_at": "2026-08-09T06:14:31.4238314Z"
+    },
+    {
+      "id": "legacy-task-L76",
+      "title": "Apply nginx 301 www → non-www — blocked on: hosting access and confirmation that the TLS certificate covers `www.mtuniforms.com`.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L76",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [
+        "Legacy [!] item remains explicitly blocked."
+      ],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "ccc89cf3-293a-48f9-b1c9-6f1410418637",
+          "verifier": "inspection",
+          "subject": "legacy-task-L76",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4240777Z"
+        }
+      ],
+      "status": "blocked",
+      "captured_at": "2026-08-09T06:14:31.4244404Z"
+    },
+    {
+      "id": "legacy-task-L80",
+      "title": "Confirm `orders@mtuniforms.com` is monitored and ready for order intake — owner: Kelly or David; decision id: `mtu-orders-mailbox-readiness-20260808`.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L80",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "464a60f3-4828-4209-a518-8d0a9d9f83f9",
+          "verifier": "inspection",
+          "subject": "legacy-task-L80",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4249448Z"
+        },
+        {
+          "receipt_id": "6e17e71b-2cbd-4c5a-9fe4-8565e216d21c",
+          "verifier": "source",
+          "subject": "Douglas rulings 2026-08-09",
+          "result": "verified",
+          "reference": "SOURCES.md",
+          "sha256": "3369d6b8688c99f79d5e1e226f51a36eb8bae6004551a390a8f13bf55b52a618",
+          "size_bytes": 23480,
+          "captured_at": "2026-08-09T20:43:06.9396181Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4254479Z"
+    },
+    {
+      "id": "legacy-task-L81",
+      "title": "Confirm `(814) 536-2390` reaches the intended order-taking line — owner: Kelly or David; decision id: `mtu-order-phone-readiness-20260808`.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L81",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "156b8bf7-e984-40a8-a38f-7e2be5137ed3",
+          "verifier": "inspection",
+          "subject": "legacy-task-L81",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4257997Z"
+        },
+        {
+          "receipt_id": "786dc28d-d477-4639-a4b7-f4b79f4b4073",
+          "verifier": "source",
+          "subject": "Douglas rulings 2026-08-09",
+          "result": "verified",
+          "reference": "SOURCES.md",
+          "sha256": "3369d6b8688c99f79d5e1e226f51a36eb8bae6004551a390a8f13bf55b52a618",
+          "size_bytes": 23480,
+          "captured_at": "2026-08-09T20:43:09.4278367Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.426089Z"
+    },
+    {
+      "id": "legacy-task-L82",
+      "title": "Choose the production access path — owner: Douglas; decision id: `mtu-production-access-path-20260806`.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L82",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "c3b13ce9-ce93-4ae8-8fee-3ff8ee00c2da",
+          "verifier": "inspection",
+          "subject": "legacy-task-L82",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4263234Z"
+        },
+        {
+          "receipt_id": "ebe07660-09ae-4e6a-a1f8-935c6d19a34c",
+          "verifier": "source",
+          "subject": "Douglas rulings 2026-08-09",
+          "result": "verified",
+          "reference": "SOURCES.md",
+          "sha256": "3369d6b8688c99f79d5e1e226f51a36eb8bae6004551a390a8f13bf55b52a618",
+          "size_bytes": 23480,
+          "captured_at": "2026-08-09T20:43:11.4011993Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.426616Z"
+    },
+    {
+      "id": "legacy-task-L83",
+      "title": "Ask David whether any agency runs a per-officer uniform allowance or requires authorization codes — owner: David; decision id: `mtu-agency-uniform-allowance-20260806`.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L83",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "2dc57261-a105-45ed-8c58-ccdb3c1da95e",
+          "verifier": "inspection",
+          "subject": "legacy-task-L83",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4268503Z"
+        },
+        {
+          "receipt_id": "d898f48d-7fe4-4a65-9d34-e50707ef191a",
+          "verifier": "source",
+          "subject": "Douglas rulings 2026-08-09",
+          "result": "verified",
+          "reference": "SOURCES.md",
+          "sha256": "3369d6b8688c99f79d5e1e226f51a36eb8bae6004551a390a8f13bf55b52a618",
+          "size_bytes": 23480,
+          "captured_at": "2026-08-09T20:43:13.4126138Z"
+        }
+      ],
+      "status": "rejected",
+      "captured_at": "2026-08-09T06:14:31.4271588Z"
+    },
+    {
+      "id": "legacy-task-L84",
+      "title": "Get written Shopify confirmation on non-Plus customer-specific catalogs — owner: Douglas; decision id: `mtu-shopify-nonplus-catalogs-20260806`.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L84",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [
+        "Shopify annual-online-revenue bracket and a verified channel that accepts the written catalog-limit question"
+      ],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "be897ad3-590c-45f5-8a89-50372a9957d8",
+          "verifier": "inspection",
+          "subject": "legacy-task-L84",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4274149Z"
+        },
+        {
+          "receipt_id": "15608031-acbb-4445-b85e-420e56b3a841",
+          "verifier": "source",
+          "subject": "Douglas rulings 2026-08-09",
+          "result": "verified",
+          "reference": "SOURCES.md",
+          "sha256": "3369d6b8688c99f79d5e1e226f51a36eb8bae6004551a390a8f13bf55b52a618",
+          "size_bytes": 23480,
+          "captured_at": "2026-08-09T20:43:14.8258167Z"
+        },
+        {
+          "receipt_id": "8cab0510-daad-4407-ac5a-173a1ede7419",
+          "verifier": "source",
+          "subject": "Shopify contact route",
+          "result": "verified",
+          "reference": "SOURCES.md",
+          "sha256": "be2b853902c3ce88612fe2a1d747b54cf1b49ea43372101c803db3c33e7eae39",
+          "size_bytes": 24336,
+          "captured_at": "2026-08-09T20:49:03.2634382Z"
+        }
+      ],
+      "status": "blocked",
+      "captured_at": "2026-08-09T06:14:31.4278054Z"
+    },
+    {
+      "id": "legacy-task-L88",
+      "title": "Export and hash the full OpenCart database, webroot, external storage, private media, configuration, versions, and logs after value-safe authentication or hosting access becomes available; done when: raw artifacts, hashes, source counts, and restore evidence are indexed outside Git.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L88",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [
+        "legacy-task-L75",
+        "value-safe hosting control-panel, SFTP/SSH, or database-export access"
+      ],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "d4d63eb6-942d-45bc-86c4-10b6e375ea45",
+          "verifier": "inspection",
+          "subject": "legacy-task-L88",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4281508Z"
+        },
+        {
+          "receipt_id": "b41b90da-6e1c-447a-8cf3-38f630e258aa",
+          "verifier": "inspection",
+          "subject": "REC-006 remaining access boundary",
+          "result": "verified",
+          "reference": "evidence/2026-08-10-rec006-public-media.md",
+          "sha256": "39d93d3b37b52f8e761ba9fe6182112acb1fff1291bda2c566279a0402e348ca",
+          "size_bytes": 2551,
+          "captured_at": "2026-08-09T21:52:37.0351388Z"
+        }
+      ],
+      "status": "blocked",
+      "captured_at": "2026-08-09T06:14:31.4287475Z"
+    },
+    {
+      "id": "legacy-task-L89",
+      "title": "Export and hash complete Ecwid catalog, customer, order, configuration, source-ID, and media data; done when: every available export is preserved with hashes and the account is classified active or abandoned.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L89",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [
+        "legacy-task-L75"
+      ],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "20cba946-9623-4bb9-a070-61eb6b8998cc",
+          "verifier": "inspection",
+          "subject": "legacy-task-L89",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4292255Z"
+        },
+        {
+          "receipt_id": "f4408714-e7c2-4ec6-9332-2b941a78263b",
+          "verifier": "inspection",
+          "subject": "REC-006 remaining access boundary",
+          "result": "verified",
+          "reference": "evidence/2026-08-10-rec006-public-media.md",
+          "sha256": "39d93d3b37b52f8e761ba9fe6182112acb1fff1291bda2c566279a0402e348ca",
+          "size_bytes": 2551,
+          "captured_at": "2026-08-09T21:52:58.1631802Z"
+        }
+      ],
+      "status": "blocked",
+      "captured_at": "2026-08-09T06:14:31.4296396Z"
+    },
+    {
+      "id": "legacy-task-L90",
+      "title": "Export and reconcile Clover inventory, customer, order, payment-reference, refund, settlement, configuration, and cross-system mapping data; done when: exports are hashed and record counts/totals reconcile or discrepancies are documented.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L90",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "a526c1ff-6dcf-4357-953f-985aab52f47b",
+          "verifier": "inspection",
+          "subject": "legacy-task-L90",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4299855Z"
+        },
+        {
+          "receipt_id": "39dac053-fb4c-4cff-8255-9f0cd89cfbf2",
+          "verifier": "source",
+          "subject": "Douglas rulings 2026-08-09",
+          "result": "verified",
+          "reference": "SOURCES.md",
+          "sha256": "3369d6b8688c99f79d5e1e226f51a36eb8bae6004551a390a8f13bf55b52a618",
+          "size_bytes": 23480,
+          "captured_at": "2026-08-09T20:43:15.8604796Z"
+        }
+      ],
+      "status": "rejected",
+      "captured_at": "2026-08-09T06:14:31.430307Z"
+    },
+    {
+      "id": "legacy-task-L91",
+      "title": "Establish domain, DNS, TLS, hosting, mail, payment, shipping, subscription, and licence ownership; done when: every service has an owner, payer, renewal date, recovery contact, and export/recovery path in the restricted continuity inventory.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L91",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [
+        "primary account-control records or signed-in registrar, DNS, hosting, mail, payment, shipping, subscription, and licence access"
+      ],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "1c3a7cb8-b4bd-4a70-85f7-04c2b0295e59",
+          "verifier": "inspection",
+          "subject": "legacy-task-L91",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4305886Z"
+        },
+        {
+          "receipt_id": "903d306e-3513-4ec7-8a41-3a0684371606",
+          "verifier": "inspection",
+          "subject": "REC-006 remaining access boundary",
+          "result": "verified",
+          "reference": "evidence/2026-08-10-rec006-public-media.md",
+          "sha256": "39d93d3b37b52f8e761ba9fe6182112acb1fff1291bda2c566279a0402e348ca",
+          "size_bytes": 2551,
+          "captured_at": "2026-08-09T21:53:00.9150708Z"
+        }
+      ],
+      "status": "blocked",
+      "captured_at": "2026-08-09T06:14:31.4312089Z"
+    },
+    {
+      "id": "legacy-task-L92",
+      "title": "Obtain the Clover merchant agreement terms: ISO, term length, early-termination fee, lease status, and surcharging; done when: the sourced terms are recorded without account secrets in `PLATFORM-RECOMMENDATION.md`.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L92",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "b2043409-b937-472a-b070-c419be8cc69c",
+          "verifier": "inspection",
+          "subject": "legacy-task-L92",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4319077Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-09T06:14:31.4325739Z"
+    },
+    {
+      "id": "legacy-task-L93",
+      "title": "Add encrypted offline and independent offsite copies, then run a full private-data isolated restore; done when: two independent encrypted copies exist, the adapter can publish an encrypted artifact without its `private/` safety refusal, and a fresh restore passes the Business-continuity package gates below.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L93",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [
+        "approved public encryption recipient or securely escrowed encryption key"
+      ],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "1d188992-e179-49b4-b999-02fe43c3a22e",
+          "verifier": "inspection",
+          "subject": "legacy-task-L93",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4331787Z"
+        },
+        {
+          "receipt_id": "d2a681b3-3f31-47c8-b9c1-36ec31ad2d59",
+          "verifier": "inspection",
+          "subject": "REC-006 remaining access boundary",
+          "result": "verified",
+          "reference": "evidence/2026-08-10-rec006-public-media.md",
+          "sha256": "39d93d3b37b52f8e761ba9fe6182112acb1fff1291bda2c566279a0402e348ca",
+          "size_bytes": 2551,
+          "captured_at": "2026-08-09T21:53:03.1564642Z"
+        }
+      ],
+      "status": "blocked",
+      "captured_at": "2026-08-09T06:14:31.4338795Z"
+    },
+    {
+      "id": "legacy-task-L94",
+      "title": "Have the client select a brand direction; done when: Direction 1, 2, 3, or a documented hybrid is recorded in `DESIGN.md`. Current recommendation is Direction 2 (Quartermaster) with Direction 3's documentary warmth.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L94",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "3d3f5280-7cb4-4cda-b919-6c376e27f39e",
+          "verifier": "inspection",
+          "subject": "legacy-task-L94",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4345348Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-09T06:14:31.4359508Z"
+    },
+    {
+      "id": "legacy-task-L95",
+      "title": "Authenticate read-only and verify production-store identity, installed OpenCart/Journal versions, Header Notice control, All-layouts control, and modify permission; done when: value-free screenshots or notes record all six checks.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L95",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [
+        "legacy-task-L75"
+      ],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "9acbe56e-aa1a-4c17-8b7f-a23c83f80fa7",
+          "verifier": "inspection",
+          "subject": "legacy-task-L95",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4364835Z"
+        },
+        {
+          "receipt_id": "f09a808e-23f6-4daf-be87-8f8a8b066bc9",
+          "verifier": "inspection",
+          "subject": "REC-006 remaining access boundary",
+          "result": "verified",
+          "reference": "evidence/2026-08-10-rec006-public-media.md",
+          "sha256": "39d93d3b37b52f8e761ba9fe6182112acb1fff1291bda2c566279a0402e348ca",
+          "size_bytes": 2551,
+          "captured_at": "2026-08-09T21:53:05.0440611Z"
+        }
+      ],
+      "status": "blocked",
+      "captured_at": "2026-08-09T06:14:31.4369277Z"
+    },
+    {
+      "id": "legacy-task-L96",
+      "title": "Inspect existing Header Notice module 56 before creating or editing any notice module; done when: its name, status, content, and layout assignment are captured in the recovery record.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L96",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [
+        "legacy-task-L75"
+      ],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "079652e2-2d4d-4147-8901-3d703f00c00b",
+          "verifier": "inspection",
+          "subject": "legacy-task-L96",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4373297Z"
+        },
+        {
+          "receipt_id": "353d2828-d496-4527-89fa-ec14db9371f4",
+          "verifier": "inspection",
+          "subject": "REC-006 remaining access boundary",
+          "result": "verified",
+          "reference": "evidence/2026-08-10-rec006-public-media.md",
+          "sha256": "39d93d3b37b52f8e761ba9fe6182112acb1fff1291bda2c566279a0402e348ca",
+          "size_bytes": 2551,
+          "captured_at": "2026-08-09T21:53:06.5359051Z"
+        }
+      ],
+      "status": "blocked",
+      "captured_at": "2026-08-09T06:14:31.4379138Z"
+    },
+    {
+      "id": "legacy-task-L97",
+      "title": "Prove or disprove the www/non-www session-split hypothesis with one option-complete add-to-cart on `www` followed by cart reads on both hosts; done when: both host outcomes and cookie-domain evidence are recorded.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L97",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "a1ca3717-4c7d-4a15-bf07-029bad5dc0df",
+          "verifier": "inspection",
+          "subject": "legacy-task-L97",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4383257Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-09T06:14:31.4387323Z"
+    },
+    {
+      "id": "legacy-task-L98",
+      "title": "Export current Journal settings and record any existing Header Notice state; done when: the export is hashed and its restore route is documented.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L98",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [
+        "legacy-task-L75"
+      ],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "fde28964-36cb-438c-8760-64572e5fdf4e",
+          "verifier": "inspection",
+          "subject": "legacy-task-L98",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4390967Z"
+        },
+        {
+          "receipt_id": "e02dd0c0-a945-4182-9e3b-8040ae86c0c6",
+          "verifier": "inspection",
+          "subject": "REC-006 remaining access boundary",
+          "result": "verified",
+          "reference": "evidence/2026-08-10-rec006-public-media.md",
+          "sha256": "39d93d3b37b52f8e761ba9fe6182112acb1fff1291bda2c566279a0402e348ca",
+          "size_bytes": 2551,
+          "captured_at": "2026-08-09T21:53:07.9171415Z"
+        }
+      ],
+      "status": "blocked",
+      "captured_at": "2026-08-09T06:14:31.4394472Z"
+    },
+    {
+      "id": "legacy-task-L99",
+      "title": "Create `MT Temporary Ordering Notice` in Admin Only state and assign it through Special Modules to All layouts; done when: the unpublished module is visible in admin with the exact requested copy.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L99",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "f0ea35ef-b78c-48df-b7b9-efe7bc99d74e",
+          "verifier": "inspection",
+          "subject": "legacy-task-L99",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4398188Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-09T06:14:31.4401941Z"
+    },
+    {
+      "id": "legacy-task-L100",
+      "title": "Preview and verify exact copy, links, layout, cookie-bar coexistence, and core navigation on desktop and phone/mobile-user-agent views; done when: every Browser-visible production gate below passes.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L100",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "c15d56b1-090d-4a41-ac36-771fcb5605ed",
+          "verifier": "inspection",
+          "subject": "legacy-task-L100",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4405634Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-09T06:14:31.4409468Z"
+    },
+    {
+      "id": "legacy-task-L101",
+      "title": "Publish globally and verify in a private browser; done when: desktop and mobile acceptance evidence shows the notice on all representative layouts.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L101",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "03f31fd9-9d50-44aa-8646-e23372566fcd",
+          "verifier": "inspection",
+          "subject": "legacy-task-L101",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4413331Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-09T06:14:31.4416603Z"
+    },
+    {
+      "id": "legacy-task-L102",
+      "title": "Roll back immediately if the notice disrupts header, navigation, search, login, cart, or readability; done when: either the published notice passes all gates or rollback evidence confirms the prior state was restored.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L102",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "a6b92a09-721d-437f-ae51-633d020e8fba",
+          "verifier": "inspection",
+          "subject": "legacy-task-L102",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4419884Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-09T06:14:31.4423098Z"
+    },
+    {
+      "id": "legacy-task-L103",
+      "title": "After continuity is stable and separately authorized, reproduce the reported cart/connection failures through the systematic-debugging workflow; done when: a minimal reproduction and evidence-backed root cause are recorded.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L103",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "000e7cce-dab8-41b6-b10f-50de297134c5",
+          "verifier": "inspection",
+          "subject": "legacy-task-L103",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.442591Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-09T06:14:31.4432038Z"
+    },
+    {
+      "id": "legacy-task-L104",
+      "title": "After continuity is stable and separately authorized, determine Ecwid's current operational role; done when: account status, catalog/order ownership, and replacement dependency are documented.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L104",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [
+        "legacy-task-L75"
+      ],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "6777bcc5-6821-4074-aa7d-1e7c37c99faf",
+          "verifier": "inspection",
+          "subject": "legacy-task-L104",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4435171Z"
+        },
+        {
+          "receipt_id": "6d260cc1-ecce-4288-842d-218c995af7ba",
+          "verifier": "inspection",
+          "subject": "REC-006 remaining access boundary",
+          "result": "verified",
+          "reference": "evidence/2026-08-10-rec006-public-media.md",
+          "sha256": "39d93d3b37b52f8e761ba9fe6182112acb1fff1291bda2c566279a0402e348ca",
+          "size_bytes": 2551,
+          "captured_at": "2026-08-09T21:53:09.5074832Z"
+        }
+      ],
+      "status": "blocked",
+      "captured_at": "2026-08-09T06:14:31.4438652Z"
+    },
+    {
+      "id": "legacy-task-L105",
+      "title": "Run outcome-first discovery before defining or building the future website; done when: client-approved outcomes, audiences, workflows, constraints, and acceptance criteria are recorded.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L105",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "abc6d8ec-d775-4837-b10a-c2e688f9d0a0",
+          "verifier": "inspection",
+          "subject": "legacy-task-L105",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4441445Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-09T06:14:31.4444182Z"
+    },
+    {
+      "id": "legacy-task-L106",
+      "title": "Run the 12-officer acceptance test in a trial account for each finalist platform before any commitment; done when: the scored results are attached to `PLATFORM-RECOMMENDATION.md`.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L106",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "b43bdfaa-cdf2-4720-9bd9-78ac238b92d9",
+          "verifier": "inspection",
+          "subject": "legacy-task-L106",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4446708Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-09T06:14:31.4449672Z"
+    },
+    {
+      "id": "legacy-task-L107",
+      "title": "Request a VPAT in writing from every finalist platform ahead of the 2027/2028 DOJ WCAG 2.1 AA deadlines; done when: each response or non-response is recorded with date and source.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L107",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "c5b37279-e5f4-4b13-ac6b-70538bfb65e2",
+          "verifier": "inspection",
+          "subject": "legacy-task-L107",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4452717Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-09T06:14:31.4455778Z"
+    },
+    {
+      "id": "legacy-task-L108",
+      "title": "Book demos with UniformMarket and qUniform if David confirms an allowance program exists; done when: both demos are completed or a documented reason excludes a vendor.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L108",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "5df2df75-9bdc-4b38-8391-cc9c3ff802f7",
+          "verifier": "inspection",
+          "subject": "legacy-task-L108",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.445909Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-09T06:14:31.4462094Z"
+    },
+    {
+      "id": "legacy-task-L112",
+      "title": "Built and durably placed the public-storefront recovery checkpoint: 3,973 files, 260,428,953 bytes, 3,972 checksum entries with zero failures, byte-identical archive, SQLite integrity `ok`, and zero foreign-key errors.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L112",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "229fc205-52a0-4816-96d9-67a5515dc09b",
+          "verifier": "inspection",
+          "subject": "legacy-task-L112",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.446487Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4467772Z"
+    },
+    {
+      "id": "legacy-task-L113",
+      "title": "Preserved 528 public pages, 1,542 normalized media assets, 524 browser-observed media variants, partial runtime assets, Journal settings, provenance, checksums, restore evidence, and a project-state snapshot.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L113",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "56013f86-0f6e-44d5-8708-168ca253d27c",
+          "verifier": "inspection",
+          "subject": "legacy-task-L113",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4470534Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.447364Z"
+    },
+    {
+      "id": "legacy-task-L114",
+      "title": "Audited the recovered and client-supplied identities, recorded the design diagnosis, and generated three selection boards: Service Standard, Quartermaster, and One Mission.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L114",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "5729bb57-1c89-4453-a948-a0670c4c30ef",
+          "verifier": "inspection",
+          "subject": "legacy-task-L114",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4476911Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4480596Z"
+    },
+    {
+      "id": "legacy-task-L115",
+      "title": "Searched Kelly Huntington's email metadata for the sourced correspondence and verified that the seven non-secret client attachments were already preserved under `PROJECT_DATA_ROOT`; no credential values were read or copied.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L115",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "a5bba7e9-fce0-44b2-8842-4064d3a06e8a",
+          "verifier": "inspection",
+          "subject": "legacy-task-L115",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4483419Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4487887Z"
+    },
+    {
+      "id": "legacy-task-L116",
+      "title": "Researched client-intake/discovery/delivery mechanisms; installed the reusable `client` skill with deterministic templates/scripts; validated and adversarially forward-tested it.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L116",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "c23415f5-e308-4822-ab88-a5af7b30ace2",
+          "verifier": "inspection",
+          "subject": "legacy-task-L116",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4495052Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4501941Z"
+    },
+    {
+      "id": "legacy-task-L117",
+      "title": "Ran the skill for MT Uniforms: sourced client profile + deliverables register.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L117",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "85326ecc-6c7d-44f0-b8c0-a8fdf169b31a",
+          "verifier": "inspection",
+          "subject": "legacy-task-L117",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4506629Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4515648Z"
+    },
+    {
+      "id": "legacy-task-L118",
+      "title": "Finished repo contract, data/asset map, project state, access documentation, verification evidence.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L118",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "fbf8ecac-85d5-47df-ae4a-21066d00360f",
+          "verifier": "inspection",
+          "subject": "legacy-task-L118",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4520248Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.452411Z"
+    },
+    {
+      "id": "legacy-task-L119",
+      "title": "Verified live storefront platform, admin route, reversible notice mechanism; documented the Journal 3 Header Notice workflow (`DEL-001`).",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L119",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "a3e3cade-3f47-415c-9675-cbc9d3f14dba",
+          "verifier": "inspection",
+          "subject": "legacy-task-L119",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4527277Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.453085Z"
+    },
+    {
+      "id": "legacy-task-L120",
+      "title": "Rechecked live storefront/admin/Journal signals/notice state/logo access without credentials or mutations.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L120",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "dabb0778-6255-43af-9bc0-9f4bf2c205cc",
+          "verifier": "inspection",
+          "subject": "legacy-task-L120",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4534005Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4537046Z"
+    },
+    {
+      "id": "legacy-task-L121",
+      "title": "Scoped live site architecture, stack, modules, integrations, cart mechanics without credentials (`evidence/2026-07-31-site-architecture-scope.md`).",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L121",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "6d06a0f6-c977-473b-821f-e4d0159b448b",
+          "verifier": "inspection",
+          "subject": "legacy-task-L121",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4539746Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4543409Z"
+    },
+    {
+      "id": "legacy-task-L122",
+      "title": "Documented both logins and exact unblock steps for each access path in `ACCESS.md`.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L122",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "e45bd9ae-9396-4e11-bb3a-0588dd569e0b",
+          "verifier": "inspection",
+          "subject": "legacy-task-L122",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4546721Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4550186Z"
+    },
+    {
+      "id": "legacy-task-L123",
+      "title": "Wrote `scripts\\New-MtUniformsCredentialPlaceholders.ps1` for Douglas to fill in.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L123",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "f9604c5f-2ea5-4130-813a-fbab08e21bed",
+          "verifier": "inspection",
+          "subject": "legacy-task-L123",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4553347Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4556527Z"
+    },
+    {
+      "id": "legacy-task-L124",
+      "title": "Located prior Codex session findings and reconciled into the repo (`evidence/2026-07-31-codex-session-reconciliation.md`).",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L124",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "e63507c3-c64a-4733-bbcb-d8c79cebc3a1",
+          "verifier": "inspection",
+          "subject": "legacy-task-L124",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4559482Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4563003Z"
+    },
+    {
+      "id": "legacy-task-L125",
+      "title": "Wrote two headless Bitwarden-brokered login scripts; registered value-safe allowlist entries.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L125",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "cee1f927-e719-4f3b-85dd-5a1a62411715",
+          "verifier": "inspection",
+          "subject": "legacy-task-L125",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4565932Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4568885Z"
+    },
+    {
+      "id": "legacy-task-L126",
+      "title": "Updated `secret-manifest.json` to the harness `Agent Runtime` prefixed-key convention.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L126",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "c916966b-bdbd-44f5-a7e5-b4550555ad60",
+          "verifier": "inspection",
+          "subject": "legacy-task-L126",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4571632Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4575277Z"
+    },
+    {
+      "id": "legacy-task-L127",
+      "title": "Recorded public vs. private client contact info in `CLIENT.md`.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L127",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "c800fbbd-0606-4b03-a25f-1ccbf55bde93",
+          "verifier": "inspection",
+          "subject": "legacy-task-L127",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4578501Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4581962Z"
+    },
+    {
+      "id": "legacy-task-L128",
+      "title": "Wrote `STORE-REQUIREMENTS.md` and ran/synthesized parallel platform recon (`PLATFORM-RECOMMENDATION.md`).",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L128",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "cbb4f7f8-11c9-4acf-b727-49334fcc643d",
+          "verifier": "inspection",
+          "subject": "legacy-task-L128",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.458886Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4593359Z"
+    },
+    {
+      "id": "legacy-task-L129",
+      "title": "Documented in-app-browser vs. Claude-in-Chrome vs. Playwright tradeoffs in `ACCESS.md`.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L129",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "9a102295-5996-4c5f-8a76-80964f0f7c8b",
+          "verifier": "inspection",
+          "subject": "legacy-task-L129",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4596867Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.460126Z"
+    },
+    {
+      "id": "legacy-task-L130",
+      "title": "Installed `bws.exe` 2.1.0 at the broker's pinned path (checksum-verified) and Playwright in `scripts\\broker\\`; self-tested headless Chromium against the live login form.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L130",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "d93853d4-c10a-447c-bd8f-4352ccd80ccd",
+          "verifier": "inspection",
+          "subject": "legacy-task-L130",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4604496Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4607555Z"
+    },
+    {
+      "id": "legacy-task-L131",
+      "title": "Verified the assembled broker pipeline fails at credential retrieval rather than any dependency check.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L131",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "a3aa17e6-82d9-41f9-bb9e-a482df495b06",
+          "verifier": "inspection",
+          "subject": "legacy-task-L131",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4610369Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.4613201Z"
+    },
+    {
+      "id": "legacy-task-L132",
+      "title": "Gitignored `node_modules/` and `package-lock.json` for the broker install.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "TASK.md:L132",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "fc94a069-74d0-4a57-8b82-ccfb312140d2",
+          "verifier": "inspection",
+          "subject": "legacy-task-L132",
+          "result": "verified",
+          "reference": ".agents\\work\\imports\\legacy-TASK.39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad.md",
+          "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
+          "size_bytes": 17343,
+          "captured_at": "2026-08-09T06:14:31.4615772Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:14:31.46185Z"
+    },
+    {
+      "id": "portable-recovery-owner-search-record",
+      "title": "Search record: package tools and repository scripts were inspected; scripts/recovery_package.py extends the existing recovery tooling owner because no portable schema/checksum/lineage verifier existed",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D1",
+      "discovered_from": "REC-002 portability and restore work 2026-08-09",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "77980b77-4dc3-4433-9d25-d02d7fb9db43",
+          "verifier": "inspection",
+          "subject": "portable recovery tool owner search and touch list",
+          "result": "verified",
+          "reference": "scripts/recovery_package.py",
+          "sha256": "67433edfc977a76e8cc42c2078afc00fae99d1e23e66d6f9684e2793d9dd4680",
+          "size_bytes": 9912,
+          "captured_at": "2026-08-09T06:19:07.9490168Z"
+        },
+        {
+          "receipt_id": "1055a0f8-747f-439d-96f7-32d9c5c19c7d",
+          "verifier": "inspection",
+          "subject": "REC-002 documentation touch list",
+          "result": "verified",
+          "reference": "MAP.md",
+          "sha256": "d80ea12ef5e663eaf9b2401ac6a4fe6cf07675ce88c2fc5cd48f3328c68e52a9",
+          "size_bytes": 9554,
+          "captured_at": "2026-08-09T06:19:16.0568474Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:19:08.0524566Z"
+    },
+    {
+      "id": "public-ownership-recovery-owner-search-record",
+      "title": "Search record: recovery and data owners were inspected; scripts/recovery_package.py remains the schema/verifier owner and scripts/capture_public_ownership.py was added because no public DNS/RDAP/TLS/HTTP capture owner existed; touch list updated MAP.md, CLIENT.md, DELIVERABLES.md, SOURCES.md, and data-manifest.yaml",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D1",
+      "discovered_from": "REC-003 public ownership and infrastructure recovery 2026-08-09",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "77fee5e6-8017-46fc-bfd9-f202371251c2",
+          "verifier": "inspection",
+          "subject": "public ownership capture owner search",
+          "result": "verified",
+          "reference": "scripts/capture_public_ownership.py",
+          "sha256": "dbd9082d5662273a39d35881d51bd7b38f879d9e0c8b070198927f705307aa5c",
+          "size_bytes": 17802,
+          "captured_at": "2026-08-09T06:56:56.4045347Z"
+        },
+        {
+          "receipt_id": "2ddc9723-d2a1-4dbb-88fd-2a04c4851acf",
+          "verifier": "inspection",
+          "subject": "REC-003 documentation touch list",
+          "result": "verified",
+          "reference": "MAP.md",
+          "sha256": "21d55df50d8432ef7e3c6c75ca68a12695cb41a22d92c1771b0b9810ecaca570",
+          "size_bytes": 9856,
+          "captured_at": "2026-08-09T06:56:56.4750075Z"
+        },
+        {
+          "receipt_id": "e9bf9bfd-bdb4-4535-bee1-593cae4ec71c",
+          "verifier": "inspection",
+          "subject": "public ownership capture owner search",
+          "result": "verified",
+          "reference": "scripts/capture_public_ownership.py",
+          "sha256": "dbd9082d5662273a39d35881d51bd7b38f879d9e0c8b070198927f705307aa5c",
+          "size_bytes": 17802,
+          "captured_at": "2026-08-09T06:57:27.7182521Z"
+        },
+        {
+          "receipt_id": "9c83918a-30c4-4db0-bc4d-ae6792074c36",
+          "verifier": "inspection",
+          "subject": "REC-003 documentation touch list",
+          "result": "verified",
+          "reference": "MAP.md",
+          "sha256": "21d55df50d8432ef7e3c6c75ca68a12695cb41a22d92c1771b0b9810ecaca570",
+          "size_bytes": 9856,
+          "captured_at": "2026-08-09T06:57:27.7687189Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-09T06:56:56.5101782Z"
+    },
+    {
+      "id": "commit-regenerated-value-free-manifests-20260809",
+      "title": "Commit the regenerated value-free runtime-variable manifests, which are two of 28 uncommitted files in this repository",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "intake",
+      "suggested_capability": "intake.external",
+      "entry_depth": "D1",
+      "discovered_from": "agent-harness discovery regenerated-value-free-manifests-uncommittable-20260808",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "a145bc4c-178b-4bf1-aaef-557351d16e84",
+          "verifier": "command",
+          "subject": "git commit --dry-run naming both manifest files passes the credential-exposure guard cleanly on 2026-08-09 so nothing blocks the commit",
+          "result": "verified",
+          "reference": "secret-manifest.json",
+          "sha256": "68f0173c6b0f6e8ca08ee864545ef6afa6745d4a2e05fa3162e1fc6ab38f5bff",
+          "size_bytes": 3360,
+          "captured_at": "2026-08-09T11:19:33.1784351Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-09T11:19:33.2428237Z"
+    },
+    {
+      "id": "path-b-opencart-ecwid-execution-20260809",
+      "title": "Run authenticated OpenCart and Ecwid export and banner work through the selected value-safe Path B broker after provisioning.",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "rebuild-ready-recovery",
+      "entry_depth": "D0",
+      "discovered_from": "Douglas ruling DEC-007 in SOURCES.md",
+      "relationship": "follow-up",
+      "dependencies": [
+        "legacy-task-L75"
+      ],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "medium",
+      "evidence": [
+        {
+          "receipt_id": "ec6c0c1f-99a1-4f4e-b9ee-cd3ad20a62e2",
+          "verifier": "source",
+          "subject": "DEC-007",
+          "result": "verified",
+          "reference": "SOURCES.md",
+          "sha256": "3369d6b8688c99f79d5e1e226f51a36eb8bae6004551a390a8f13bf55b52a618",
+          "size_bytes": 23480,
+          "captured_at": "2026-08-09T20:42:47.8901703Z"
+        }
+      ],
+      "status": "blocked",
+      "captured_at": "2026-08-09T20:42:47.9045115Z"
+    },
+    {
+      "id": "agents-contract-stuck-on-portable-v3-20260810",
+      "title": "This project is the only one still on the portable:v3 project contract, because EnsureProject refuses on a legacy VERIFY.md",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "intake",
+      "suggested_capability": "intake.external",
+      "entry_depth": "D1",
+      "discovered_from": "agent-harness, executing Douglas ruling ahp-project-block-scope: widening the project AGENTS.md managed block to v4",
+      "relationship": "prerequisite",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "medium",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "54b3533a-1836-4262-82ee-492a215feb16",
+          "verifier": "command",
+          "subject": "EnsureProject refused with the message that legacy active state remains at VERIFY.md while the other 28 projects upgraded",
+          "result": "verified",
+          "reference": "AGENTS.md",
+          "sha256": "53856c15aa80302151b945daa4e1ae26d30199813772b70719cd06c94b7fd19c",
+          "size_bytes": 11724,
+          "captured_at": "2026-08-10T04:00:23.2937636Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-10T04:00:23.3576664Z"
+    },
+    {
+      "id": "cloud-kit-rollout-prerequisite-20260811",
+      "title": "Enroll kelly-uniforms-business in the shared hosted-agent cloud kit",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "intake",
+      "suggested_capability": "intake.external",
+      "entry_depth": "D1",
+      "discovered_from": "agent-harness cloud rollout routing 2026-08-11",
+      "relationship": "prerequisite",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "medium",
+      "evidence": [
+        {
+          "receipt_id": "1d8221bb-dca2-4889-9a0c-5642d68554cd",
+          "verifier": "inspection",
+          "subject": ".agents/cloud is absent and the shared rollout registry assigns project-owned enrollment",
+          "result": "verified",
+          "reference": "AGENTS.md",
+          "sha256": "53856c15aa80302151b945daa4e1ae26d30199813772b70719cd06c94b7fd19c",
+          "size_bytes": 11724,
+          "captured_at": "2026-08-11T12:26:56.286963Z"
+        }
+      ],
+      "status": "selected",
+      "captured_at": "2026-08-11T12:26:56.3254257Z"
+    },
+    {
+      "id": "storefront-product-build-20260811",
+      "title": "Design, build, verify, and publish the modern M&T Uniforms storefront prototype",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "customer-storefront",
+      "entry_depth": "D3",
+      "discovered_from": "Douglas authorized a full design pass, product build, and Vercel publication on 2026-08-11. Search record: inspected INTENT.md, DESIGN.md, MAP.md, public recovery records, brand-gallery, app boundaries, design registry, and prior art; no replacement storefront app exists. Touch list: PRODUCT.md, SPEC.md, storefront/**, MAP.md, DESIGN.md, and deployment evidence; brand-gallery and recovery generations remain untouched.",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "medium",
+      "evidence": [
+        {
+          "receipt_id": "a69546d4-ac7f-4f01-80ae-e89efec8e978",
+          "verifier": "inspection",
+          "subject": "client-first storefront scope",
+          "result": "verified",
+          "reference": "INTENT.md",
+          "sha256": "14e2f70625a24d8c5a362356bb2ca1b5a4e8f869d21451883c7214e9d69103aa",
+          "size_bytes": 906,
+          "captured_at": "2026-08-12T03:09:40.6235765Z"
+        },
+        {
+          "receipt_id": "a02d0feb-5765-4c50-8432-02c872049140",
+          "verifier": "inspection",
+          "subject": "recommended storefront direction",
+          "result": "verified",
+          "reference": "DESIGN.md",
+          "sha256": "a0eea57caa43e65217ccc850b5ddd389b11fdd4bddaf6588975d59bca7c3852b",
+          "size_bytes": 10619,
+          "captured_at": "2026-08-12T03:09:40.7869337Z"
+        },
+        {
+          "receipt_id": "1473a4bf-722f-4ed3-a1fa-2fb9ec3ac3c6",
+          "verifier": "inspection",
+          "subject": "public recovery data boundary",
+          "result": "verified",
+          "reference": "data-manifest.yaml",
+          "sha256": "c1ecf4ff6c1947b5b4acf726b9122975760ecfc868152cb4a762da02e83c0709",
+          "size_bytes": 8499,
+          "captured_at": "2026-08-12T03:09:40.8528983Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-12T03:09:40.9491103Z"
+    },
+    {
+      "id": "rec016-manifest-consistency-successor-20260812",
+      "title": "Build an immutable REC-016 successor that reconciles stale REC-015 public-media and account-inventory manifest claims",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "recovery-package-maintenance",
+      "entry_depth": "D2",
+      "discovered_from": "REC-015 completion audit during rebuild-ready recovery objective",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "medium",
+      "evidence": [
+        {
+          "receipt_id": "3810456c-f540-442c-9eb5-39d96ef8ad32",
+          "verifier": "inspection",
+          "subject": "REC-015 manifest consistency against completion evidence",
+          "result": "verified",
+          "reference": "evidence/2026-08-10-rec015-cache-free-operational-recovery.md",
+          "sha256": "beefddf56aa63a8a36661bc11892871489301d04a8dfde347886b676cde9cde5",
+          "size_bytes": 3697,
+          "captured_at": "2026-08-12T12:38:43.0109184Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-12T12:38:43.0727927Z"
+    },
+    {
+      "id": "publish-portable-recovery-system-20260812",
+      "title": "Commit and push the verified portable recovery system and Work Scope authority to the remote repository",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "portable-recovery-repository-custody",
+      "entry_depth": "D3",
+      "discovered_from": "REC-016 completion audit against the full rebuild-ready objective",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "medium",
+      "evidence": [
+        {
+          "receipt_id": "7bb61f79-df2e-4d96-b979-c0436d5622cb",
+          "verifier": "inspection",
+          "subject": "REC-016 tooling and Work Scope are locally verified but absent from remote master",
+          "result": "verified",
+          "reference": "evidence/2026-08-12-rec016-manifest-consistency-successor.md",
+          "sha256": "d862ffd035bb13554c00f51da5dab807d7eb6c7a27ee90927f847cd8d82d743d",
+          "size_bytes": 4265,
+          "captured_at": "2026-08-12T16:14:24.5491614Z"
+        }
+      ],
+      "status": "selected",
+      "captured_at": "2026-08-12T16:14:24.5999668Z"
+    }
+  ],
+  "tracks": [
+    {
+      "id": "business-continuity",
+      "status": "active",
+      "capabilities": [
+        {
+          "id": "rebuild-ready-recovery",
+          "name": "Rebuild-ready business recovery",
+          "current_depth": "D4",
+          "target_depth": "D5",
+          "status": "blocked",
+          "dependencies": [],
+          "blockers": [
+            "legacy-task-L75",
+            "legacy-task-L88",
+            "legacy-task-L89"
+          ],
+          "owner_session": "codex-mt-uniforms-20260809"
+        },
+        {
+          "id": "recovery-package-maintenance",
+          "name": "Build an immutable REC-016 successor that reconciles stale REC-015 public-media and account-inventory manifest claims",
+          "current_depth": "D2",
+          "target_depth": "D2",
+          "status": "closed",
+          "dependencies": [],
+          "blockers": [],
+          "owner_session": "codex-mt-uniforms-20260809"
+        },
+        {
+          "id": "portable-recovery-repository-custody",
+          "name": "Commit and push the verified portable recovery system and Work Scope authority to the remote repository",
+          "current_depth": null,
+          "target_depth": "D3",
+          "status": "active",
+          "dependencies": [],
+          "blockers": [],
+          "owner_session": "codex-mt-uniforms-20260809"
+        }
+      ]
+    },
+    {
+      "id": "storefront-modernization",
+      "status": "active",
+      "capabilities": [
+        {
+          "id": "customer-storefront",
+          "name": "Design, build, verify, and publish the modern M&T Uniforms storefront prototype",
+          "current_depth": "D3",
+          "target_depth": "D3",
+          "status": "closed",
+          "dependencies": [],
+          "blockers": [],
+          "owner_session": "codex-mt-uniforms-20260809"
+        }
+      ]
+    }
+  ],
+  "updated_at": "2026-08-12T16:25:58.8140591Z",
+  "last_event_hash": "cc48a88a399bb8c5e0e79b4976e75a619ba83f46cdf756d11a81cf4628e5da88",
+  "schema_version": "1.0.0",
+  "ownership": {
+    "sessions": [
+      {
+        "session_id": "codex-mt-uniforms-20260809",
+        "track_id": "business-continuity",
+        "capability_id": "portable-recovery-repository-custody",
+        "artifacts": [
+          ".agents/data",
+          ".agents/harness-provenance.json",
+          ".agents/skill-pathways.json",
+          ".agents/work",
+          ".env.example",
+          ".gitattributes",
+          ".gitignore",
+          "ACCESS.md",
+          "BACKBURNER.md",
+          "brand-gallery",
+          "CLIENT.md",
+          "data-manifest.yaml",
+          "DELIVERABLES.md",
+          "DESIGN.md",
+          "docs",
+          "docs/recovery/binary-ready-package-v1.md",
+          "docs/recovery/capture-ready-package-v1.md",
+          "docs/recovery/commerce-normalization-payload-v1.md",
+          "docs/recovery/commerce-normalization-payload-v2.md",
+          "docs/recovery/complete-source-package-v1.md",
+          "docs/recovery/ecwid-api-capture-runbook.md",
+          "docs/recovery/ecwid-api-complete-capture-v2.md",
+          "docs/recovery/ecwid-binary-capture-v1.md",
+          "docs/recovery/opencart-ecwid-import-reconcile-contract.md",
+          "docs/recovery/opencart-native-capture-runbook.md",
+          "docs/recovery/source-ready-package-v1.md",
+          "docs/superpowers/plans/2026-08-09-brand-directions-gallery.md",
+          "evidence",
+          "evidence/2026-08-10-commerce-bundle-importer-v2.md",
+          "evidence/2026-08-10-commerce-bundle-importer.md",
+          "evidence/2026-08-10-commerce-import-contract.md",
+          "evidence/2026-08-10-ecwid-binary-capture-adapter.md",
+          "evidence/2026-08-10-ecwid-capture-adapter.md",
+          "evidence/2026-08-10-ecwid-complete-capture-adapter.md",
+          "evidence/2026-08-10-opencart-native-capture-adapter.md",
+          "evidence/2026-08-10-rec004-public-runtime.md",
+          "evidence/2026-08-10-rec005-commerce-schema.md",
+          "evidence/2026-08-10-rec006-public-media.md",
+          "evidence/2026-08-10-rec007-public-gap-disposition.md",
+          "evidence/2026-08-10-rec008-import-ready-package.md",
+          "evidence/2026-08-10-rec009-capture-ready-package.md",
+          "evidence/2026-08-10-rec010-source-ready-package.md",
+          "evidence/2026-08-10-rec011-complete-source-package.md",
+          "evidence/2026-08-10-rec012-binary-ready-package.md",
+          "evidence/2026-08-11-storefront-prototype.md",
+          "evidence/2026-08-12-rec016-manifest-consistency-successor.md",
+          "INTENT.md",
+          "LOG.md",
+          "MAP.md",
+          "PLATFORM-RECOMMENDATION.md",
+          "PRODUCT.md",
+          "PROJECT.md",
+          "schemas",
+          "schemas/commerce-import-bundle-v1.schema.json",
+          "scripts",
+          "scripts/capture_ecwid_api_v2.py",
+          "scripts/capture_ecwid_api.py",
+          "scripts/capture_ecwid_binaries.py",
+          "scripts/capture_missing_media.py",
+          "scripts/capture_opencart_native_export.py",
+          "scripts/capture_public_runtime.py",
+          "scripts/extend_import_schema.py",
+          "scripts/finalize_public_assets.py",
+          "scripts/import_commerce_bundle_v2.py",
+          "scripts/import_commerce_bundle.py",
+          "scripts/package_binary_ready_generation.py",
+          "scripts/package_capture_ready_generation.py",
+          "scripts/package_complete_source_generation.py",
+          "scripts/package_import_ready_generation.py",
+          "scripts/package_manifest_consistent_generation.py",
+          "scripts/package_source_ready_generation.py",
+          "scripts/recovery_package.py",
+          "scripts/test_capture_ecwid_api_v2.py",
+          "scripts/test_capture_ecwid_api.py",
+          "scripts/test_capture_ecwid_binaries.py",
+          "scripts/test_capture_missing_media.py",
+          "scripts/test_capture_opencart_native_export.py",
+          "scripts/test_capture_public_runtime.py",
+          "scripts/test_finalize_public_assets.py",
+          "scripts/test_import_commerce_bundle_v2.py",
+          "scripts/test_import_commerce_bundle.py",
+          "scripts/test_package_binary_ready_generation.py",
+          "scripts/test_package_capture_ready_generation.py",
+          "scripts/test_package_complete_source_generation.py",
+          "scripts/test_package_import_ready_generation.py",
+          "scripts/test_package_manifest_consistent_generation.py",
+          "scripts/test_package_source_ready_generation.py",
+          "scripts/test_recovery_package.py",
+          "scripts/test_upgrade_commerce_schema.py",
+          "scripts/test_validate_import_bundle.py",
+          "scripts/upgrade_commerce_schema.py",
+          "scripts/validate_import_bundle.py",
+          "secret-manifest.json",
+          "secret-manifest.md",
+          "SOURCES.md",
+          "SPEC.md",
+          "STATUS.md",
+          "STORE-REQUIREMENTS.md",
+          "storefront",
+          "TASK.md",
+          "TRACKS.md",
+          "VERIFY.md",
+          "WEBSITE-UPDATE-RUNBOOK.md"
+        ]
+      },
+      {
+        "session_id": "codex-rec016-20260812",
+        "track_id": "business-continuity",
+        "capability_id": "recovery-package-maintenance",
+        "artifacts": []
+      }
+    ]
+  },
+  "project": {
+    "id": "kelly-uniforms-business",
+    "kind": "client",
+    "initiative_id": "mt-uniforms-replatform",
+    "root": "C:\\Users\\dougl\\Projects\\kelly-uniforms-business",
+    "definition_of_done": [
+      "All active-cell tasks are closed with evidence.",
+      "Generated views reconcile with canonical state."
+    ],
+    "remote": "github.com/douglaspmcgowan/kelly-uniforms-business"
+  },
+  "frontier": {
+    "mode": "expand",
+    "automatic": true,
+    "depth_ceiling": "D5",
+    "breadth_boundary": "project",
+    "selection_strategy": "dependency-first",
+    "handoff_independent_tracks": true,
+    "stop_on": [
+      "destructive_action",
+      "external_publish",
+      "unresolved_collision",
+      "missing_credential",
+      "boundary_change"
+    ]
+  },
+  "created_at": "2026-08-09T06:14:25.2526853Z",
+  "last_event_id": "acc2f515-9754-49c1-80e2-819d77e32af4",
+  "active": {
+    "track_id": "business-continuity",
+    "capability_id": "portable-recovery-repository-custody",
+    "depth": "D3",
+    "cell_id": "portable-recovery-repository-custody@D3",
+    "status": "active",
+    "opened_at": "2026-08-12T16:14:46.1102566Z",
+    "closed_at": null,
+    "goal": "Complete and verify Commit and push the verified portable recovery system and Work Scope authority to the remote repository at D3.",
+    "in_scope": [
+      "portable-recovery-repository-custody"
+    ],
+    "out_of_scope": [],
+    "tasks": [
+      {
+        "id": "publish-portable-recovery-system",
+        "title": "Commit and push the portable recovery system and Work Scope authority",
+        "acceptance": "The remote master tree contains the complete value-safe recovery toolchain, contracts, schemas, tests, evidence, data adapter, brand gallery, generated Work Scope views, canonical state/event/import history, and current REC-016 routing; runtime locks and bytecode are excluded; Gitleaks finds no secrets; all 78 recovery tests, adapter tests, frontend tests/builds, and Work Scope gates pass; the final verifier proves the local tree equals origin/master.",
+        "acceptance_checks": [
+          {
+            "id": "portable-recovery-repository-custody",
+            "verifier": "test",
+            "executable": "C:\\Program Files\\WindowsApps\\Microsoft.PowerShell_7.6.4.0_x64__8wekyb3d8bbwe\\pwsh.exe",
+            "executable_sha256": "db6dd81183fe57d22e03b911ec9a30a2fd7c40542e97743615355a6fb44f458f",
+            "arguments": [
+              "-NoProfile",
+              "-File",
+              "scripts/Test-PortableRecoveryRepository.ps1",
+              "-RequireRemoteTree"
+            ],
+            "arguments_sha256": "77b7d64389d0502679f5127f3f4cb7b058d8375b72a2cbfe8e091e6556e2d5b7",
+            "verifier_inputs": [
+              {
+                "reference": "scripts/Test-PortableRecoveryRepository.ps1",
+                "sha256": "94b4b87b7af26e25dac0be3bb7f87ab8f1ae70105b47b7b8ff7144ab362b6f5f",
+                "size_bytes": 3788
+              }
+            ],
+            "artifacts": [
+              "evidence/2026-08-12-portable-recovery-repository-custody.md",
+              "MAP.md",
+              "scripts/Test-PortableRecoveryRepository.ps1",
+              "SOURCES.md",
+              "VERIFY.md"
+            ],
+            "timeout_seconds": 3600,
+            "max_output_bytes": 1048576
+          }
+        ],
+        "dependencies": [],
+        "status": "ready",
+        "evidence": [],
+        "closed_at": null
+      }
+    ],
+    "evidence": [],
+    "discoveries": []
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "receipt_id": "3cd2f979-4601-4548-bc35-45dd874b3318",
+  "check_id": "rec016-successor-verification-final",
+  "verifier": "test",
+  "subject": "verify-rec016-manifest-consistency-successor",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "recovery-package-maintenance",
+  "cell_id": "recovery-package-maintenance@D2",
+  "task_id": "verify-rec016-manifest-consistency-successor",
+  "result": "pass",
+  "executable": "python.exe",
+  "executable_sha256": "cce21c0e8710e304273e98ac4b2b0f5aceb639acbcd2343cbaa5c4e81619c45b",
+  "arguments_sha256": "f88cffa8e2db33e4567b70cc3c31fe4756908a988b882e0d45b128d6d8ac0236",
+  "output_sha256": "0f2a049cc08d5b66eaf5029f25838932768e71faee30b8c358305c5676a27525",
+  "output_size_bytes": 108,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 3600,
+  "max_output_bytes": 1048576,
+  "verifier_inputs": [
+    {
+      "reference": "evidence/2026-08-12-rec016-manifest-consistency-successor.md",
+      "sha256": "d862ffd035bb13554c00f51da5dab807d7eb6c7a27ee90927f847cd8d82d743d",
+      "size_bytes": 4265
+    },
+    {
+      "reference": "scripts/package_manifest_consistent_generation.py",
+      "sha256": "8eaaa360a77b39dde73bc4c7e84677988e580a5476acdcce147a988473a8f933",
+      "size_bytes": 28938
+    },
+    {
+      "reference": "scripts/test_package_manifest_consistent_generation.py",
+      "sha256": "4bfce510a68595fdde83a362fe07d747079eeb78f05fe95423af7de5bf1bddb6",
+      "size_bytes": 5508
+    }
+  ],
+  "artifacts": [
+    {
+      "reference": "evidence/2026-08-12-rec016-manifest-consistency-successor.md",
+      "sha256": "d862ffd035bb13554c00f51da5dab807d7eb6c7a27ee90927f847cd8d82d743d",
+      "size_bytes": 4265
+    },
+    {
+      "reference": "MAP.md",
+      "sha256": "c69a8fafc512a050fa49136f77ad1407ba4d9314b8697287fa92302efff05ae8",
+      "size_bytes": 14084
+    },
+    {
+      "reference": "scripts/package_manifest_consistent_generation.py",
+      "sha256": "8eaaa360a77b39dde73bc4c7e84677988e580a5476acdcce147a988473a8f933",
+      "size_bytes": 28938
+    },
+    {
+      "reference": "scripts/test_package_manifest_consistent_generation.py",
+      "sha256": "4bfce510a68595fdde83a362fe07d747079eeb78f05fe95423af7de5bf1bddb6",
+      "size_bytes": 5508
+    },
+    {
+      "reference": "SOURCES.md",
+      "sha256": "b04613085f569a3c9bd8a07812e42d7b9e10dc6835fff4f939f550ce8897c389",
+      "size_bytes": 31519
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-12T13:16:23.0408184Z",
+  "finished_at": "2026-08-12T13:16:23.6699127Z"
+}

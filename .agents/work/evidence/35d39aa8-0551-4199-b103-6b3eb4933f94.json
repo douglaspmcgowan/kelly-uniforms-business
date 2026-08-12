@@ -1,0 +1,63 @@
+{
+  "receipt_id": "35d39aa8-0551-4199-b103-6b3eb4933f94",
+  "check_id": "opencart-ecwid-import-contract-verify-v2",
+  "verifier": "test",
+  "subject": "opencart-ecwid-import-contract-v2",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "rebuild-ready-recovery",
+  "cell_id": "rebuild-ready-recovery@D5",
+  "task_id": "opencart-ecwid-import-contract-v2",
+  "result": "pass",
+  "executable": "py.exe",
+  "executable_sha256": "c51dac136d24b196e887e777a0034e971f32ffd7219099ea002f2aaa9243f501",
+  "arguments_sha256": "6106c660eb379d07eccb06210bb90754808ff2309688aafafde3ffee6d0ebffb",
+  "output_sha256": "b93acc559ce0806c9759b4850cb764fc236d9ecc408a2ffb6ab286c0698f7fe8",
+  "output_size_bytes": 112,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 120,
+  "max_output_bytes": 1048576,
+  "verifier_inputs": [
+    {
+      "reference": "schemas/commerce-import-bundle-v1.schema.json",
+      "sha256": "2acb16d9b3517f28d8dc5558540c970fd3cd2fb8b02fcb0e0f04091e0a86678b",
+      "size_bytes": 3024
+    },
+    {
+      "reference": "scripts/test_validate_import_bundle.py",
+      "sha256": "88c3363210e8b28ed3138cb44352c66f632cab659fca55501b35b1c955a4cdae",
+      "size_bytes": 8279
+    },
+    {
+      "reference": "scripts/validate_import_bundle.py",
+      "sha256": "dfb8cc34160c38829cbed4e93dd740dd0eccb92d874d60471d3ef5ad1b84d58d",
+      "size_bytes": 13188
+    }
+  ],
+  "artifacts": [
+    {
+      "reference": "docs/recovery/opencart-ecwid-import-reconcile-contract.md",
+      "sha256": "3d55088d0f1a4b14d93dd805cc27974664642b767fe12b81e0ca103990a97e28",
+      "size_bytes": 6509
+    },
+    {
+      "reference": "schemas/commerce-import-bundle-v1.schema.json",
+      "sha256": "2acb16d9b3517f28d8dc5558540c970fd3cd2fb8b02fcb0e0f04091e0a86678b",
+      "size_bytes": 3024
+    },
+    {
+      "reference": "scripts/test_validate_import_bundle.py",
+      "sha256": "88c3363210e8b28ed3138cb44352c66f632cab659fca55501b35b1c955a4cdae",
+      "size_bytes": 8279
+    },
+    {
+      "reference": "scripts/validate_import_bundle.py",
+      "sha256": "dfb8cc34160c38829cbed4e93dd740dd0eccb92d874d60471d3ef5ad1b84d58d",
+      "size_bytes": 13188
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-09T22:25:47.0307898Z",
+  "finished_at": "2026-08-09T22:25:47.3567396Z"
+}

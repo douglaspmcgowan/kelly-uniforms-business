@@ -1,0 +1,63 @@
+{
+  "receipt_id": "48a2e984-04b9-4e4c-90ad-b678daff26fc",
+  "check_id": "ecwid-binary-capture-verify",
+  "verifier": "test",
+  "subject": "ecwid-binary-capture-v1",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "rebuild-ready-recovery",
+  "cell_id": "rebuild-ready-recovery@D5",
+  "task_id": "ecwid-binary-capture-v1",
+  "result": "pass",
+  "executable": "py.exe",
+  "executable_sha256": "c51dac136d24b196e887e777a0034e971f32ffd7219099ea002f2aaa9243f501",
+  "arguments_sha256": "e9ad562af36e2eb0a7e8893a48c546afa51cfd7d46c53f0ac05e03865750d5e4",
+  "output_sha256": "e461672fea7f74373e167061d160030a04ecab5313b24cf9f0a4f2630794ea8d",
+  "output_size_bytes": 107,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 120,
+  "max_output_bytes": 200000,
+  "verifier_inputs": [
+    {
+      "reference": "docs/recovery/ecwid-api-complete-capture-v2.md",
+      "sha256": "6141eca5a5d06f61c0a3efc3a18436759a8bc152a5b4afd1396edc46774ddeb5",
+      "size_bytes": 3185
+    },
+    {
+      "reference": "scripts/capture_ecwid_api_v2.py",
+      "sha256": "c1cb4beb6b50b95827934b9a9a06dd2351429285da4e511ac97096e8acc7ea14",
+      "size_bytes": 8300
+    },
+    {
+      "reference": "scripts/recovery_package.py",
+      "sha256": "ac983607d290daf8fbe18c1e96a4af62abdbe6feb4068a4b1c6d98216e7abcbf",
+      "size_bytes": 15455
+    }
+  ],
+  "artifacts": [
+    {
+      "reference": "docs/recovery/ecwid-binary-capture-v1.md",
+      "sha256": "46d7f94e44aad6ea3000a38644c1e251b17554b287c02939c267db948f763ea5",
+      "size_bytes": 2157
+    },
+    {
+      "reference": "evidence/2026-08-10-ecwid-binary-capture-adapter.md",
+      "sha256": "9a170cb19ea11c11f23913cd300516a4053cee59766bb1f58de8585294682eb2",
+      "size_bytes": 1336
+    },
+    {
+      "reference": "scripts/capture_ecwid_binaries.py",
+      "sha256": "8b3c8cff4deb13d4c6b6fa16e38ef16800285e5b1196d06edf15f438bff7c9fc",
+      "size_bytes": 11387
+    },
+    {
+      "reference": "scripts/test_capture_ecwid_binaries.py",
+      "sha256": "63bc8126f5fcc5bb6b8c7e25aa262ab4649ddb046da8d3b0768eb96fd3b8a70a",
+      "size_bytes": 8103
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-10T01:36:43.8516329Z",
+  "finished_at": "2026-08-10T01:36:46.1466170Z"
+}

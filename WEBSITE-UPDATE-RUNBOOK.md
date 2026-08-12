@@ -1,6 +1,6 @@
 # MT Uniforms temporary website notice
 
-Last verified: 2026-07-26
+Last verified: 2026-07-30
 
 ## What controls the live site
 
@@ -11,6 +11,30 @@ The public storefront is OpenCart with the Journal 3 theme. Public page assets l
 The likely notice control is in the OpenCart Journal 3 administration area. The supplied Ecwid account remains a separate system whose current operational role is unverified. No public evidence in this pass showed Ecwid rendering the visible storefront.
 
 Sources: `WEB-001`, `WEB-002`, `WEB-003`, `OBS-001`.
+
+The 2026-07-30 live, read-only recheck confirmed that the requested notice
+remained absent, the public site continued to expose OpenCart routes and Journal
+3 assets, and the OpenCart Administration login remained live. No rendered
+Ecwid asset URL was observed. This does not rule out an indirect or back-office
+Ecwid role. See `evidence/2026-07-30-public-site-recheck.md`.
+
+## Resumption and authority
+
+This runbook is the single detailed execution owner for `DEL-001`. Cross-agent
+resumption starts in `CURRENT-TASK.md`; `WORK_QUEUE.md` tracks evidence-backed
+state.
+
+Persisting this plan does not authorize a live website change. Before execution,
+Douglas must:
+
+1. confirm the order mailbox and phone line are ready;
+2. confirm banner-only scope or explicitly expand the contact-change scope;
+3. choose manual sign-in or the reviewed agent broker path; and
+4. explicitly authorize the production edit.
+
+The fastest safe one-time path is manual sign-in by Douglas or the client,
+followed by execution through this runbook. Keep passwords out of chat,
+repository files, screenshots, and logs.
 
 ## Recommended implementation to verify after login
 
@@ -52,8 +76,20 @@ Source: `WEB-005`.
 
 ## Create the notice
 
+> **2026-07-31 correction.** A Header Notice module **already exists** in this
+> installation. The public page source registers
+> `headerNotice: [{m: 56, c: "266c89c7"}]`, though no `module-header_notice-56`
+> markup rendered on the home page — so module 56 exists but is disabled,
+> unassigned, or filtered by its status conditions. **Open module 56 first** and
+> record its name, status, content, and layout assignment. Then decide whether to
+> repurpose it or add a second module; a second visible Header Notice would stack
+> two banners above the header. The same page source registers Notification
+> module 137 (the bottom cookie bar) and shows existing Journal Custom CSS that
+> any export/restore must preserve. Source: `OBS-004`.
+
 1. Go to **Journal → Modules → Header Notice**.
-2. Create a new module. Keep any existing notice intact.
+2. Inspect module 56, then create a new module or edit 56 per the decision above.
+   Keep any existing notice intact unless deliberately repurposing it.
 3. Set **Module Name** to `MT Temporary Ordering Notice`.
 4. Set **Status** to **Admin Only** for the preview.
 5. Leave scheduling blank unless the client supplies explicit start and end times.
@@ -145,6 +181,31 @@ Keep the exported Journal settings as a supplemental configuration snapshot. Con
 The direct cart route loaded successfully with an empty-cart message during the 2026-07-26 public check. This does not reproduce the client's reported failure, which may occur after adding a product, during checkout, on a particular device, or through another link. No cart state, customer data, inventory, or order was changed during this check.
 
 Source: `OBS-002`.
+
+The 2026-07-31 scope went further. `POST index.php?route=checkout/cart/add` works
+and returns correct server-side option validation, so the endpoint itself is not
+broken. The leading root-cause hypothesis is a **www/non-www host split**:
+`https://www.mtuniforms.com/` serves 200 without redirecting, yet declares
+`<base href="https://mtuniforms.com/">` and a non-www canonical, while `OCSESSID`
+is set host-only — so the two hosts hold separate carts, and the required-options
+popup is fetched from the host the customer's cart is not on. That is a
+server/OpenCart configuration fix, not a theme edit, and it belongs to `DEL-002`,
+not this runbook. Source: `OBS-004`,
+`evidence/2026-07-31-site-architecture-scope.md`.
+
+## Logo and asset boundary
+
+The notice does not require a logo change. The following assets are available
+for later, separately authorized work:
+
+- client-supplied `MT Logo.PNG`, a 1024×1024 raster logo under the declared
+  project data root;
+- six additional client-supplied raster marketing/image assets; and
+- the current public header's cached 299×82 logo asset.
+
+Trademark clearance, public-reuse rights, and vector/source originals remain
+unconfirmed. Do not replace the live logo or publish supplied assets as part of
+`DEL-001`.
 
 ## Source links
 

@@ -1,0 +1,63 @@
+{
+  "receipt_id": "23667517-ef1a-4be9-a71a-8261f8363b62",
+  "check_id": "opencart-native-export-capture-verify",
+  "verifier": "test",
+  "subject": "opencart-native-export-capture-v1",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "rebuild-ready-recovery",
+  "cell_id": "rebuild-ready-recovery@D5",
+  "task_id": "opencart-native-export-capture-v1",
+  "result": "pass",
+  "executable": "py.exe",
+  "executable_sha256": "c51dac136d24b196e887e777a0034e971f32ffd7219099ea002f2aaa9243f501",
+  "arguments_sha256": "823578b51698205434935c07d971695caf70043fc4a13ac07d98279884f4b4fb",
+  "output_sha256": "1c14e0ab8a85d7034e3ccf38525ed35d87313329395d1f6e1ba9e8478006ba61",
+  "output_size_bytes": 120,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 120,
+  "max_output_bytes": 200000,
+  "verifier_inputs": [
+    {
+      "reference": "docs/recovery/opencart-ecwid-import-reconcile-contract.md",
+      "sha256": "3d55088d0f1a4b14d93dd805cc27974664642b767fe12b81e0ca103990a97e28",
+      "size_bytes": 6509
+    },
+    {
+      "reference": "schemas/commerce-import-bundle-v1.schema.json",
+      "sha256": "2acb16d9b3517f28d8dc5558540c970fd3cd2fb8b02fcb0e0f04091e0a86678b",
+      "size_bytes": 3024
+    },
+    {
+      "reference": "scripts/recovery_package.py",
+      "sha256": "ac983607d290daf8fbe18c1e96a4af62abdbe6feb4068a4b1c6d98216e7abcbf",
+      "size_bytes": 15455
+    }
+  ],
+  "artifacts": [
+    {
+      "reference": "docs/recovery/opencart-native-capture-runbook.md",
+      "sha256": "a4757da90e2cf5ffaa4dc4464f334e3c7183d45852e34faaed0930103e4f4d12",
+      "size_bytes": 3243
+    },
+    {
+      "reference": "evidence/2026-08-10-opencart-native-capture-adapter.md",
+      "sha256": "4c4dfe596d46f9813ad82ee72b9fdedcf9dd0352b8d72e5b9973aab5e0f49878",
+      "size_bytes": 1672
+    },
+    {
+      "reference": "scripts/capture_opencart_native_export.py",
+      "sha256": "af268520b5714db24a94da72f9cec7d2ac88596f25e9e729dd4fe84b2eb8d030",
+      "size_bytes": 6075
+    },
+    {
+      "reference": "scripts/test_capture_opencart_native_export.py",
+      "sha256": "76689f1688058fbb3672892744d8a53d31ea6311e8ca1b9f6e0368a326c74021",
+      "size_bytes": 5842
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-10T01:03:54.3441990Z",
+  "finished_at": "2026-08-10T01:03:54.6336027Z"
+}

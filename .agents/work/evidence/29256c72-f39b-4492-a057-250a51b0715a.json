@@ -1,0 +1,42 @@
+{
+  "receipt_id": "29256c72-f39b-4492-a057-250a51b0715a",
+  "check_id": "public-gap-rec007-verify",
+  "verifier": "command",
+  "subject": "public-gap-rec007-v1",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "rebuild-ready-recovery",
+  "cell_id": "rebuild-ready-recovery@D4",
+  "task_id": "public-gap-rec007-v1",
+  "result": "pass",
+  "executable": "py.exe",
+  "executable_sha256": "c51dac136d24b196e887e777a0034e971f32ffd7219099ea002f2aaa9243f501",
+  "arguments_sha256": "be2381c582cc87a9e958e9e2672540f95f70577810eeaada85c426393ef1083a",
+  "output_sha256": "8c887a9811b1f07ad0b3b26e1287fe243346503e2caa600d64173ee1cde68598",
+  "output_size_bytes": 1237,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 900,
+  "max_output_bytes": 1048576,
+  "verifier_inputs": [],
+  "artifacts": [
+    {
+      "reference": "evidence/2026-08-10-rec007-public-gap-disposition.md",
+      "sha256": "a518f96733b250198ae541ec78516fc86f1c5fce9b3c0ab1e4729a7d7eb733c1",
+      "size_bytes": 2833
+    },
+    {
+      "reference": "scripts/finalize_public_assets.py",
+      "sha256": "9f708c290204cfe977c7d0a50df642d08bb60eee10e11e07f30bc9f36e89f170",
+      "size_bytes": 11700
+    },
+    {
+      "reference": "scripts/test_finalize_public_assets.py",
+      "sha256": "0106d91150aa58174f7e2d0b0c3c6a20c53daa1bd169592aa179ad147e0a6696",
+      "size_bytes": 1643
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-09T22:05:36.7472787Z",
+  "finished_at": "2026-08-09T22:05:41.1346743Z"
+}
