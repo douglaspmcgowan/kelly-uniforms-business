@@ -223,3 +223,11 @@
 - 08/12/2026 18:51:54 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=a2b3c3f0-7585-4389-943c-8b5b21b9783b
 - 08/12/2026 18:51:59 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=74dadd43-a86f-4d3a-a64c-8ba49ffb2452
 - 08/12/2026 18:52:04 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=a4ae4dbf-a655-46b1-b00f-ca34816e56da
+- 08/12/2026 18:56:32 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=c88eae7f-07b3-48f4-9ba1-478c20662421
+- 08/12/2026 18:56:42 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=110728ab-f116-4ca9-a928-665f1bc63d8b
+- 08/12/2026 18:56:49 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=d1d79ead-f46c-4124-b74a-2863c234fbe1
+- 08/12/2026 18:56:55 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=53b09f62-839c-41d2-a12f-9d9c4445188a
+- 08/12/2026 18:57:00 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=4045abd8-8026-44ff-a5e2-be6e0d5aa520
+- 08/12/2026 18:57:06 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=abf866ca-a0c9-494d-8de4-88717f041890
+- 08/12/2026 18:57:16 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=6be81cc5-709d-40d5-a02c-52321e750c91
+- 08/12/2026 18:57:23 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=179e621a-6f4f-4dde-a6d4-ff6003140558

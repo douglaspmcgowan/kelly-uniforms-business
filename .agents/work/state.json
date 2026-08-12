@@ -1,5 +1,5 @@
 {
-  "revision": 222,
+  "revision": 230,
   "backburner": [
     {
       "id": "legacy-task-L73",
@@ -521,7 +521,9 @@
       "discovered_from": "TASK.md:L92",
       "relationship": "follow-up",
       "dependencies": [],
-      "blockers": [],
+      "blockers": [
+        "client-supplied-clover-merchant-agreement"
+      ],
       "conflicts": [],
       "value": "low",
       "risk": "low",
@@ -535,9 +537,19 @@
           "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
           "size_bytes": 17343,
           "captured_at": "2026-08-09T06:14:31.4319077Z"
+        },
+        {
+          "receipt_id": "4628085a-b4c3-4af3-a669-e2ea5f5aeca1",
+          "verifier": "source",
+          "subject": "Clover authenticated scope exclusion",
+          "result": "verified",
+          "reference": "SOURCES.md",
+          "sha256": "c1d7eac580839c1b6a958d61f1f84c704aaf5c602538f6c1c9a990b0653dbdb5",
+          "size_bytes": 32645,
+          "captured_at": "2026-08-12T18:56:01.9840387Z"
         }
       ],
-      "status": "ready",
+      "status": "blocked",
       "captured_at": "2026-08-09T06:14:31.4325739Z"
     },
     {
@@ -591,7 +603,9 @@
       "discovered_from": "TASK.md:L94",
       "relationship": "follow-up",
       "dependencies": [],
-      "blockers": [],
+      "blockers": [
+        "client-brand-direction-selection"
+      ],
       "conflicts": [],
       "value": "low",
       "risk": "low",
@@ -605,9 +619,19 @@
           "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
           "size_bytes": 17343,
           "captured_at": "2026-08-09T06:14:31.4345348Z"
+        },
+        {
+          "receipt_id": "7467c3f9-1317-4031-8190-d33c12c74b2e",
+          "verifier": "artifact",
+          "subject": "brand direction decision gallery",
+          "result": "verified",
+          "reference": "brand-gallery/PRODUCT.md",
+          "sha256": "81a0d68ae696386cfef945e2d7c902610952ffac80362644aeea9b5bcf940c6e",
+          "size_bytes": 1591,
+          "captured_at": "2026-08-12T18:56:38.3862742Z"
         }
       ],
-      "status": "ready",
+      "status": "blocked",
       "captured_at": "2026-08-09T06:14:31.4359508Z"
     },
     {
@@ -903,7 +927,9 @@
       "discovered_from": "TASK.md:L102",
       "relationship": "follow-up",
       "dependencies": [],
-      "blockers": [],
+      "blockers": [
+        "legacy-task-L100"
+      ],
       "conflicts": [],
       "value": "low",
       "risk": "low",
@@ -917,9 +943,19 @@
           "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
           "size_bytes": 17343,
           "captured_at": "2026-08-09T06:14:31.4419884Z"
+        },
+        {
+          "receipt_id": "24b6b0c9-900c-4fcc-b410-3085dd664c7a",
+          "verifier": "test",
+          "subject": "public notice layout and navigation visibility",
+          "result": "pass",
+          "reference": "evidence/public-ordering-notice-20260812/report.json",
+          "sha256": "6c36006eec72c4e0213b1af53c3538cc9b4b22547651f9dda56685cc9be71615",
+          "size_bytes": 5903,
+          "captured_at": "2026-08-12T18:56:45.6303265Z"
         }
       ],
-      "status": "ready",
+      "status": "blocked",
       "captured_at": "2026-08-09T06:14:31.4423098Z"
     },
     {
@@ -1012,7 +1048,9 @@
       "discovered_from": "TASK.md:L105",
       "relationship": "follow-up",
       "dependencies": [],
-      "blockers": [],
+      "blockers": [
+        "client-attended-outcome-discovery"
+      ],
       "conflicts": [],
       "value": "low",
       "risk": "low",
@@ -1026,9 +1064,19 @@
           "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
           "size_bytes": 17343,
           "captured_at": "2026-08-09T06:14:31.4441445Z"
+        },
+        {
+          "receipt_id": "fdf05954-0893-4090-8560-5c5fcb8bb100",
+          "verifier": "source",
+          "subject": "current client outcomes and remaining approval boundary",
+          "result": "verified",
+          "reference": "CLIENT.md",
+          "sha256": "16fb0021747d7c14cedc22fafb92a67d630849ec2ed4912637837cac810ce3ff",
+          "size_bytes": 15801,
+          "captured_at": "2026-08-12T18:56:52.044051Z"
         }
       ],
-      "status": "ready",
+      "status": "blocked",
       "captured_at": "2026-08-09T06:14:31.4444182Z"
     },
     {
@@ -1041,7 +1089,10 @@
       "discovered_from": "TASK.md:L106",
       "relationship": "follow-up",
       "dependencies": [],
-      "blockers": [],
+      "blockers": [
+        "legacy-task-L105",
+        "platform-finalists-and-trial-accounts"
+      ],
       "conflicts": [],
       "value": "low",
       "risk": "low",
@@ -1055,9 +1106,19 @@
           "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
           "size_bytes": 17343,
           "captured_at": "2026-08-09T06:14:31.4446708Z"
+        },
+        {
+          "receipt_id": "d87aebd5-b356-43c6-97c4-aee84cbb5b0d",
+          "verifier": "source",
+          "subject": "platform trial acceptance prerequisite",
+          "result": "verified",
+          "reference": "PLATFORM-RECOMMENDATION.md",
+          "sha256": "3ef7ece9d38ac1736519b771d8321dc452d1de22daf6d46659ef2a00c23ddf55",
+          "size_bytes": 6890,
+          "captured_at": "2026-08-12T18:56:57.8703578Z"
         }
       ],
-      "status": "ready",
+      "status": "blocked",
       "captured_at": "2026-08-09T06:14:31.4449672Z"
     },
     {
@@ -1070,7 +1131,10 @@
       "discovered_from": "TASK.md:L107",
       "relationship": "follow-up",
       "dependencies": [],
-      "blockers": [],
+      "blockers": [
+        "legacy-task-L106",
+        "authorized-vendor-contact-channel"
+      ],
       "conflicts": [],
       "value": "low",
       "risk": "low",
@@ -1084,9 +1148,19 @@
           "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
           "size_bytes": 17343,
           "captured_at": "2026-08-09T06:14:31.4452717Z"
+        },
+        {
+          "receipt_id": "f8ac433e-9c6b-4840-8a0d-1a0da7877380",
+          "verifier": "source",
+          "subject": "accessibility procurement requirement",
+          "result": "verified",
+          "reference": "STORE-REQUIREMENTS.md",
+          "sha256": "f70ae25b61e0d64d2687b37f9584df79c8e26bf00ecb9dfed0b30799269c8e46",
+          "size_bytes": 12189,
+          "captured_at": "2026-08-12T18:57:03.5331043Z"
         }
       ],
-      "status": "ready",
+      "status": "blocked",
       "captured_at": "2026-08-09T06:14:31.4455778Z"
     },
     {
@@ -1113,9 +1187,19 @@
           "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
           "size_bytes": 17343,
           "captured_at": "2026-08-09T06:14:31.445909Z"
+        },
+        {
+          "receipt_id": "c5b96ba1-0505-4ecd-a455-c53880b717fb",
+          "verifier": "source",
+          "subject": "agency allowance deferral decision",
+          "result": "verified",
+          "reference": "SOURCES.md",
+          "sha256": "c1d7eac580839c1b6a958d61f1f84c704aaf5c602538f6c1c9a990b0653dbdb5",
+          "size_bytes": 32645,
+          "captured_at": "2026-08-12T18:57:11.4850197Z"
         }
       ],
-      "status": "ready",
+      "status": "rejected",
       "captured_at": "2026-08-09T06:14:31.4462094Z"
     },
     {
@@ -1849,9 +1933,19 @@
           "sha256": "68f0173c6b0f6e8ca08ee864545ef6afa6745d4a2e05fa3162e1fc6ab38f5bff",
           "size_bytes": 3360,
           "captured_at": "2026-08-09T11:19:33.1784351Z"
+        },
+        {
+          "receipt_id": "6001e03b-0769-4ecb-98c6-37f2bd67d7d3",
+          "verifier": "artifact",
+          "subject": "current committed value-free harness manifest",
+          "result": "verified",
+          "reference": ".agents/harness-provenance.json",
+          "sha256": "cfd560bbc1741c5db1520b4759b8f911cd6ad79beec63ecd8161dca85d731344",
+          "size_bytes": 2284,
+          "captured_at": "2026-08-12T18:57:19.7008010Z"
         }
       ],
-      "status": "ready",
+      "status": "rejected",
       "captured_at": "2026-08-09T11:19:33.2428237Z"
     },
     {
@@ -2254,8 +2348,8 @@
       ]
     }
   ],
-  "updated_at": "2026-08-12T18:52:06.4471069Z",
-  "last_event_hash": "feb1a3998aa674e23f69529e07d6aa9cfd30b41b516f00f1c1eca22b6aeb5283",
+  "updated_at": "2026-08-12T18:57:25.3250900Z",
+  "last_event_hash": "298f6304f09d05c81ab0a1c56b3d454d1f7c497b838aa3be88e829d02997f2ff",
   "schema_version": "1.0.0",
   "ownership": {
     "sessions": [
@@ -2417,7 +2511,7 @@
     ]
   },
   "created_at": "2026-08-09T06:14:25.2526853Z",
-  "last_event_id": "a4ae4dbf-a655-46b1-b00f-ca34816e56da",
+  "last_event_id": "179e621a-6f4f-4dde-a6d4-ff6003140558",
   "active": {
     "track_id": "business-continuity",
     "capability_id": "public-ordering-notice-verification",

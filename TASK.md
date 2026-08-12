@@ -53,4 +53,4 @@ Complete and verify Verify the published temporary ordering notice across repres
 
 ## Next transition
 
-frontier_transition
+stop
