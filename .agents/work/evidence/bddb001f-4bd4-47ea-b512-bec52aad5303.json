@@ -1,0 +1,58 @@
+{
+  "receipt_id": "bddb001f-4bd4-47ea-b512-bec52aad5303",
+  "check_id": "portable-recovery-repository-custody",
+  "verifier": "test",
+  "subject": "publish-portable-recovery-system",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "portable-recovery-repository-custody",
+  "cell_id": "portable-recovery-repository-custody@D3",
+  "task_id": "publish-portable-recovery-system",
+  "result": "fail",
+  "executable": "pwsh.exe",
+  "executable_sha256": "db6dd81183fe57d22e03b911ec9a30a2fd7c40542e97743615355a6fb44f458f",
+  "arguments_sha256": "77b7d64389d0502679f5127f3f4cb7b058d8375b72a2cbfe8e091e6556e2d5b7",
+  "output_sha256": "c954729cf52066051839e68d6ccb05afd34b318e30817965082fce22004730c6",
+  "output_size_bytes": 2109,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 3600,
+  "max_output_bytes": 1048576,
+  "verifier_inputs": [
+    {
+      "reference": "scripts/Test-PortableRecoveryRepository.ps1",
+      "sha256": "94b4b87b7af26e25dac0be3bb7f87ab8f1ae70105b47b7b8ff7144ab362b6f5f",
+      "size_bytes": 3788
+    }
+  ],
+  "artifacts": [
+    {
+      "reference": "evidence/2026-08-12-portable-recovery-repository-custody.md",
+      "sha256": "46d550e32ba6ac4ef3ab10a929ab5b75d9fa7f83980d32e062a825cabbf82bf6",
+      "size_bytes": 2594
+    },
+    {
+      "reference": "MAP.md",
+      "sha256": "54cdcfe87eca42c54c73fc020c00eee538814755b89814de476209e0e7866554",
+      "size_bytes": 14138
+    },
+    {
+      "reference": "scripts/Test-PortableRecoveryRepository.ps1",
+      "sha256": "94b4b87b7af26e25dac0be3bb7f87ab8f1ae70105b47b7b8ff7144ab362b6f5f",
+      "size_bytes": 3788
+    },
+    {
+      "reference": "SOURCES.md",
+      "sha256": "b5263b36572a3ba2f774dd629002420bab22f3eb997b82252d5c5d6922e49a8e",
+      "size_bytes": 31621
+    },
+    {
+      "reference": "VERIFY.md",
+      "sha256": "32ec282e081c495f316d57dde622ae4c7651376fa0a763462cebf1fe488b2dce",
+      "size_bytes": 2017
+    }
+  ],
+  "exit_code": 1,
+  "started_at": "2026-08-12T17:08:08.8176622Z",
+  "finished_at": "2026-08-12T17:10:35.8825722Z"
+}
