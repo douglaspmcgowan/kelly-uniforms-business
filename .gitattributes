@@ -33,3 +33,15 @@
 .agents/skills/writing-plans/** whitespace=-blank-at-eol,-blank-at-eof
 .agents/skills/writing-skills/** whitespace=-blank-at-eol,-blank-at-eof
 # agent-harness:project-gitattributes:v1:end
+
+# Work Scope evidence receipts hash these artifacts byte-for-byte. Pin LF so
+# Windows core.autocrlf checkouts preserve the verified bytes.
+CLIENT.md -text whitespace=-blank-at-eol,-blank-at-eof
+SOURCES.md -text whitespace=-blank-at-eol,-blank-at-eof
+WEBSITE-UPDATE-RUNBOOK.md -text whitespace=-blank-at-eol,-blank-at-eof
+BACKBURNER.md -text whitespace=-blank-at-eol,-blank-at-eof
+LOG.md -text whitespace=-blank-at-eol,-blank-at-eof
+TASK.md -text whitespace=-blank-at-eol,-blank-at-eof
+TRACKS.md -text whitespace=-blank-at-eol,-blank-at-eof
+evidence/2026-08-12-public-cart-host-session-split.md text eol=lf
+scripts/Test-PublicCartHostSessionSplit.ps1 text eol=lf
