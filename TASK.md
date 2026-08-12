@@ -5,7 +5,7 @@
 Project: kelly-uniforms-business
 Initiative: mt-uniforms-replatform
 Primary track: business-continuity
-Capability: public-cart-session-diagnosis
+Capability: public-ordering-notice-verification
 Depth: D1 (Direct)
 Frontier mode: expand
 Depth ceiling: D5
@@ -15,11 +15,11 @@ Status: closed
 
 ## Goal
 
-Complete and verify Reproduce and record the public www/non-www OpenCart cart-session split without authenticated access at D1.
+Complete and verify Verify the published temporary ordering notice across representative desktop and mobile public layouts at D1.
 
 ## In scope
 
-- public-cart-session-diagnosis
+- public-ordering-notice-verification
 
 ## Out of scope
 
@@ -33,11 +33,11 @@ Complete and verify Reproduce and record the public www/non-www OpenCart cart-se
 
 ## Tasks
 
-- [x] prove-public-cart-host-session-split: Prove the public OpenCart www/non-www cart-session split with an option-complete add (status: closed; acceptance: A disposable unauthenticated option-complete add succeeds on www, its generated cart link uses the bare host, the product is present only in the www cart, cookie domains prove separate sessions without recording values, and the source ledger and client runbook record the confirmed root cause and hosting repair boundary.)
+- [x] verify-public-ordering-notice-layouts: Verify the published ordering notice on representative desktop and mobile layouts (status: closed; acceptance: A fresh unauthenticated browser pass proves the exact requested notice is visible above the header without overflow on home, category, product, and cart layouts at desktop and mobile widths; email linking and navigation visibility are checked; screenshots and a sanitized report are preserved; remaining phone-link, dismissibility, and authenticated-state limitations are recorded without overstating completion.)
 
 ## Declared acceptance checks
 
-- prove-public-cart-host-session-split/public-cart-host-session-split-live: C:\Program Files\WindowsApps\Microsoft.PowerShell_7.6.4.0_x64__8wekyb3d8bbwe\pwsh.exe argv=["-NoProfile","-File","scripts/Test-PublicCartHostSessionSplit.ps1","-OutputPath","evidence/2026-08-12-public-cart-host-session-split.json"]; inputs=[scripts/Test-PublicCartHostSessionSplit.ps1]; artifacts=[CLIENT.md, evidence/2026-08-12-public-cart-host-session-split.json, evidence/2026-08-12-public-cart-host-session-split.md, scripts/Test-PublicCartHostSessionSplit.ps1, SOURCES.md, WEBSITE-UPDATE-RUNBOOK.md]; timeout=300s; max-output=1048576B
+- verify-public-ordering-notice-layouts/public-ordering-notice-live-layouts: C:\Program Files\nodejs\node.exe argv=["scripts/verify-public-ordering-notice.mjs","--output","evidence/public-ordering-notice-20260812"]; inputs=[scripts/verify-public-ordering-notice.mjs]; artifacts=[evidence/2026-08-12-public-ordering-notice-verification.md, evidence/public-ordering-notice-20260812/desktop-cart.png, evidence/public-ordering-notice-20260812/desktop-category.png, evidence/public-ordering-notice-20260812/desktop-home.png, evidence/public-ordering-notice-20260812/desktop-product.png, evidence/public-ordering-notice-20260812/mobile-cart.png, evidence/public-ordering-notice-20260812/mobile-category.png, evidence/public-ordering-notice-20260812/mobile-home.png, evidence/public-ordering-notice-20260812/mobile-product.png, evidence/public-ordering-notice-20260812/report.json, scripts/verify-public-ordering-notice.mjs, SOURCES.md, WEBSITE-UPDATE-RUNBOOK.md]; timeout=300s; max-output=1048576B
 
 ## Blockers and dependencies
 
@@ -45,7 +45,7 @@ Complete and verify Reproduce and record the public www/non-www OpenCart cart-se
 
 ## Verification evidence
 
-- [test/pass] prove-public-cart-host-session-split | .agents/work/evidence/b9b95b57-a941-4fe6-8851-540df6a52034.json | sha256:0f84e9af20a7 | receipt:b9b95b57-a941-4fe6-8851-540df6a52034
+- [test/pass] verify-public-ordering-notice-layouts | .agents/work/evidence/d32d2e86-52e5-438e-a215-c23e371d1d08.json | sha256:465a06e5bb78 | receipt:d32d2e86-52e5-438e-a215-c23e371d1d08
 
 ## Discoveries captured
 

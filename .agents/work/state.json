@@ -1,5 +1,5 @@
 {
-  "revision": 211,
+  "revision": 222,
   "backburner": [
     {
       "id": "legacy-task-L73",
@@ -725,7 +725,7 @@
           "reference": "evidence/2026-08-12-public-cart-host-session-split.json",
           "sha256": "1b6d938d3d8d00847131f773085a5e413609994e6a47c5844a749a5f4b512121",
           "size_bytes": 1927,
-          "captured_at": "2026-08-12T18:28:39.3990320Z"
+          "captured_at": "2026-08-12T18:28:39.399032Z"
         }
       ],
       "status": "closed",
@@ -782,7 +782,9 @@
       "discovered_from": "TASK.md:L99",
       "relationship": "follow-up",
       "dependencies": [],
-      "blockers": [],
+      "blockers": [
+        "legacy-task-L75"
+      ],
       "conflicts": [],
       "value": "low",
       "risk": "low",
@@ -796,9 +798,19 @@
           "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
           "size_bytes": 17343,
           "captured_at": "2026-08-09T06:14:31.4398188Z"
+        },
+        {
+          "receipt_id": "5dfe9404-9f89-4e18-9292-4a39fe484000",
+          "verifier": "inspection",
+          "subject": "authenticated Journal module state boundary",
+          "result": "verified",
+          "reference": "evidence/2026-08-12-public-ordering-notice-verification.md",
+          "sha256": "993df9853f322c2f527865fb92ff4a1aa23ff41505a67551471bc24ac18a817a",
+          "size_bytes": 1854,
+          "captured_at": "2026-08-12T18:51:56.7705002Z"
         }
       ],
-      "status": "ready",
+      "status": "blocked",
       "captured_at": "2026-08-09T06:14:31.4401941Z"
     },
     {
@@ -811,7 +823,9 @@
       "discovered_from": "TASK.md:L100",
       "relationship": "follow-up",
       "dependencies": [],
-      "blockers": [],
+      "blockers": [
+        "legacy-task-L75"
+      ],
       "conflicts": [],
       "value": "low",
       "risk": "low",
@@ -825,9 +839,19 @@
           "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
           "size_bytes": 17343,
           "captured_at": "2026-08-09T06:14:31.4405634Z"
+        },
+        {
+          "receipt_id": "326738f5-7475-4f96-9489-0ca6e235bb59",
+          "verifier": "test",
+          "subject": "public notice limitations",
+          "result": "verified",
+          "reference": "evidence/public-ordering-notice-20260812/report.json",
+          "sha256": "6c36006eec72c4e0213b1af53c3538cc9b4b22547651f9dda56685cc9be71615",
+          "size_bytes": 5903,
+          "captured_at": "2026-08-12T18:52:01.7365444Z"
         }
       ],
-      "status": "ready",
+      "status": "blocked",
       "captured_at": "2026-08-09T06:14:31.4409468Z"
     },
     {
@@ -854,9 +878,19 @@
           "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
           "size_bytes": 17343,
           "captured_at": "2026-08-09T06:14:31.4413331Z"
+        },
+        {
+          "receipt_id": "1494700f-0480-43cf-825a-51e4e2a362ff",
+          "verifier": "test",
+          "subject": "published notice across eight route and viewport combinations",
+          "result": "pass",
+          "reference": "evidence/public-ordering-notice-20260812/report.json",
+          "sha256": "6c36006eec72c4e0213b1af53c3538cc9b4b22547651f9dda56685cc9be71615",
+          "size_bytes": 5903,
+          "captured_at": "2026-08-12T18:51:46.4557233Z"
         }
       ],
-      "status": "ready",
+      "status": "closed",
       "captured_at": "2026-08-09T06:14:31.4416603Z"
     },
     {
@@ -912,9 +946,19 @@
           "sha256": "39ae36c38d44be2f874bae13717854e8b086feeecc12f57053d8af8c6466bbad",
           "size_bytes": 17343,
           "captured_at": "2026-08-09T06:14:31.442591Z"
+        },
+        {
+          "receipt_id": "cc7194d7-8ae7-4c20-95bb-8e5bea670a9c",
+          "verifier": "test",
+          "subject": "reported cart and connection failure root cause",
+          "result": "pass",
+          "reference": "evidence/2026-08-12-public-cart-host-session-split.json",
+          "sha256": "1b6d938d3d8d00847131f773085a5e413609994e6a47c5844a749a5f4b512121",
+          "size_bytes": 1927,
+          "captured_at": "2026-08-12T18:51:51.9653859Z"
         }
       ],
-      "status": "ready",
+      "status": "closed",
       "captured_at": "2026-08-09T06:14:31.4432038Z"
     },
     {
@@ -2085,6 +2129,35 @@
       ],
       "status": "closed",
       "captured_at": "2026-08-12T18:21:23.5410913Z"
+    },
+    {
+      "id": "public-ordering-notice-layout-verification-20260812",
+      "title": "Verify the published temporary ordering notice across representative desktop and mobile public layouts",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "business-continuity",
+      "suggested_capability": "public-ordering-notice-verification",
+      "entry_depth": "D1",
+      "discovered_from": "legacy-task-L101; authenticated publication is already publicly observable and verification is independent of admin access",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "low",
+      "evidence": [
+        {
+          "receipt_id": "fa233acb-1872-4af1-b1fe-e279cdbef0f8",
+          "verifier": "inspection",
+          "subject": "live notice presence on home product category and cart HTML",
+          "result": "verified",
+          "reference": "WEBSITE-UPDATE-RUNBOOK.md",
+          "sha256": "576770546ec7c047e7c4994101c0996fdbb1d853d6793a84c100d4796f7ac71d",
+          "size_bytes": 11495,
+          "captured_at": "2026-08-12T18:47:19.5241049Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-12T18:47:19.572047Z"
     }
   ],
   "tracks": [
@@ -2135,6 +2208,16 @@
           "dependencies": [],
           "blockers": [],
           "owner_session": "codex-mt-uniforms-20260809"
+        },
+        {
+          "id": "public-ordering-notice-verification",
+          "name": "Verify the published temporary ordering notice across representative desktop and mobile public layouts",
+          "current_depth": "D1",
+          "target_depth": "D1",
+          "status": "closed",
+          "dependencies": [],
+          "blockers": [],
+          "owner_session": "codex-mt-uniforms-20260809"
         }
       ]
     },
@@ -2171,8 +2254,8 @@
       ]
     }
   ],
-  "updated_at": "2026-08-12T18:28:49.8533916Z",
-  "last_event_hash": "f40366c49be478daa69bd7c5fbd8a40199d6819667ffc8c0f67a337e0c4444a3",
+  "updated_at": "2026-08-12T18:52:06.4471069Z",
+  "last_event_hash": "feb1a3998aa674e23f69529e07d6aa9cfd30b41b516f00f1c1eca22b6aeb5283",
   "schema_version": "1.0.0",
   "ownership": {
     "sessions": [
@@ -2334,51 +2417,56 @@
     ]
   },
   "created_at": "2026-08-09T06:14:25.2526853Z",
-  "last_event_id": "c349d87b-f425-41e3-816c-a6d85a66a983",
+  "last_event_id": "a4ae4dbf-a655-46b1-b00f-ca34816e56da",
   "active": {
     "track_id": "business-continuity",
-    "capability_id": "public-cart-session-diagnosis",
+    "capability_id": "public-ordering-notice-verification",
     "depth": "D1",
-    "cell_id": "public-cart-session-diagnosis@D1",
+    "cell_id": "public-ordering-notice-verification@D1",
     "status": "closed",
-    "opened_at": "2026-08-12T18:21:40.7268145Z",
-    "closed_at": "2026-08-12T18:27:43.9650972Z",
-    "goal": "Complete and verify Reproduce and record the public www/non-www OpenCart cart-session split without authenticated access at D1.",
+    "opened_at": "2026-08-12T18:47:31.6531632Z",
+    "closed_at": "2026-08-12T18:51:39.5214551Z",
+    "goal": "Complete and verify Verify the published temporary ordering notice across representative desktop and mobile public layouts at D1.",
     "in_scope": [
-      "public-cart-session-diagnosis"
+      "public-ordering-notice-verification"
     ],
     "out_of_scope": [],
     "tasks": [
       {
-        "id": "prove-public-cart-host-session-split",
-        "title": "Prove the public OpenCart www/non-www cart-session split with an option-complete add",
-        "acceptance": "A disposable unauthenticated option-complete add succeeds on www, its generated cart link uses the bare host, the product is present only in the www cart, cookie domains prove separate sessions without recording values, and the source ledger and client runbook record the confirmed root cause and hosting repair boundary.",
+        "id": "verify-public-ordering-notice-layouts",
+        "title": "Verify the published ordering notice on representative desktop and mobile layouts",
+        "acceptance": "A fresh unauthenticated browser pass proves the exact requested notice is visible above the header without overflow on home, category, product, and cart layouts at desktop and mobile widths; email linking and navigation visibility are checked; screenshots and a sanitized report are preserved; remaining phone-link, dismissibility, and authenticated-state limitations are recorded without overstating completion.",
         "acceptance_checks": [
           {
-            "id": "public-cart-host-session-split-live",
+            "id": "public-ordering-notice-live-layouts",
             "verifier": "test",
-            "executable": "C:\\Program Files\\WindowsApps\\Microsoft.PowerShell_7.6.4.0_x64__8wekyb3d8bbwe\\pwsh.exe",
-            "executable_sha256": "db6dd81183fe57d22e03b911ec9a30a2fd7c40542e97743615355a6fb44f458f",
+            "executable": "C:\\Program Files\\nodejs\\node.exe",
+            "executable_sha256": "e3be0545990c90995d7bf3a7af5d64af1f2e0fc1bbd9b79c27f7abc1e9676e50",
             "arguments": [
-              "-NoProfile",
-              "-File",
-              "scripts/Test-PublicCartHostSessionSplit.ps1",
-              "-OutputPath",
-              "evidence/2026-08-12-public-cart-host-session-split.json"
+              "scripts/verify-public-ordering-notice.mjs",
+              "--output",
+              "evidence/public-ordering-notice-20260812"
             ],
-            "arguments_sha256": "aa5c0a252ec51bce25a08bedc2c3d6bb2cfc229335c87b02d049ace3788aa4a8",
+            "arguments_sha256": "afae00ea7cf61e628d707141d401feecf1084c44fdd0700fdd17aa67d6a61b3b",
             "verifier_inputs": [
               {
-                "reference": "scripts/Test-PublicCartHostSessionSplit.ps1",
-                "sha256": "d7d66178d1e3d1967d0aa53bfa871c5a6ec337b72ebad45b8abc757aca4e5125",
-                "size_bytes": 3974
+                "reference": "scripts/verify-public-ordering-notice.mjs",
+                "sha256": "0858308099d6fdc5ccf9549c87689e7002bb54d601a7f3d9509f280988855b37",
+                "size_bytes": 4866
               }
             ],
             "artifacts": [
-              "CLIENT.md",
-              "evidence/2026-08-12-public-cart-host-session-split.json",
-              "evidence/2026-08-12-public-cart-host-session-split.md",
-              "scripts/Test-PublicCartHostSessionSplit.ps1",
+              "evidence/2026-08-12-public-ordering-notice-verification.md",
+              "evidence/public-ordering-notice-20260812/desktop-cart.png",
+              "evidence/public-ordering-notice-20260812/desktop-category.png",
+              "evidence/public-ordering-notice-20260812/desktop-home.png",
+              "evidence/public-ordering-notice-20260812/desktop-product.png",
+              "evidence/public-ordering-notice-20260812/mobile-cart.png",
+              "evidence/public-ordering-notice-20260812/mobile-category.png",
+              "evidence/public-ordering-notice-20260812/mobile-home.png",
+              "evidence/public-ordering-notice-20260812/mobile-product.png",
+              "evidence/public-ordering-notice-20260812/report.json",
+              "scripts/verify-public-ordering-notice.mjs",
               "SOURCES.md",
               "WEBSITE-UPDATE-RUNBOOK.md"
             ],
@@ -2390,45 +2478,45 @@
         "status": "closed",
         "evidence": [
           {
-            "receipt_id": "b9b95b57-a941-4fe6-8851-540df6a52034",
-            "check_id": "public-cart-host-session-split-live",
+            "receipt_id": "d32d2e86-52e5-438e-a215-c23e371d1d08",
+            "check_id": "public-ordering-notice-live-layouts",
             "verifier": "test",
-            "subject": "prove-public-cart-host-session-split",
+            "subject": "verify-public-ordering-notice-layouts",
             "result": "pass",
-            "reference": ".agents/work/evidence/b9b95b57-a941-4fe6-8851-540df6a52034.json",
-            "sha256": "0f84e9af20a761d04e206e78ebda5caac10addfb8d6526d72b7038bb4fd7d3a7",
-            "size_bytes": 2361,
-            "captured_at": "2026-08-12T18:25:53.0047002Z",
+            "reference": ".agents/work/evidence/d32d2e86-52e5-438e-a215-c23e371d1d08.json",
+            "sha256": "465a06e5bb78c54b970f6c7142bb655b75a0b4659d8788538f306f5c5817e958",
+            "size_bytes": 3894,
+            "captured_at": "2026-08-12T18:51:03.9520403Z",
             "exit_code": 0,
-            "provenance_event_id": "2e7290f3-59a9-456b-ac1e-08884a7d9eac",
+            "provenance_event_id": "b8632dd4-b0f1-4a6c-9f17-e11edd160931",
             "project_id": "kelly-uniforms-business",
             "track_id": "business-continuity",
-            "capability_id": "public-cart-session-diagnosis",
-            "cell_id": "public-cart-session-diagnosis@D1",
-            "task_id": "prove-public-cart-host-session-split"
+            "capability_id": "public-ordering-notice-verification",
+            "cell_id": "public-ordering-notice-verification@D1",
+            "task_id": "verify-public-ordering-notice-layouts"
           }
         ],
-        "closed_at": "2026-08-12T18:26:27.2925682Z"
+        "closed_at": "2026-08-12T18:51:32.2284823Z"
       }
     ],
     "evidence": [
       {
-        "receipt_id": "b9b95b57-a941-4fe6-8851-540df6a52034",
-        "check_id": "public-cart-host-session-split-live",
+        "receipt_id": "d32d2e86-52e5-438e-a215-c23e371d1d08",
+        "check_id": "public-ordering-notice-live-layouts",
         "verifier": "test",
-        "subject": "prove-public-cart-host-session-split",
+        "subject": "verify-public-ordering-notice-layouts",
         "result": "pass",
-        "reference": ".agents/work/evidence/b9b95b57-a941-4fe6-8851-540df6a52034.json",
-        "sha256": "0f84e9af20a761d04e206e78ebda5caac10addfb8d6526d72b7038bb4fd7d3a7",
-        "size_bytes": 2361,
-        "captured_at": "2026-08-12T18:25:53.0047002Z",
+        "reference": ".agents/work/evidence/d32d2e86-52e5-438e-a215-c23e371d1d08.json",
+        "sha256": "465a06e5bb78c54b970f6c7142bb655b75a0b4659d8788538f306f5c5817e958",
+        "size_bytes": 3894,
+        "captured_at": "2026-08-12T18:51:03.9520403Z",
         "exit_code": 0,
-        "provenance_event_id": "2e7290f3-59a9-456b-ac1e-08884a7d9eac",
+        "provenance_event_id": "b8632dd4-b0f1-4a6c-9f17-e11edd160931",
         "project_id": "kelly-uniforms-business",
         "track_id": "business-continuity",
-        "capability_id": "public-cart-session-diagnosis",
-        "cell_id": "public-cart-session-diagnosis@D1",
-        "task_id": "prove-public-cart-host-session-split"
+        "capability_id": "public-ordering-notice-verification",
+        "cell_id": "public-ordering-notice-verification@D1",
+        "task_id": "verify-public-ordering-notice-layouts"
       }
     ],
     "discoveries": []

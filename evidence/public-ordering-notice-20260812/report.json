@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "captured_at_utc": "2026-08-12T18:51:03.912Z",
+  "exact_notice": "New Website Coming! For all orders email orders@mtuniforms.com or call us directly at (814) 536-2390.",
+  "result": "pass",
+  "checks": 8,
+  "failures": [],
+  "limitations": [
+    "The phone number is rendered as plain text rather than a tel link.",
+    "The notice exposes a close button, so a returning browser may retain a dismissal cookie.",
+    "This public verification does not prove the authenticated admin module state or rollback configuration."
+  ],
+  "observations": [
+    {
+      "viewport": "desktop",
+      "viewport_size": {
+        "width": 1440,
+        "height": 1000
+      },
+      "route": "home",
+      "requested_url": "https://www.mtuniforms.com/",
+      "http_status": 200,
+      "screenshot": "desktop-home.png",
+      "title": "Serving Police, Fire, EMS, Security, and USPS Customers",
+      "final_url": "https://www.mtuniforms.com/",
+      "exact_copy": true,
+      "visible": true,
+      "above_header": true,
+      "within_viewport_width": true,
+      "email_link": "mailto:orders@mtuniforms.com",
+      "phone_link": null,
+      "close_button_present": true,
+      "header_visible": true
+    },
+    {
+      "viewport": "desktop",
+      "viewport_size": {
+        "width": 1440,
+        "height": 1000
+      },
+      "route": "category",
+      "requested_url": "https://www.mtuniforms.com/police-uniforms-equipment",
+      "http_status": 200,
+      "screenshot": "desktop-category.png",
+      "title": "police,law enforcement",
+      "final_url": "https://www.mtuniforms.com/police-uniforms-equipment",
+      "exact_copy": true,
+      "visible": true,
+      "above_header": true,
+      "within_viewport_width": true,
+      "email_link": "mailto:orders@mtuniforms.com",
+      "phone_link": null,
+      "close_button_present": true,
+      "header_visible": true
+    },
+    {
+      "viewport": "desktop",
+      "viewport_size": {
+        "width": 1440,
+        "height": 1000
+      },
+      "route": "product",
+      "requested_url": "https://www.mtuniforms.com/elbeco-tek2-cargo-pocket-trousers-trttcpo",
+      "http_status": 200,
+      "screenshot": "desktop-product.png",
+      "title": "cargo,pants,",
+      "final_url": "https://www.mtuniforms.com/elbeco-tek2-cargo-pocket-trousers-trttcpo",
+      "exact_copy": true,
+      "visible": true,
+      "above_header": true,
+      "within_viewport_width": true,
+      "email_link": "mailto:orders@mtuniforms.com",
+      "phone_link": null,
+      "close_button_present": true,
+      "header_visible": true
+    },
+    {
+      "viewport": "desktop",
+      "viewport_size": {
+        "width": 1440,
+        "height": 1000
+      },
+      "route": "cart",
+      "requested_url": "https://www.mtuniforms.com/index.php?route=checkout/cart",
+      "http_status": 200,
+      "screenshot": "desktop-cart.png",
+      "title": "Shopping Cart",
+      "final_url": "https://www.mtuniforms.com/index.php?route=checkout/cart",
+      "exact_copy": true,
+      "visible": true,
+      "above_header": true,
+      "within_viewport_width": true,
+      "email_link": "mailto:orders@mtuniforms.com",
+      "phone_link": null,
+      "close_button_present": true,
+      "header_visible": true
+    },
+    {
+      "viewport": "mobile",
+      "viewport_size": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "home",
+      "requested_url": "https://www.mtuniforms.com/",
+      "http_status": 200,
+      "screenshot": "mobile-home.png",
+      "title": "Serving Police, Fire, EMS, Security, and USPS Customers",
+      "final_url": "https://www.mtuniforms.com/",
+      "exact_copy": true,
+      "visible": true,
+      "above_header": true,
+      "within_viewport_width": true,
+      "email_link": "mailto:orders@mtuniforms.com",
+      "phone_link": null,
+      "close_button_present": true,
+      "header_visible": true
+    },
+    {
+      "viewport": "mobile",
+      "viewport_size": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "category",
+      "requested_url": "https://www.mtuniforms.com/police-uniforms-equipment",
+      "http_status": 200,
+      "screenshot": "mobile-category.png",
+      "title": "police,law enforcement",
+      "final_url": "https://www.mtuniforms.com/police-uniforms-equipment",
+      "exact_copy": true,
+      "visible": true,
+      "above_header": true,
+      "within_viewport_width": true,
+      "email_link": "mailto:orders@mtuniforms.com",
+      "phone_link": null,
+      "close_button_present": true,
+      "header_visible": true
+    },
+    {
+      "viewport": "mobile",
+      "viewport_size": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "product",
+      "requested_url": "https://www.mtuniforms.com/elbeco-tek2-cargo-pocket-trousers-trttcpo",
+      "http_status": 200,
+      "screenshot": "mobile-product.png",
+      "title": "cargo,pants,",
+      "final_url": "https://www.mtuniforms.com/elbeco-tek2-cargo-pocket-trousers-trttcpo",
+      "exact_copy": true,
+      "visible": true,
+      "above_header": true,
+      "within_viewport_width": true,
+      "email_link": "mailto:orders@mtuniforms.com",
+      "phone_link": null,
+      "close_button_present": true,
+      "header_visible": true
+    },
+    {
+      "viewport": "mobile",
+      "viewport_size": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "cart",
+      "requested_url": "https://www.mtuniforms.com/index.php?route=checkout/cart",
+      "http_status": 200,
+      "screenshot": "mobile-cart.png",
+      "title": "Shopping Cart",
+      "final_url": "https://www.mtuniforms.com/index.php?route=checkout/cart",
+      "exact_copy": true,
+      "visible": true,
+      "above_header": true,
+      "within_viewport_width": true,
+      "email_link": "mailto:orders@mtuniforms.com",
+      "phone_link": null,
+      "close_button_present": true,
+      "header_visible": true
+    }
+  ]
+}

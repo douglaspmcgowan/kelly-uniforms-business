@@ -45,3 +45,6 @@ TASK.md -text whitespace=-blank-at-eol,-blank-at-eof
 TRACKS.md -text whitespace=-blank-at-eol,-blank-at-eof
 evidence/2026-08-12-public-cart-host-session-split.md text eol=lf
 scripts/Test-PublicCartHostSessionSplit.ps1 text eol=lf
+evidence/2026-08-12-public-ordering-notice-verification.md text eol=lf
+evidence/public-ordering-notice-20260812/report.json text eol=lf
+scripts/verify-public-ordering-notice.mjs text eol=lf

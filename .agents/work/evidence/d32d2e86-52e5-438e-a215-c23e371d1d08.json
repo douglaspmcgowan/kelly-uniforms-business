@@ -1,0 +1,98 @@
+{
+  "receipt_id": "d32d2e86-52e5-438e-a215-c23e371d1d08",
+  "check_id": "public-ordering-notice-live-layouts",
+  "verifier": "test",
+  "subject": "verify-public-ordering-notice-layouts",
+  "project_id": "kelly-uniforms-business",
+  "track_id": "business-continuity",
+  "capability_id": "public-ordering-notice-verification",
+  "cell_id": "public-ordering-notice-verification@D1",
+  "task_id": "verify-public-ordering-notice-layouts",
+  "result": "pass",
+  "executable": "node.exe",
+  "executable_sha256": "e3be0545990c90995d7bf3a7af5d64af1f2e0fc1bbd9b79c27f7abc1e9676e50",
+  "arguments_sha256": "afae00ea7cf61e628d707141d401feecf1084c44fdd0700fdd17aa67d6a61b3b",
+  "output_sha256": "7693f47cebc9148a571ba48ac67074cb6be64272a27ca0935cabd07f4bfbc1e7",
+  "output_size_bytes": 5903,
+  "timed_out": false,
+  "output_limit_exceeded": false,
+  "timeout_seconds": 300,
+  "max_output_bytes": 1048576,
+  "verifier_inputs": [
+    {
+      "reference": "scripts/verify-public-ordering-notice.mjs",
+      "sha256": "0858308099d6fdc5ccf9549c87689e7002bb54d601a7f3d9509f280988855b37",
+      "size_bytes": 4866
+    }
+  ],
+  "artifacts": [
+    {
+      "reference": "evidence/2026-08-12-public-ordering-notice-verification.md",
+      "sha256": "993df9853f322c2f527865fb92ff4a1aa23ff41505a67551471bc24ac18a817a",
+      "size_bytes": 1854
+    },
+    {
+      "reference": "evidence/public-ordering-notice-20260812/desktop-cart.png",
+      "sha256": "7e86d11ae0149ee45120c86396fa639527b7cba37642531330497ea7c4c2023a",
+      "size_bytes": 158918
+    },
+    {
+      "reference": "evidence/public-ordering-notice-20260812/desktop-category.png",
+      "sha256": "e502ef3d0fbc8bf09457849c1f4e17f5c192fff6204b17e35974713b5b3a4621",
+      "size_bytes": 216262
+    },
+    {
+      "reference": "evidence/public-ordering-notice-20260812/desktop-home.png",
+      "sha256": "ee2387374bd057813faac8d29470a273279d43e846b8d249d9c723216078b21c",
+      "size_bytes": 530979
+    },
+    {
+      "reference": "evidence/public-ordering-notice-20260812/desktop-product.png",
+      "sha256": "31e91d2d5adbf74911c06e204a872c813806a681f724eaed4745afe9fb535b36",
+      "size_bytes": 192064
+    },
+    {
+      "reference": "evidence/public-ordering-notice-20260812/mobile-cart.png",
+      "sha256": "c38151b125cc1ada0d596f123677403a0fc508ec1a10fa2f7df3000f9a4cf913",
+      "size_bytes": 104051
+    },
+    {
+      "reference": "evidence/public-ordering-notice-20260812/mobile-category.png",
+      "sha256": "13184f89c1db88a9432caebfa9da592b4ecb533a262a49756104ed750e29fa95",
+      "size_bytes": 116323
+    },
+    {
+      "reference": "evidence/public-ordering-notice-20260812/mobile-home.png",
+      "sha256": "85bd9203d6bc33c487392be1f0a55693b1fa0b279720586d8cde03947b9789ea",
+      "size_bytes": 105966
+    },
+    {
+      "reference": "evidence/public-ordering-notice-20260812/mobile-product.png",
+      "sha256": "be3bbc5d48a6ccc5f190829f762325435052d59283bfa9f848ce57656bfcd467",
+      "size_bytes": 80374
+    },
+    {
+      "reference": "evidence/public-ordering-notice-20260812/report.json",
+      "sha256": "6c36006eec72c4e0213b1af53c3538cc9b4b22547651f9dda56685cc9be71615",
+      "size_bytes": 5903
+    },
+    {
+      "reference": "scripts/verify-public-ordering-notice.mjs",
+      "sha256": "0858308099d6fdc5ccf9549c87689e7002bb54d601a7f3d9509f280988855b37",
+      "size_bytes": 4866
+    },
+    {
+      "reference": "SOURCES.md",
+      "sha256": "c1d7eac580839c1b6a958d61f1f84c704aaf5c602538f6c1c9a990b0653dbdb5",
+      "size_bytes": 32645
+    },
+    {
+      "reference": "WEBSITE-UPDATE-RUNBOOK.md",
+      "sha256": "4b4681b36b0b3727ba8f81895cfe865a77127c5513a386a13272071f9b672e60",
+      "size_bytes": 12171
+    }
+  ],
+  "exit_code": 0,
+  "started_at": "2026-08-12T18:50:54.4516494Z",
+  "finished_at": "2026-08-12T18:51:03.9520403Z"
+}

@@ -212,3 +212,14 @@
 - 08/12/2026 18:26:35 [task_completed] cell=public-cart-session-diagnosis@D1 event=c467e525-3550-49a7-a1b2-1048b168566d
 - 08/12/2026 18:28:19 [scope_cell_closed] cell=public-cart-session-diagnosis@D1 event=debbdd5b-5c87-452a-8e86-60dc35dcdadb
 - 08/12/2026 18:28:46 [discovery_disposition] cell=public-cart-session-diagnosis@D1 event=c349d87b-f425-41e3-816c-a6d85a66a983
+- 08/12/2026 18:47:23 [discovery_captured] cell=public-cart-session-diagnosis@D1 event=652fc5c1-775d-4cef-b208-3c21e382e5cd
+- 08/12/2026 18:47:29 [dependencies_resolved] cell=public-cart-session-diagnosis@D1 event=e348bfdc-4b83-4892-b2ce-d2bb9514a555
+- 08/12/2026 18:47:33 [frontier_item_selected] cell=public-ordering-notice-verification@D1 event=18b19e3f-d361-4fb6-ab93-1cef6f799b4d
+- 08/12/2026 18:50:12 [task_added] cell=public-ordering-notice-verification@D1 event=f5627191-5189-4b03-b494-d7b8334ef0e7
+- 08/12/2026 18:51:10 [verification_executed] cell=public-ordering-notice-verification@D1 event=b8632dd4-b0f1-4a6c-9f17-e11edd160931
+- 08/12/2026 18:51:35 [task_completed] cell=public-ordering-notice-verification@D1 event=e60601cb-e147-4510-8828-b6e46804047a
+- 08/12/2026 18:51:43 [scope_cell_closed] cell=public-ordering-notice-verification@D1 event=eb74aa1b-1409-41f8-842d-486cf48402f2
+- 08/12/2026 18:51:49 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=d406455b-8061-45c1-9f80-30725d74cd8c
+- 08/12/2026 18:51:54 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=a2b3c3f0-7585-4389-943c-8b5b21b9783b
+- 08/12/2026 18:51:59 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=74dadd43-a86f-4d3a-a64c-8ba49ffb2452
+- 08/12/2026 18:52:04 [discovery_disposition] cell=public-ordering-notice-verification@D1 event=a4ae4dbf-a655-46b1-b00f-ca34816e56da

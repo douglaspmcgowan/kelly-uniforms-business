@@ -199,6 +199,19 @@ not this runbook. Source: `OBS-004`,
 `OBS-006`, `evidence/2026-07-31-site-architecture-scope.md`, and
 `evidence/2026-08-12-public-cart-host-session-split.md`.
 
+## Current publication evidence
+
+The notice is publicly visible on the home, Police category, representative
+product, and cart layouts at both 1440×1000 desktop and 390×844 mobile
+viewports. All eight browser checks passed exact-copy, visibility, above-header,
+viewport-width, email-link, and header-visibility assertions. Source: `OBS-007`
+and `evidence/2026-08-12-public-ordering-notice-verification.md`.
+
+Two authenticated corrections remain: link the phone number to
+`tel:+18145362390` and disable the Header Notice close button so a dismissal
+cookie cannot hide the continuity message. Public evidence cannot prove the
+module's admin history or rollback configuration.
+
 ## Logo and asset boundary
 
 The notice does not require a logo change. The following assets are available
