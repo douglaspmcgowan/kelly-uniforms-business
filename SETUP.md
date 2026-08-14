@@ -36,6 +36,11 @@ Numbered so you can reply with just the numbers you approve.
 | 4 | Buy/confirm the **domain and DNS control** for the new storefront | Cannot cut over without it, and cannot test the checkout domain. | Existing domain, no new cost |
 | 5 | Confirm the **Clover merchant account** can grant API access | The middleware design is unverifiable until we know what the account is allowed to do. | Free, but needs your merchant login |
 | 6 | Decide whether the client sees the **prototype URL** tomorrow | It is live now and reads as a real store. It should not reach the client's customers by accident. | Decision only |
+| 7 | **Push the branch.** Send `[allow-push]`, or run the command below yourself | The work is committed locally as `8a05440` on `codex/mt-uniforms-storefront` and Gitleaks passed clean. The `[allow-push]` you sent expired with that turn, so the push was refused. | Free |
+
+```bash
+git -C C:/Users/dougl/Projects/kelly-uniforms-business push origin codex/mt-uniforms-storefront
+```
 
 **On item 3 — the Ecwid pricing gap is real and worth checking before paying.** The same Ecwid
 storefront with the same Clover integration is listed at roughly $29/month through the Clover App
