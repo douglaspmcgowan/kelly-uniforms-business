@@ -1,5 +1,5 @@
 {
-  "revision": 178,
+  "revision": 182,
   "backburner": [
     {
       "id": "legacy-task-L73",
@@ -1995,6 +1995,126 @@
       ],
       "status": "selected",
       "captured_at": "2026-08-12T16:14:24.5999668Z"
+    },
+    {
+      "id": "shopify-basic-store-provisioning",
+      "title": "Provision the Shopify Basic store and upload the theme",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "customer-storefront",
+      "entry_depth": "D2",
+      "discovered_from": "kelly-uniforms-business goal 2026-08-14: Shopify Basic decision",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "medium",
+      "obligation_class": "actionable",
+      "evidence": [
+        {
+          "receipt_id": "2dd24e77-b2ce-4be2-920c-95956ad24166",
+          "verifier": "inspection",
+          "subject": "shopify-basic-store-provisioning",
+          "result": "verified",
+          "reference": "SETUP.md",
+          "sha256": "75e81bf3e1e2840ce0e7dad2f877a865d5fb00c750947e7ea7253d03a06b9e76",
+          "size_bytes": 7416,
+          "captured_at": "2026-08-14T20:52:54.2891234Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-14T20:52:54.3363654Z"
+    },
+    {
+      "id": "shopify-catalog-import",
+      "title": "Import 321 products with option groups into Shopify",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "customer-storefront",
+      "entry_depth": "D2",
+      "discovered_from": "kelly-uniforms-business goal 2026-08-14: Shopify Basic decision",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "medium",
+      "obligation_class": "actionable",
+      "evidence": [
+        {
+          "receipt_id": "20bc67de-59ac-4729-ac1e-45f27243ad67",
+          "verifier": "inspection",
+          "subject": "shopify-catalog-import",
+          "result": "verified",
+          "reference": "SETUP.md",
+          "sha256": "75e81bf3e1e2840ce0e7dad2f877a865d5fb00c750947e7ea7253d03a06b9e76",
+          "size_bytes": 7416,
+          "captured_at": "2026-08-14T20:53:26.9257631Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-14T20:53:27.0593216Z"
+    },
+    {
+      "id": "opencart-data-offload-runbook",
+      "title": "Write and execute the OpenCart full data offload",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "customer-storefront",
+      "entry_depth": "D2",
+      "discovered_from": "kelly-uniforms-business goal 2026-08-14: Shopify Basic decision",
+      "relationship": "prerequisite",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "high",
+      "obligation_class": "actionable",
+      "evidence": [
+        {
+          "receipt_id": "d7e95263-3e7c-4260-bd6c-69b5f45140f4",
+          "verifier": "inspection",
+          "subject": "opencart-data-offload-runbook",
+          "result": "verified",
+          "reference": "SETUP.md",
+          "sha256": "75e81bf3e1e2840ce0e7dad2f877a865d5fb00c750947e7ea7253d03a06b9e76",
+          "size_bytes": 7416,
+          "captured_at": "2026-08-14T20:53:41.4068687Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-14T20:53:41.4672995Z"
+    },
+    {
+      "id": "clover-integration-setup",
+      "title": "Set up Clover API access and define the sync direction",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "customer-storefront",
+      "entry_depth": "D2",
+      "discovered_from": "kelly-uniforms-business goal 2026-08-14: Shopify Basic decision",
+      "relationship": "follow-up",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "high",
+      "obligation_class": "actionable",
+      "evidence": [
+        {
+          "receipt_id": "9b25f449-56f7-4ef7-aabf-c272a528cc26",
+          "verifier": "inspection",
+          "subject": "clover-integration-setup",
+          "result": "verified",
+          "reference": "SETUP.md",
+          "sha256": "75e81bf3e1e2840ce0e7dad2f877a865d5fb00c750947e7ea7253d03a06b9e76",
+          "size_bytes": 7416,
+          "captured_at": "2026-08-14T20:53:53.3059914Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-14T20:53:53.3846328Z"
     }
   ],
   "tracks": [
@@ -2055,8 +2175,8 @@
       ]
     }
   ],
-  "updated_at": "2026-08-12T16:25:58.8140591Z",
-  "last_event_hash": "cc48a88a399bb8c5e0e79b4976e75a619ba83f46cdf756d11a81cf4628e5da88",
+  "updated_at": "2026-08-14T20:53:58.6748823Z",
+  "last_event_hash": "b4c55465edb8fd067f16898f5dabde20f28bbe262cbf941c4463ac62b09115be",
   "schema_version": "1.0.0",
   "ownership": {
     "sessions": [
@@ -2205,7 +2325,7 @@
     ]
   },
   "created_at": "2026-08-09T06:14:25.2526853Z",
-  "last_event_id": "acc2f515-9754-49c1-80e2-819d77e32af4",
+  "last_event_id": "657c93af-b22c-44e1-8222-d1ab12f61ceb",
   "active": {
     "track_id": "business-continuity",
     "capability_id": "portable-recovery-repository-custody",
@@ -2262,6 +2382,11 @@
       }
     ],
     "evidence": [],
-    "discoveries": []
+    "discoveries": [
+      "shopify-basic-store-provisioning",
+      "shopify-catalog-import",
+      "opencart-data-offload-runbook",
+      "clover-integration-setup"
+    ]
   }
 }

@@ -179,3 +179,7 @@
 - 08/12/2026 16:17:48 [ownership_transferred] cell=portable-recovery-repository-custody@D3 event=63050ca8-da2a-4942-9ab6-24c5dab69568
 - 08/12/2026 16:18:24 [ownership_updated] cell=portable-recovery-repository-custody@D3 event=e8ce6306-5596-4a81-b2e1-f39377b5b2aa
 - 08/12/2026 16:25:54 [task_added] cell=portable-recovery-repository-custody@D3 event=acc2f515-9754-49c1-80e2-819d77e32af4
+- 08/14/2026 20:53:04 [discovery_captured] cell=portable-recovery-repository-custody@D3 event=cc47f664-3517-4cc0-999e-cae0804b4ddb
+- 08/14/2026 20:53:34 [discovery_captured] cell=portable-recovery-repository-custody@D3 event=5a7e7d6b-b55f-4a6b-a44e-8d8f933b9718
+- 08/14/2026 20:53:45 [discovery_captured] cell=portable-recovery-repository-custody@D3 event=651d3dc9-907e-4d4f-9ecc-aea34143e230
+- 08/14/2026 20:53:57 [discovery_captured] cell=portable-recovery-repository-custody@D3 event=657c93af-b22c-44e1-8222-d1ab12f61ceb

@@ -1,10 +1,12 @@
 <!-- GENERATED FROM .agents/work/state.json. DO NOT EDIT DIRECTLY. -->
 # Active Work
 
+
 Project: kelly-uniforms-business
 Initiative: mt-uniforms-replatform
 Primary track: business-continuity
 Capability: portable-recovery-repository-custody
+Cell: portable-recovery-repository-custody@D3
 Depth: D3 (Hardened)
 Frontier mode: expand
 Depth ceiling: D5
@@ -48,7 +50,10 @@ Complete and verify Commit and push the verified portable recovery system and Wo
 
 ## Discoveries captured
 
-- None
+- shopify-basic-store-provisioning
+- shopify-catalog-import
+- opencart-data-offload-runbook
+- clover-integration-setup
 
 ## Next transition
 
