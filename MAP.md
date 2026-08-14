@@ -2,7 +2,10 @@
 
 ## State
 
-- The repository is a business-continuity, client-delivery, and storefront-modernization system. A fixture-backed replacement storefront prototype now lives under `storefront`; the production commerce platform remains unselected.
+- The repository is a business-continuity, client-delivery, and storefront-modernization system. The production commerce platform remains unselected.
+- **Storefront, as of 2026-08-14.** `theme` holds a real Shopify Liquid theme whose commerce calls all route through `theme/assets/commerce-adapter.js`, which selects a Shopify, Ecwid, or local driver at runtime; switching platform is one theme setting rather than a rebuild. `preview` renders those same theme files to static HTML with liquidjs and is what is deployed, so the prototype and the Shopify theme cannot drift apart. The earlier fixture-backed React prototype under `storefront` is superseded by this and is no longer the deployed artifact.
+- **Catalog, as of 2026-08-14.** The full public catalog was extracted from mtuniforms.com — 321 live products, 0 errors, with option groups, categories, prices, images, and descriptions. The authenticated admin holds 407 products, so 86 are switched off. Public catalog facts live in `preview/data/catalog.json` (committed); the raw export lives under `PROJECT_DATA_ROOT`. Inventory counts, orders, and customer records were not extracted and are recorded as absent rather than as zero.
+- **Operations, as of 2026-08-14.** `ops` holds a SQLite schema for catalog, agencies, customers, orders, order-line options, decoration jobs, and stock movements, with a local-only console at `ops/admin.mjs`. Per `INTENT.md`, per-officer allowances, agency portals, and authorization codes are deliberately absent from the schema pending client confirmation.
 - The requested ordering notice is present in the recovered public homepage and in the replacement prototype. OpenCart and Ecwid authenticated exports still require the value-safe broker documented in `ACCESS.md`; Clover is the retained POS and its login/export is outside the current recovery scope.
 - The broker, Playwright login flows, and Bitwarden allowlist structure are built and tested. They remain blocked on the Douglas-owned secret setup and non-secret resource IDs recorded in `TASK.md`.
 - Work Scope closed `storefront-modernization/customer-storefront@D3` after the client-first prototype passed its recorded verifier and production browser check. `business-continuity/recovery-package-maintenance@D2` owns the REC-016 consistency successor; the separate `business-continuity/rebuild-ready-recovery@D5` capability remains blocked on authenticated OpenCart and Ecwid sources.
@@ -32,12 +35,19 @@
 | `CLIENT.md` | Douglas and delivery agents | Every client task | Sourced client identity, business, systems, brand, constraints, and open questions |
 | `DELIVERABLES.md` | Douglas and delivery agents | Planning and execution | Scope state, dependencies, acceptance evidence, and next actions |
 | `SOURCES.md` | Agents and reviewers | Intake, refresh, and verification | Message, web, file, asset, and decision provenance |
+| `SETUP.md` | Douglas | Start of any run that needs money, an account, or a ruling | Approvals, purchases, manual steps, open questions, and the next goal command |
+| `ACCESS.md` | Douglas and delivery agents | Credential-dependent work | Login inventory and the value-safe access routes |
 
 ## Architecture
 
 | Component | Purpose | Entry point | Owner |
 |---|---|---|---|
 | Client operating record | Keep facts, requests, sources, and delivery state aligned | `CLIENT.md`, `DELIVERABLES.md`, `SOURCES.md` | Douglas |
+| Portable storefront theme | One theme that runs on Shopify, Ecwid, or neither | `theme/layout/theme.liquid`, `theme/assets/commerce-adapter.js` | Delivery agents |
+| Static theme renderer | Render the same theme files for the client-facing prototype | `preview/build.mjs` | Delivery agents |
+| Catalog extraction | Turn the public storefront into structured product data | `preview/make-catalog.mjs` | Delivery agents |
+| Operations database | Model orders, decoration work, agencies, and stock | `ops/schema.sql`, `ops/build-db.mjs`, `ops/verify-db.mjs` | Delivery agents |
+| Operations console | Local-only screen for orders, decoration queue, catalog, reorder | `ops/admin.mjs` | Douglas |
 | Client skill | Initialize and refresh governed client repositories | `.agents\skills\client\SKILL.md` | Douglas |
 | Project harness | Provide portable instructions, task state, manifests, adapters, and verification | `AGENTS.md` | Shared agent harness |
 | Client source assets | Preserve supplied media outside Git with checksums | `%PROJECT_DATA_ROOT%\inputs\client-provided\2026-07-26` | Douglas + client |

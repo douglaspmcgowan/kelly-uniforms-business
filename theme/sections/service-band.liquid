@@ -1,0 +1,28 @@
+<section class="service-band">
+  <div class="shell service-band__grid">
+    {%- for block in section.blocks -%}
+      <div {{ block.shopify_attributes }}>
+        <h3>{{ block.settings.heading }}</h3>
+        <p>{{ block.settings.body }}</p>
+      </div>
+    {%- else -%}
+      <div><h3>In-house tailoring</h3><p>Hemming, name tapes, and patch work done on site — no third-party turnaround.</p></div>
+      <div><h3>Department accounts</h3><p>Purchase orders and agency billing handled the way your business office expects.</p></div>
+      <div><h3>Fitted in person</h3><p>Walk-in fittings at the Johnstown store, or scheduled on-site sizing for your shift.</p></div>
+      <div><h3>Stocked locally</h3><p>Duty staples held on the shelf, so a replacement does not wait on a vendor.</p></div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Service band",
+  "max_blocks": 4,
+  "blocks": [
+    { "type": "item", "name": "Service", "settings": [
+      { "type": "text", "id": "heading", "label": "Heading" },
+      { "type": "text", "id": "body", "label": "Body" }
+    ]}
+  ]
+}
+{% endschema %}

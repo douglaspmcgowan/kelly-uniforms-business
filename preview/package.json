@@ -1,0 +1,15 @@
+{
+  "name": "mt-uniforms-preview",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Static renderer for the M.T. Uniforms Liquid theme.",
+  "scripts": {
+    "catalog": "node make-catalog.mjs",
+    "build": "node build.mjs",
+    "serve": "node --run build && npx --yes serve dist"
+  },
+  "dependencies": {
+    "liquidjs": "^10.29.0"
+  }
+}

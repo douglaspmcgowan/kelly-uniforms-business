@@ -1,0 +1,7 @@
+{
+  "buildCommand": "cd preview && npm install --no-audit --no-fund && npm run build",
+  "outputDirectory": "preview/dist",
+  "installCommand": "echo skip",
+  "cleanUrls": true,
+  "trailingSlash": false
+}

@@ -1,0 +1,43 @@
+<footer class="footer">
+  <div class="shell">
+    <div class="footer__grid">
+      <div>
+        <h3>M.T. Uniforms</h3>
+        <p>{{ section.settings.address }}</p>
+        <p><a href="tel:{{ section.settings.phone | remove: '(' | remove: ')' | remove: ' ' | remove: '-' }}">{{ section.settings.phone }}</a></p>
+        <p><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></p>
+      </div>
+      <div>
+        <h3>Hours</h3>
+        <p>{{ section.settings.hours }}</p>
+      </div>
+      <div>
+        <h3>Shop</h3>
+        <p><a href="{{ routes.all_products_collection_url | default: '/collections/all' }}">Full catalog</a></p>
+        <p><a href="/pages/departments">Department accounts</a></p>
+        <p><a href="/pages/tailoring">Tailoring &amp; decoration</a></p>
+      </div>
+      <div>
+        <h3>Help</h3>
+        <p><a href="/pages/sizing">Sizing guide</a></p>
+        <p><a href="/pages/returns">Returns</a></p>
+        <p><a href="/pages/contact">Contact</a></p>
+      </div>
+    </div>
+    <div class="footer__legal">
+      &copy; {{ 'now' | date: '%Y' }} M.T. Uniforms LLC. Duty gear and restraints are sold to authorized agencies and personnel only.
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "address", "label": "Address", "default": "Johnstown, Pennsylvania" },
+    { "type": "text", "id": "phone", "label": "Phone", "default": "(814) 536-2390" },
+    { "type": "text", "id": "email", "label": "Email", "default": "orders@mtuniforms.com" },
+    { "type": "textarea", "id": "hours", "label": "Hours", "default": "Monday–Friday 9:00–5:00 · Saturday by appointment" }
+  ]
+}
+{% endschema %}

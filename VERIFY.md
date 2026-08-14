@@ -37,3 +37,24 @@ C:\Users\dougl\Tools\gitleaks\gitleaks.exe dir --no-banner --redact C:\Users\dou
 - Confirm every data-root asset checksum matches `data-manifest.yaml`.
 - Confirm administrative account identifiers and credential values remain outside tracked files.
 - For browser-visible work, preserve desktop and mobile evidence and verify the published result.
+
+## Storefront theme, preview, and operations database (added 2026-08-14)
+
+Run from the repository root.
+
+| What | Command | Passing looks like |
+|---|---|---|
+| Operations schema | `node ops/verify-db.mjs` | `8 checks passed` |
+| Catalog data file | `MT_EXPORT_DIR=<dated export> node preview/make-catalog.mjs` | `[catalog] 321 products, 5 pages` |
+| Theme renders | `cd preview && node build.mjs` | `321 products · 39 collections · 5 pages` |
+| Deployed prototype | `curl -o /dev/null -w '%{http_code}' https://mt-uniforms-storefront-prototype.vercel.app/` | `200` |
+
+Manual checks that the commands cannot make for you:
+
+1. Open a product with required options, submit without choosing, and confirm one consistent error
+   appears for both dropdown options and chip options. Native browser validation is switched off on
+   purpose so these do not behave differently.
+2. Add a decorated line to the cart and confirm the chosen options and the name-tape text both
+   appear on the cart line.
+3. Confirm the reorder screen in `ops/admin.mjs` distinguishes *never counted* from *out of stock*.
+   Showing all 321 products as needing reorder is a regression, not a full shelf.

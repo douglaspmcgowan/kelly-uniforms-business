@@ -1,0 +1,52 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "M.T. Uniforms — Quartermaster",
+    "theme_version": "0.1.0",
+    "theme_author": "Pyrgos AI",
+    "theme_documentation_url": "https://github.com/pyrgos-ai/kelly-uniforms-business",
+    "theme_support_url": "https://github.com/pyrgos-ai/kelly-uniforms-business/issues"
+  },
+  {
+    "name": "Commerce",
+    "settings": [
+      {
+        "type": "select",
+        "id": "commerce_mode",
+        "label": "Commerce backend",
+        "info": "Which cart and checkout the theme talks to. 'local' keeps the cart in the browser and hands the order to the store by email — use it for previews and for any period when no platform is wired up.",
+        "options": [
+          { "value": "shopify", "label": "Shopify" },
+          { "value": "ecwid", "label": "Ecwid (Lightspeed)" },
+          { "value": "local", "label": "Local / preview" }
+        ],
+        "default": "shopify"
+      },
+      {
+        "type": "text",
+        "id": "ecwid_store_id",
+        "label": "Ecwid store ID",
+        "info": "Only used when the backend is Ecwid."
+      }
+    ]
+  },
+  {
+    "name": "Contact",
+    "settings": [
+      { "type": "text", "id": "contact_email", "label": "Order email", "default": "orders@mtuniforms.com" },
+      { "type": "text", "id": "contact_phone", "label": "Phone", "default": "(814) 536-2390" }
+    ]
+  },
+  {
+    "name": "Notices",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "prototype_banner",
+        "label": "Prototype banner",
+        "info": "Shown above catalog and product pages. Leave blank on the live store.",
+        "default": ""
+      }
+    ]
+  }
+]

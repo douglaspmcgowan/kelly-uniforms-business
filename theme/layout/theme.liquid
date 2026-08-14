@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code | default: 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page_title }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+  {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {%- comment -%}
+    Platform portability: this theme renders identically under Shopify (Liquid at runtime)
+    and under the static preview renderer in ../preview. Commerce actions are delegated to
+    assets/commerce-adapter.js, which selects a driver at runtime. Never call a Shopify-only
+    Liquid object outside of the guarded blocks in snippets/commerce-*.liquid.
+  {%- endcomment -%}
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+  <script>
+    window.MT_COMMERCE = {
+      mode: {{ settings.commerce_mode | default: 'shopify' | json }},
+      ecwidStoreId: {{ settings.ecwid_store_id | default: '' | json }},
+      moneyFormat: {{ shop.money_format | default: '${{amount}}' | json }},
+      contactEmail: {{ settings.contact_email | default: 'orders@mtuniforms.com' | json }},
+      contactPhone: {{ settings.contact_phone | default: '(814) 536-2390' | json }}
+    };
+  </script>
+  <script src="{{ 'commerce-adapter.js' | asset_url }}" defer></script>
+  <script src="{{ 'theme.js' | asset_url }}" defer></script>
+  {{ content_for_header }}
+</head>
+<body class="template-{{ template | split: '.' | first }}">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  {% section 'announcement-bar' %}
+  {% section 'header' %}
+
+  <main id="main" role="main">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'service-band' %}
+  {% section 'footer' %}
+
+  <div id="cart-drawer" class="drawer" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title" hidden>
+    {% render 'cart-drawer' %}
+  </div>
+  <div id="drawer-scrim" class="drawer-scrim" hidden></div>
+</body>
+</html>

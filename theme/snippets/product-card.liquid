@@ -1,0 +1,36 @@
+{%- comment -%}
+  One catalog tile. Accepts `product` (Shopify product drop, or the equivalent shape the
+  preview renderer supplies). Keep this the only place a tile is marked up.
+{%- endcomment -%}
+<article class="card">
+  <a class="card__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+    {%- if product.featured_image -%}
+      <img src="{{ product.featured_image | image_url: width: 400 }}" alt="" loading="lazy" width="400" height="400">
+    {%- else -%}
+      <span class="card__eyebrow">No image</span>
+    {%- endif -%}
+  </a>
+  <div class="card__body">
+    {%- if product.vendor != blank -%}<span class="card__eyebrow">{{ product.vendor }}</span>{%- endif -%}
+    <h3 class="card__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    <p class="card__price">
+      {{ product.price | money }}
+      {%- if product.compare_at_price and product.compare_at_price > product.price -%}
+        <span class="card__compare">{{ product.compare_at_price | money }}</span>
+      {%- endif -%}
+    </p>
+    <div class="card__cta">
+      {%- if product.has_options -%}
+        <a class="btn btn--ghost btn--full" href="{{ product.url }}">Choose options</a>
+      {%- else -%}
+        <button class="btn btn--full" type="button"
+                data-add-to-cart
+                data-product-id="{{ product.id }}"
+                data-variant-id="{{ product.first_available_variant.id | default: product.id }}"
+                data-title="{{ product.title | escape }}"
+                data-price="{{ product.price }}"
+                data-image="{{ product.featured_image | image_url: width: 120 }}">Add to order</button>
+      {%- endif -%}
+    </div>
+  </div>
+</article>

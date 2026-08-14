@@ -1,0 +1,10 @@
+{
+  "general": {
+    "search": { "placeholder": "Search by item, model, or agency…", "submit": "Search" },
+    "cart": { "title": "Your order", "empty": "Nothing on the ticket yet.", "subtotal": "Subtotal" },
+    "accessibility": { "skip_to_content": "Skip to content", "close": "Close" }
+  },
+  "products": {
+    "product": { "add_to_cart": "Add to order", "choose_options": "Choose options", "quantity": "Quantity" }
+  }
+}

@@ -1,0 +1,48 @@
+{%- comment -%}
+  One option group. `option` carries: id, name, type, required, values[{id,label,price_delta}].
+  Long value lists render as a select; short ones render as pressable chips, which is what a
+  counter conversation actually looks like. Both post the same field name.
+{%- endcomment -%}
+<fieldset data-option data-option-id="{{ option.id }}" data-required="{{ option.required }}">
+  <legend>{{ option.name }}{% if option.required %} <span aria-hidden="true">*</span>{% endif %}</legend>
+
+  {%- if option.type == 'textarea' or option.type == 'text' -%}
+    <label class="field">
+      <span class="visually-hidden">{{ option.name }}</span>
+      {%- if option.type == 'textarea' -%}
+        <textarea name="options[{{ option.id }}]" maxlength="200" {% if option.required %}required{% endif %}></textarea>
+      {%- else -%}
+        <input type="text" name="options[{{ option.id }}]" maxlength="120" {% if option.required %}required{% endif %}>
+      {%- endif -%}
+    </label>
+
+  {%- elsif option.values.size > 8 -%}
+    <label class="field">
+      <span class="visually-hidden">{{ option.name }}</span>
+      <select name="options[{{ option.id }}]" data-option-input {% if option.required %}required{% endif %}>
+        <option value="">Select {{ option.name | downcase }}…</option>
+        {%- for v in option.values -%}
+          <option value="{{ v.id }}" data-price-delta="{{ v.price_delta | default: 0 }}">
+            {{ v.label }}{% if v.price_delta and v.price_delta != 0 %} ({{ v.price_delta | money_with_sign }}){% endif %}
+          </option>
+        {%- endfor -%}
+      </select>
+    </label>
+
+  {%- else -%}
+    <div class="option-values" role="group" aria-label="{{ option.name }}">
+      {%- for v in option.values -%}
+        <button class="chip" type="button"
+                data-option-chip
+                data-option-id="{{ option.id }}"
+                data-value-id="{{ v.id }}"
+                data-price-delta="{{ v.price_delta | default: 0 }}"
+                aria-pressed="false">
+          {{ v.label }}{% if v.price_delta and v.price_delta != 0 %} ({{ v.price_delta | money_with_sign }}){% endif %}
+        </button>
+      {%- endfor -%}
+      <input type="hidden" name="options[{{ option.id }}]" data-option-input value=""
+             {% if option.required %}required{% endif %}>
+    </div>
+  {%- endif -%}
+</fieldset>

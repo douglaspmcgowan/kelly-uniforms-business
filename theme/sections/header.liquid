@@ -1,0 +1,38 @@
+<header class="header">
+  <div class="shell header__inner">
+    <a class="brand" href="{{ routes.root_url | default: '/' }}">
+      <span class="brand__mark" aria-hidden="true">MT</span>
+      <span>
+        <span class="brand__name">{{ shop.name | default: 'M.T. Uniforms' }}</span>
+        <span class="brand__sub">{{ section.settings.tagline }}</span>
+      </span>
+    </a>
+
+    <form class="search" action="{{ routes.search_url | default: '/search' }}" method="get" role="search">
+      <label class="visually-hidden" for="site-search">Search the catalog</label>
+      <input id="site-search" type="search" name="q" placeholder="Search by item, model, or agency…" autocomplete="off">
+      <button type="submit">Search</button>
+    </form>
+
+    <nav class="header__nav" aria-label="Primary">
+      {%- for link in linklists[section.settings.menu].links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- else -%}
+        <a href="{{ routes.all_products_collection_url | default: '/collections/all' }}">Catalog</a>
+        <a href="/pages/departments">Departments</a>
+        <a href="/pages/contact">Contact</a>
+      {%- endfor -%}
+      <button class="cart-button" type="button" data-cart-open data-count="0" aria-haspopup="dialog">Cart</button>
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Public safety outfitters · Johnstown, PA" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+  ]
+}
+{% endschema %}

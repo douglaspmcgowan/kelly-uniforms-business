@@ -1,0 +1,52 @@
+<div class="shell">
+  {%- if settings.prototype_banner != blank -%}
+    <p class="prototype-banner">{{ settings.prototype_banner }}</p>
+  {%- endif -%}
+
+  <div class="workbench">
+    <aside class="rail">
+      <h2>Who is it for</h2>
+      <div class="rail__list">
+        <a class="chip{% if collection.handle == 'all' %} is-active{% endif %}"
+           href="{{ routes.all_products_collection_url | default: '/collections/all' }}">All items</a>
+        {%- for c in section.settings.roles -%}
+          <a class="chip{% if collection.handle == c.handle %} is-active{% endif %}" href="{{ c.url }}">{{ c.title }}</a>
+        {%- endfor -%}
+      </div>
+    </aside>
+
+    <div>
+      <h1 style="margin:0 0 .25rem;font-size:1.5rem;">{{ collection.title | default: 'Catalog' }}</h1>
+      <p class="hint" style="margin:0 0 1rem;">
+        {{ collection.products_count | default: collection.products.size }} items
+        {%- if collection.description != blank %} · {{ collection.description | strip_html | truncate: 140 }}{% endif -%}
+      </p>
+
+      {%- if section.settings.shelf.size > 0 -%}
+        <h2>Narrow by category</h2>
+        <div class="shelf">
+          {%- for c in section.settings.shelf -%}
+            <a class="chip{% if c.handle == collection.handle %} is-active{% endif %}" href="{{ c.url }}">{{ c.title }}</a>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if collection.products.size > 0 -%}
+        <div class="grid">
+          {%- for product in collection.products -%}
+            {% render 'product-card', product: product %}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <p>No items in this category yet. <a href="/pages/contact">Ask us what we can order.</a></p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection grid",
+  "settings": []
+}
+{% endschema %}

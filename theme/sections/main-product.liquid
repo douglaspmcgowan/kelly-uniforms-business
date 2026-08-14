@@ -1,0 +1,85 @@
+<div class="shell">
+  {%- if settings.prototype_banner != blank -%}
+    <p class="prototype-banner">{{ settings.prototype_banner }}</p>
+  {%- endif -%}
+
+  <nav class="hint" style="padding-top:1rem;" aria-label="Breadcrumb">
+    <a href="{{ routes.root_url | default: '/' }}">Home</a>
+    {%- for c in product.breadcrumbs -%} · <a href="{{ c.url }}">{{ c.title }}</a>{%- endfor -%}
+  </nav>
+
+  <div class="product">
+    <div class="product__media">
+      {%- if product.featured_image -%}
+        <img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.title | escape }}" width="900" height="900">
+      {%- endif -%}
+      {%- if product.description != blank -%}
+        <section style="margin-top:1.5rem;max-width:var(--measure);">
+          <h2 style="font-size:1rem;">Details</h2>
+          <div class="rte">{{ product.description }}</div>
+        </section>
+      {%- endif -%}
+    </div>
+
+    <div>
+      {%- if product.vendor != blank -%}<p class="card__eyebrow">{{ product.vendor }}</p>{%- endif -%}
+      <h1 class="product__title">{{ product.title }}</h1>
+      <p class="product__meta">
+        {%- if product.model != blank %}Model {{ product.model }}{% endif -%}
+        {%- if product.weight != blank %} · {{ product.weight }}{% endif -%}
+      </p>
+      <p class="product__price">{{ product.price | money }}</p>
+
+      {%- comment -%}
+        novalidate on purpose: chip groups post through a hidden input, which the browser never
+        validates, so leaving native validation on would give selects one error style and chips
+        another. theme.js validates every option group the same way instead.
+      {%- endcomment -%}
+      <form novalidate
+            data-product-form
+            data-product-id="{{ product.id }}"
+            data-title="{{ product.title | escape }}"
+            data-base-price="{{ product.price }}"
+            data-image="{{ product.featured_image | image_url: width: 120 }}">
+
+        {%- for option in product.options_with_values -%}
+          {% render 'product-options', option: option %}
+        {%- endfor -%}
+
+        <fieldset class="decoration">
+          <legend>Decoration &amp; tailoring</legend>
+          <p class="hint" style="margin-top:0;">
+            Name tapes, embroidery, and hemming are quoted on the order ticket. Tell us what you need and we confirm
+            before anything is charged.
+          </p>
+          <label class="field">
+            <span>Name tape / embroidery text <span class="hint">(optional)</span></span>
+            <input type="text" name="properties[Name tape]" maxlength="40" autocomplete="off">
+          </label>
+          <label class="field">
+            <span>Notes for the tailor <span class="hint">(optional)</span></span>
+            <textarea name="properties[Tailor notes]" maxlength="400"></textarea>
+          </label>
+        </fieldset>
+
+        <label class="field" style="max-width:140px;">
+          <span>Quantity</span>
+          <input type="number" name="quantity" value="1" min="1" step="1" inputmode="numeric">
+        </label>
+
+        <p class="error-text" data-form-error hidden></p>
+        <button class="btn btn--accent btn--full" type="submit">Add to order</button>
+        <p class="hint" style="margin-top:.75rem;">
+          Questions on fit or agency pricing? Call {{ settings.contact_phone | default: '(814) 536-2390' }}.
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,20 @@
+<div class="announcement">
+  <div class="shell announcement__inner">
+    <span>{{ section.settings.message }}</span>
+    {%- if section.settings.link_label != blank -%}
+      <a href="{{ section.settings.link_url }}">{{ section.settings.link_label }}</a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    { "type": "text", "id": "message", "label": "Message",
+      "default": "Serving Pennsylvania departments since 1985 — walk-in tailoring and on-site fittings." },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Call (814) 536-2390" },
+    { "type": "url", "id": "link_url", "label": "Link URL", "default": "tel:+18145362390" }
+  ]
+}
+{% endschema %}
