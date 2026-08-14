@@ -58,3 +58,26 @@ Manual checks that the commands cannot make for you:
    appear on the cart line.
 3. Confirm the reorder screen in `ops/admin.mjs` distinguishes *never counted* from *out of stock*.
    Showing all 321 products as needing reorder is a regression, not a full shelf.
+
+## OpenCart export and Shopify import — added 2026-08-14
+
+```bash
+node ops/build-shopify-import.mjs
+```
+
+Passing looks like: 407 products, 12,409 CSV rows, 0 oversized, 0 without a handle. A changed
+product count means the export under `%PROJECT_DATA_ROOT%\inputs\opencart-export\2026-08-14\` was
+replaced; confirm that was intended before trusting the output.
+
+Manual checks, none of which a script can stand in for:
+
+1. **The CSV parses as CSV.** Descriptions contain newlines, which are legal inside quoted fields
+   and which a naive line-splitting check will report as thousands of malformed rows. Parse the
+   whole file, not line by line. Expect 31 columns on every row.
+2. **Descriptions are real HTML, not escaped text.** `Body (HTML)` should start with `<p>`, not
+   `&lt;p&gt;`. OpenCart stores them entity-encoded and the parser decodes them.
+3. **Demotions are still sensible.** Read `report.json`. Waist, length, and colour should be
+   variants; braid, hat bands, and hardware finish should be properties. If a size or colour group
+   has been demoted, the `STOCK_BEARING` pattern in `ops/build-shopify-import.mjs` needs a term.
+4. **Nothing from the export is inside the repository.** `find . -name '*.sql'` should return only
+   `ops/schema.sql`.
