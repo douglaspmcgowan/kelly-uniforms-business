@@ -124,10 +124,13 @@
     updatePrice(e.target.closest('form'))
   })
 
+  /* Every price here is in cents, base and deltas alike, because that is what Shopify's money
+     filters expect. Do not reintroduce a conversion in this function: the delta arrives as cents
+     already, and multiplying it here is what made the label and the charge disagree. */
   function unitPrice (form) {
     var base = Number(form.getAttribute('data-base-price')) || 0
     return $$('[data-option-input]', form).reduce(function (sum, el) {
-      return sum + Math.round((Number(el.getAttribute('data-price-delta')) || 0) * 100)
+      return sum + (Number(el.getAttribute('data-price-delta')) || 0)
     }, base)
   }
 

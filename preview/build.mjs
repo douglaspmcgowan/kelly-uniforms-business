@@ -94,7 +94,10 @@ const products = CATALOG.products.map(p => ({
     name: o.name,
     type: o.type,
     required: o.required,
-    values: o.values.map(v => ({ id: v.valueId, label: v.label, price_delta: v.priceDelta }))
+    // Cents, like `price` above. The catalog carries dollars; every price the theme touches is
+    // cents, because Shopify's money filters divide by 100. Leaving this in dollars rendered an
+    // $8.00 braid surcharge as "+$0.08" while the cart correctly charged $8.00.
+    values: o.values.map(v => ({ id: v.valueId, label: v.label, price_delta: Math.round(v.priceDelta * 100) }))
   })),
   _categories: p.categories.map(c => c.name)
 }))
@@ -106,13 +109,17 @@ for (const p of products) {
     byCategory.get(name).push(p)
   }
 }
+/* Every category a product claims gets a page. The threshold below decides what is worth putting
+   on the shelf, not what exists: products carry breadcrumbs to all of their categories, so
+   filtering here instead left 18 breadcrumb links pointing at pages that were never generated. */
 const collections = [...byCategory.entries()]
   .map(([title, items]) => ({ title, handle: slug(title), url: `/collections/${slug(title)}.html`, products: items }))
-  .filter(c => c.products.length >= 3)
   .sort((a, b) => b.products.length - a.products.length)
 
-const ROLES = collections.filter(c => CATALOG.roles.includes(c.title))
-const SHELF = collections.filter(c => !CATALOG.roles.includes(c.title)).slice(0, 18)
+const SHELF_MINIMUM = 3
+const shelvable = collections.filter(c => c.products.length >= SHELF_MINIMUM)
+const ROLES = shelvable.filter(c => CATALOG.roles.includes(c.title))
+const SHELF = shelvable.filter(c => !CATALOG.roles.includes(c.title)).slice(0, 18)
 const ALL = { title: 'Full catalog', handle: 'all', url: '/collections/all.html', products, description: '' }
 
 /* ------------------------------------------------------------------- render */
