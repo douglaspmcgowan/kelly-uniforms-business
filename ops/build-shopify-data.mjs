@@ -31,7 +31,17 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { loadCustomers, loadOrders, loadReviews, loadUrls, loadCatalog, loadTestimonials, exportDir, localDate } from './parse-opencart.mjs'
+import { loadCustomers, loadOrders, loadReviews, loadUrls, loadCatalog, loadTestimonials, exportDir, localDate, readTable, CATALOG } from './parse-opencart.mjs'
+
+// Category id -> display name, for the redirect targets. OpenCart keeps the name in a per-language
+// description table rather than on the category row, so this is the only place the name lives.
+function loadCategoryNames () {
+  const out = {}
+  for (const r of readTable('oc_category_description', CATALOG)) {
+    if (!out[r.category_id] && r.name) out[r.category_id] = r.name
+  }
+  return out
+}
 
 const csvCell = (v) => {
   const s = String(v ?? '')
@@ -154,19 +164,29 @@ function buildOrders (orders, catalog) {
 
 /* ── redirects ─────────────────────────────────────────────────────────────────────────────────── */
 
-function buildRedirects (urls, catalog) {
+// Shopify lowercases handles and strips characters outside [a-z0-9-]. A redirect target written
+// with the raw OpenCart keyword therefore lands on a 404 whenever that keyword carries uppercase
+// or punctuation — `gh-armor-systems-pro-2,3A` and `SPIEWAK-VIZGUARD-RESCUE-PARKA` are both real
+// keywords in this export. Normalizing here is what makes the target match the handle Shopify
+// actually creates. It matches the slug rule in preview/build.mjs and ops/build-db.mjs.
+const shopifyHandle = (s) =>
+  String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+
+function buildRedirects (urls, catalog, categoryNames) {
   const handles = new Set(catalog.map(p => p.handle).filter(Boolean))
   const rows = []
   const seen = new Set()
+  const report = { product: 0, category: 0, manufacturer: 0, information: 0, existing301: 0, unmapped: [] }
   const add = (from, to) => {
     const f = '/' + String(from).replace(/^\/+/, '')
     if (seen.has(f) || f === '/') return
     seen.add(f)
     rows.push({ Redirect: f, Target: to })
+    return true
   }
 
   // The existing 301s carry forward as-is; they already encode decisions someone made.
-  for (const r of urls.redirects) add(r.from, '/' + String(r.to).replace(/^\/+/, ''))
+  for (const r of urls.redirects) if (add(r.from, '/' + String(r.to).replace(/^\/+/, ''))) report.existing301++
 
   // OpenCart serves products at a bare keyword (/some-product). Shopify serves them at
   // /products/<handle>. Where the handle matches the old keyword the path still changes, so every
@@ -177,17 +197,28 @@ function buildRedirects (urls, catalog) {
     const [kind, id] = s.query.split('=')
     if (kind === 'product_id') {
       const p = catalog.find(x => x.productId === id)
-      if (p && handles.has(p.handle)) add(s.keyword, `/products/${p.handle}`)
-    } else if (kind === 'path') {
-      add(s.keyword, `/collections/${s.keyword.split('/').pop()}`)
+      if (p && handles.has(p.handle)) { if (add(s.keyword, `/products/${p.handle}`)) report.product++ }
+      else report.unmapped.push({ kind, id, keyword: s.keyword, why: 'no product with this id in the catalog' })
+    } else if (kind === 'category_id') {
+      // This branch used to test for `path=`, which does not exist in this export — OpenCart 3
+      // files category URLs under `category_id=`. The result was that all 100 category redirects
+      // were silently dropped: /police, /boots, /corrections, /postal-letter-carrier and the rest,
+      // which are the highest-value SEO landing pages this store has. The arithmetic gave it away
+      // once someone checked: 24 existing 301s + 407 products + 32 brands + 6 pages = 469, exactly
+      // the row count the build reported, with the category branch contributing nothing.
+      const name = categoryNames[id]
+      if (name) { if (add(s.keyword, `/collections/${shopifyHandle(name)}`)) report.category++ }
+      else report.unmapped.push({ kind, id, keyword: s.keyword, why: 'no category description row for this id' })
     } else if (kind === 'information_id') {
-      add(s.keyword, `/pages/${s.keyword}`)
+      if (add(s.keyword, `/pages/${shopifyHandle(s.keyword)}`)) report.information++
     } else if (kind === 'manufacturer_id') {
-      add(s.keyword, `/collections/${s.keyword}`)
+      if (add(s.keyword, `/collections/${shopifyHandle(s.keyword)}`)) report.manufacturer++
+    } else {
+      report.unmapped.push({ kind, id, keyword: s.keyword, why: 'unrecognised query kind' })
     }
   }
 
-  return { csv: toCsv(['Redirect', 'Target'], rows), count: rows.length }
+  return { csv: toCsv(['Redirect', 'Target'], rows), count: rows.length, byKind: report }
 }
 
 /* ── reviews ───────────────────────────────────────────────────────────────────────────────────── */
@@ -229,7 +260,7 @@ function main () {
   const catalog = loadCatalog()
   const customers = buildCustomers(loadCustomers())
   const orders = buildOrders(loadOrders(), catalog)
-  const redirects = buildRedirects(loadUrls(), catalog)
+  const redirects = buildRedirects(loadUrls(), catalog, loadCategoryNames())
   const reviews = buildReviews(loadReviews())
   const testimonials = loadTestimonials()
 
@@ -247,7 +278,11 @@ function main () {
       excludedAbandoned: orders.excluded,
       importVia: 'Admin API or migration app — Shopify has NO native order CSV import',
     },
-    redirects: { rows: redirects.count, importVia: 'Shopify Navigation > URL Redirects (native CSV)' },
+    redirects: {
+      rows: redirects.count,
+      byKind: redirects.byKind,
+      importVia: 'Shopify Navigation > URL Redirects (native CSV)',
+    },
     reviews: { rows: reviews.count, fiveStar: reviews.fiveStar, importVia: 'Judge.me / Product Reviews app' },
     testimonialsDeliberatelyExcluded: {
       rows: testimonials.length,

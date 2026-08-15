@@ -25,3 +25,17 @@ __pycache__/
 *.pyc
 .agents/work/state.lock
 *.lock.json
+
+# Real customer data, kept out of Git by a rule rather than by luck.
+#
+# The conversion scripts write customers.csv and orders.jsonl -- 2,212 real people and 1,154 real
+# orders -- under PROJECT_DATA_ROOT, which resolves outside this repository. That is a path
+# convention, and two environment variables can change it: PROJECT_DATA_ROOT and MT_EXPORT_DIR.
+# If either points somewhere unexpected the output root is derived by a regex replace that silently
+# no-ops, and the PII lands wherever the script was run. These two lines are the mechanical backstop
+# so the policy does not depend on the path holding.
+outputs/
+db/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm

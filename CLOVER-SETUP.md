@@ -28,7 +28,7 @@ question 1 in `SETUP.md` and it needs a business answer.
 | One place to add a product; the counter stays the source of truth | Products are added on the website, and Clover receives them |
 | Website variants must collapse into Clover items/modifiers | Clover receives sales but does not constrain the catalog |
 
-The measured catalog makes this concrete rather than abstract: **12,409 variants across 407
+The measured catalog makes this concrete rather than abstract: **12,098 variants across 407
 products**, and one pair of trousers alone accounts for 1,020 of them. A model that has to represent
 every one of those as a distinct Clover item is a different proposition from one that does not.
 Answer the ownership question before writing any sync code.
@@ -50,7 +50,7 @@ Answer the ownership question before writing any sync code.
 
 ## Stage 2 — get the inventory count out
 
-This unblocks the single largest gap in the Shopify import. **Every one of the 12,409 variants
+This unblocks the single largest gap in the Shopify import. **Every one of the 12,098 variants
 imports at stock 0**, because OpenCart holds stock per product rather than per option value and
 those counts cannot be split without inventing numbers.
 

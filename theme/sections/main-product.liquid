@@ -46,6 +46,29 @@
           {% render 'product-options', option: option %}
         {%- endfor -%}
 
+        {%- comment -%}
+          The variant map. Shopify's /cart/add.js takes a VARIANT id and rejects a product id, and
+          until 2026-08-15 this form carried only `data-product-id` — so every add-to-cart on a real
+          Shopify store would have failed, while the preview (which has no variants and posts to a
+          local driver) passed. `product-card.liquid` had it right with
+          `first_available_variant.id`; the product page, the one place option selection actually
+          happens, was the one place it was missing.
+
+          Emitted as JSON rather than as attributes because the option-value combination is the key:
+          theme.js joins the selected values in option order and looks the id up. In the preview this
+          array is empty, the lookup finds nothing, and the local driver's existing product-id path
+          still works — so the two runtimes diverge here honestly instead of the shim hiding it.
+        {%- endcomment -%}
+        <script type="application/json" data-variant-map>
+          [
+            {%- for v in product.variants -%}
+              {"id": {{ v.id | json }}, "available": {{ v.available | json }},
+               "price": {{ v.price | json }}, "options": {{ v.options | json }}}
+              {%- unless forloop.last -%},{%- endunless -%}
+            {%- endfor -%}
+          ]
+        </script>
+
         <fieldset class="decoration">
           <legend>Decoration &amp; tailoring</legend>
           <p class="hint" style="margin-top:0;">

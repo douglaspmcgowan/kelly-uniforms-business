@@ -55,41 +55,88 @@ export function localDate (d = new Date()) {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
 }
 
-// A single INSERT's VALUES list, split on commas that are not inside a quoted string.
-// OpenCart escapes with backslashes, so a quote preceded by an odd run of backslashes is literal.
-function splitValues (body) {
-  const out = []
-  let cur = ''
-  let inStr = false
-  for (let i = 0; i < body.length; i++) {
-    const c = body[i]
-    if (inStr) {
-      if (c === '\\') { cur += c + (body[++i] ?? ''); continue }
-      if (c === "'") { inStr = false; continue }
-      cur += c
-    } else if (c === "'") {
-      inStr = true
-    } else if (c === ',') {
-      out.push(cur.trim()); cur = ''
-    } else {
+/**
+ * The whole VALUES clause of one INSERT, as a list of tuples.
+ *
+ * mysqldump defaults to `--extended-insert`, which emits `VALUES (…),(…),(…);` — many rows on one
+ * statement. The reader used to assume exactly one tuple per INSERT and captured everything between
+ * the first `(` and the final `)`, so an extended dump would have been folded into a single giant
+ * row with every column after the first tuple silently misplaced. The current export happens to be
+ * one tuple per line (checked: no `),(` in any file), so this handles both forms rather than
+ * depending on a dump flag nobody controls.
+ *
+ * Quoting is MySQL's, which escapes two ways at once:
+ *   - backslash escapes (`\'`, `\\`, `\n`), which OpenCart's data uses heavily; and
+ *   - a doubled quote (`'it''s'`). This used to close the string and immediately reopen it, so
+ *     everything after it in that row shifted one column left with no error anywhere.
+ */
+function parseTuples (body) {
+  const tuples = []
+  let i = 0
+  while (i < body.length) {
+    while (i < body.length && /[\s,]/.test(body[i])) i++
+    if (i >= body.length) break
+    if (body[i] !== '(') throw new Error(`Malformed VALUES list: expected "(" at offset ${i}.`)
+    i++
+    const vals = []
+    let cur = ''
+    let quoted = false
+    let inStr = false
+    let closed = false
+    // A value is only the SQL keyword NULL when it arrived UNQUOTED. Stripping the quotes before
+    // the test made the string literal 'NULL' — a real product name in some catalogs — arrive as a
+    // JS null indistinguishable from a missing column.
+    const push = () => { vals.push(finishValue(cur, quoted)); cur = ''; quoted = false }
+    for (; i < body.length; i++) {
+      const c = body[i]
+      if (inStr) {
+        if (c === '\\') { cur += c + (body[++i] ?? ''); continue }
+        if (c === "'") {
+          if (body[i + 1] === "'") { cur += "'"; i++; continue }
+          inStr = false
+          continue
+        }
+        cur += c
+        continue
+      }
+      // Whitespace AROUND a quoted literal is dump formatting, not data — `('2', '1')`. It is
+      // dropped here rather than trimmed off the finished value, because trimming a quoted literal
+      // would also eat whitespace the column genuinely holds.
+      if (/\s/.test(c) && (quoted || cur.trim() === '')) { if (!quoted) cur = ''; continue }
+      if (c === "'") { inStr = true; quoted = true; continue }
+      if (c === ',') { push(); continue }
+      if (c === ')') { push(); closed = true; break }
       cur += c
     }
+    if (inStr) throw new Error('Malformed VALUES list: unterminated string literal.')
+    if (!closed) throw new Error('Malformed VALUES list: unterminated tuple.')
+    i++
+    tuples.push(vals)
   }
-  out.push(cur.trim())
-  return out.map(v => (v === 'NULL' ? null : unescapeSql(v)))
+  return tuples
 }
 
+function finishValue (v, quoted) {
+  if (!quoted) {
+    const t = v.trim()
+    return t === 'NULL' ? null : unescapeSql(t)
+  }
+  return unescapeSql(v)
+}
+
+// One pass, because sequential replaces run in the wrong order by construction: rewriting `\n`
+// before `\\` turned a literal backslash followed by the letter n into a backslash plus a real
+// newline, which then broke every consumer that splits on lines.
+const SQL_ESCAPES = { n: '\n', r: '\r', t: '\t', 0: '\0' }
 function unescapeSql (v) {
-  return v
-    .replace(/\\n/g, '\n').replace(/\\r/g, '\r').replace(/\\t/g, '\t')
-    .replace(/\\'/g, "'").replace(/\\"/g, '"').replace(/\\\\/g, '\\')
+  return v.replace(/\\(.)/g, (_, c) => (c in SQL_ESCAPES ? SQL_ESCAPES[c] : c))
 }
 
 /** Read every row of one table across all chunk files. */
 export function readTable (tableName, files) {
   const dir = exportDir()
   const rows = []
-  const re = new RegExp('^INSERT INTO `' + tableName + '` \\(([^)]*)\\) VALUES \\((.*)\\);\\s*$')
+  const re = new RegExp('^INSERT INTO `' + tableName + '` \\(([^)]*)\\) VALUES (.*);\\s*$')
   for (const file of files) {
     const full = path.join(dir, file)
     if (!fs.existsSync(full)) continue
@@ -97,10 +144,16 @@ export function readTable (tableName, files) {
       const m = re.exec(line)
       if (!m) continue
       const cols = m[1].split(',').map(c => c.trim().replace(/`/g, ''))
-      const vals = splitValues(m[2])
-      const row = {}
-      cols.forEach((c, i) => { row[c] = vals[i] })
-      rows.push(row)
+      for (const vals of parseTuples(m[2])) {
+        // A tuple that does not line up with the column list means the value scanner and the dump
+        // disagree, and every downstream field would be off by one silently. Fail here instead.
+        if (vals.length !== cols.length) {
+          throw new Error(`${tableName} in ${file}: ${vals.length} values for ${cols.length} columns.`)
+        }
+        const row = {}
+        cols.forEach((c, i) => { row[c] = vals[i] })
+        rows.push(row)
+      }
     }
   }
   return rows

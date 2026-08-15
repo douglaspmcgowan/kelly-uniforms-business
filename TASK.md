@@ -54,6 +54,7 @@ Complete and verify Commit and push the verified portable recovery system and Wo
 - shopify-catalog-import
 - opencart-data-offload-runbook
 - clover-integration-setup
+- shopify-conversion-workstream-has-no-workscope-cell-20260815
 
 ## Next transition
 

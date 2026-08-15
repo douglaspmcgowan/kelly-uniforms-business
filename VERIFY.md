@@ -46,7 +46,7 @@ Run from the repository root.
 |---|---|---|
 | Operations schema | `node ops/verify-db.mjs` | `8 checks passed` |
 | Catalog data file | `MT_EXPORT_DIR=<dated export> node preview/make-catalog.mjs` | `[catalog] 321 products, 5 pages` |
-| Theme renders | `cd preview && node build.mjs` | `321 products · 39 collections · 5 pages` |
+| Theme renders | `cd preview && node build.mjs` | `321 products · 51 collections · 5 pages` |
 | Deployed prototype | `curl -o /dev/null -w '%{http_code}' https://mt-uniforms-storefront-prototype.vercel.app/` | `200` |
 
 Manual checks that the commands cannot make for you:
@@ -65,7 +65,7 @@ Manual checks that the commands cannot make for you:
 node ops/build-shopify-import.mjs
 ```
 
-Passing looks like: 407 products, 12,409 CSV rows, 0 oversized, 0 without a handle, **0 duplicate
+Passing looks like: 407 products, 12,409 CSV rows (12,098 variant rows plus 311 image-only rows), 0 oversized, 0 without a handle, **0 duplicate
 SKUs**. A changed product count means the export under
 `%PROJECT_DATA_ROOT%\inputs\opencart-export\` was replaced; confirm that was intended before
 trusting the output. Both build scripts print the export folder they resolved — check it is the one
@@ -75,7 +75,7 @@ you meant, since `exportDir()` takes the newest dated folder unless `MT_EXPORT_D
 node ops/build-shopify-data.mjs
 ```
 
-Passing looks like: 2,212 customers, 1,154 orders with 347 abandoned excluded, 469 redirects, 6
+Passing looks like: 2,212 customers, 1,154 orders with 347 abandoned excluded, 568 redirects, 6
 reviews of which 5 are five-star, and 8 testimonials **excluded**. The testimonial count being
 non-zero and excluded is the check, not a warning — those rows are Journal 3 Lorem Ipsum under
 invented names and putting them on a real store would be fabricated praise.
@@ -123,5 +123,42 @@ source review.
    The count is 4 here and 5 in `reviews.csv` on purpose. The fifth is on a product outside the
    321-product public slice the preview carries; the full 407-product Shopify import includes it.
 
-Verified 2026-08-14 against production: 10,684 internal links, 0 unresolvable; validation, option
+Re-verified 2026-08-15 against a fresh `preview/dist`: 381 pages, **9,926 internal `href`s, 0 unresolvable** (counting root-relative hrefs only, resolving each against the file, `file.html`, and `file/index.html`). Two documents used to give 10,684 and 10,689 for this, neither reproducible from a stated method; the method is stated here so the number can be checked. Validation, option
 pricing, line merging, quantity, removal, empty state, and the mailto checkout all pass.
+
+## Storefront regression checks — added 2026-08-15, from five review passes
+
+Each of these is a defect that shipped and was caught by driving the built site. Each has a number
+to check, because "looks fine" is what let them through the first time.
+
+4. **No horizontal scroll at 375px, on every page type.** Measure `documentElement.scrollWidth`
+   against `clientWidth` on home, collection, product, search, and an info page; they must be equal.
+   They read 452 against 375 for a while, and the piece pushed off-screen was the **cart button —
+   the only route to the cart on a phone**. Two independent causes, both the `min-width: auto`
+   default on a grid or flex child: the search input, and the nav row.
+5. **`.workbench` does not size itself to the category shelf.** At 1440 the document was 2733px
+   wide and the product grid sprawled to ten columns with a dead gutter. `.shelf` has
+   `overflow-x: auto` and it could not engage, because the `1fr` grid track would not shrink below
+   its content. Expect `scrollWidth == clientWidth` and a four-column grid at 1440.
+6. **`visually-hidden` must be defined in `theme.css`.** Three templates use it. When it is missing,
+   the screen-reader label "Search the catalog" renders as visible body text in the header of every
+   page — a grep for the class in the stylesheet is the whole check.
+7. **Every option group a customer selects must reach the cart.** On
+   `w-alboum-cushion-air-8-point-uniform-cap-ht8p`, select all seven groups and expect **seven**
+   stored options. Two of its groups are both labelled "Option" (cap device, and band style), and
+   keying the payload by legend text meant the second silently overwrote the first — the officer
+   picked the police button, the price was right, and the shop received an order that never
+   mentioned it. Six of seven is the failure signature.
+8. **A malformed stored cart must not brick the button.** Set `mt-cart-v1` to
+   `{"items":[],"total":0}` and confirm `get()` and `add()` resolve. This threw synchronously, ahead
+   of any promise, so the `.catch` never fired and the customer saw no error at all — Add to order
+   simply stopped working on every page until they cleared site data.
+9. **The checkout link is inert on an empty cart, and never exceeds ~1,900 characters.**
+   `checkoutUrl()` returns `''` when empty and the href is removed, because `aria-disabled` does not
+   stop an `<a>` from activating. With 60 lines the URL must stay under the limit and say in the
+   body how many lines did not fit, rather than being truncated by the mail client in silence.
+10. **Search returns results.** `/search?q=hemming` must find the tailoring page; `?q=elbeco
+    trousers` must return product cards. The prototype's search was dead end to end: the form's
+    query was dropped by the `.html` → clean-URL redirect, and the generated `search-index.json` had
+    no reader at all. This is preview-only scaffolding — on Shopify the page is server-rendered —
+    so check it against the built preview, never as evidence about the real store.

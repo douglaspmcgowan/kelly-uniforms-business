@@ -81,6 +81,8 @@ Numbered so you can reply with just the numbers you approve.
 
 | # | What | Why it is blocked | Cost |
 |---|---|---|---|
+| 0a | **Purge the 39 `oc_offline_cc_data` rows** | Section 1. Cardholder names, expiry dates and billing postcodes are stored in the clear on the live site, orphaned from orders deleted years ago. This is the highest-severity item in the project and it outranks the migration. | Free, needs your admin login |
+| 0b | **Disable the offline credit-card module, then confirm it is not still live on the storefront** | Without this the table refills. The confirmation is a separate step from the disable and must happen before cutover. | Free |
 | 1 | ~~Pick the platform~~ | **Ruled 2026-08-14: Shopify, Basic plan.** | — |
 | 2 | Open the **Shopify Basic** plan and grant store access | Nothing can be imported, and no real cart or checkout can be tested, without a store | $39/mo |
 | 3 | Confirm **DNS control** for the cutover | Cannot cut over or test the checkout domain without it | Existing domain, $0 |
@@ -88,7 +90,12 @@ Numbered so you can reply with just the numbers you approve.
 | 5 | Decide whether the client sees the **prototype URL** | It is live and reads as a real store. It should not reach the client's customers by accident. | Decision only |
 | 6 | **Push the branch.** Send `[allow-push]` or run the command below | Committed locally through `fc8df6d` on `codex/mt-uniforms-storefront`; Gitleaks clean. The tag expires with the turn it was sent in. | Free |
 | 7 | Decide whether **customers and orders** migrate at all | 2,212 customers and 1,154 real orders are personal data. Moving them starts a new retention clock in a new system and needs a business reason, not a default. | Decision only |
-| 8 | Decide how **12 priced option groups** get charged | Shopify's line-item properties carry no price. Twelve demoted groups across eight products have surcharges — Hat Visor up to **$56.99**, Hat Band $18.99, Braid $10.00. As imported, the customer picks them and is charged $0. See below. | Decision only, but it is revenue |
+| 8a | Decide whether the **prototype may publish real customers' names** | The reviews band republishes Richard Kidd's and Shane Fryer's names and words under a Vercel domain. They are already public on mtuniforms.com, so this is not an exposure — but republishing named individuals on a different domain is a fresh processing decision the client never made, and it is now in Git history. Relates to item 5. | Decision only |
+| 8b | Decide how **12 priced option groups** get charged | Shopify's line-item properties carry no price. Twelve demoted groups across nine products have surcharges — Hat Visor up to **$56.99**, Hat Band $18.99, Braid $10.00. As imported, the customer picks them and is charged $0. See below. | Decision only, but it is revenue |
+| 9 | Decide what happens to the **reviews band** | All four reviews are from **two people on one day, 2014-07-08**, and every one is about a patch or a tie bar rather than duty gear — under a heading claiming they are from "the people who wear this gear to work". Five separate review passes independently flagged it as reading manufactured. Three ways out: widen the set from the real export, date it honestly ("Reviews from mtuniforms.com, 2014–present"), or pull the band until there are current reviews. | Decision only |
+| 10 | Decide whether the storefront keeps its **dark mode** | A `prefers-color-scheme: dark` block ships that no design document owns, and it is half-done: product photography keeps white backgrounds and floats as bright squares, the announcement bar stays full-brightness orange, and orange on dark paper measures **3.35:1** — a contrast failure for the stars, error text, and focus outline. Roughly half of visitors on default OS settings see this rather than the approved light world. My recommendation is to delete it; designing it properly is real work. | Decision only |
+| 11 | Decide whether the order form collects a **PO number** | `/pages/departments` promises "send the PO number with the order and we bill the agency directly", and the order the site generates has no field for one. It is the single field a quartermaster's business office requires. Either add it, or stop promising it. | Decision only |
+| 12 | Decide the fate of the **`mailto:` checkout** | Every review pass reached the same wall: there is no order page, no confirmation, no reference number, and the message lands in the *customer's* outbox — the store gets nothing unless they press send. A 60-line agency order does not fit in a `mailto:` at all; it is now capped and says so, which is honest rather than good. The 20-officers-one-invoice job cannot be done on this site. A posting form with a confirmation page is the fix and it is scope. | Decision, and it is the biggest one |
 
 ```bash
 git -C C:/Users/dougl/Projects/kelly-uniforms-business push origin codex/mt-uniforms-storefront
@@ -113,12 +120,14 @@ The Ecwid-via-Clover pricing note that used to sit here is retired — Shopify i
 
 ## 5. Manual steps
 
-1. **Stock counts.** Every one of the 12,409 Shopify variants imports at 0, because OpenCart holds
+1. **Stock counts.** Every one of the 12,098 Shopify variants imports at 0, because OpenCart holds
    stock per product and those 407 counts cannot be split across variants without inventing
    numbers. Export inventory from Clover, or count by hand, and say which. `CLOVER-SETUP.md` stage 2.
-2. **Product photography.** 407 products have one image each and no gallery, and several categories
-   reuse the same photo across different items. 10 image references are already dead on the live
-   site.
+2. **Product photography.** Every product has a primary image; **236 of the 407 also have a gallery**
+   (316 additional images in `oc_product_image`), so 171 products have a single photo and nothing
+   else. Several categories reuse the same photo across different items, and 10 image references are
+   already dead on the live site. This item read "407 products have one image each and no gallery"
+   until 2026-08-15, which was wrong — over half the catalog has more photography than that claimed.
 3. **The 80 disabled products.** The admin holds 407; 327 are active. Someone who knows the business
    has to say whether the other 80 are dead or seasonal. They import as drafts, which is safe either
    way.
@@ -146,10 +155,29 @@ The Ecwid-via-Clover pricing note that used to sit here is retired — Shopify i
    rather than a blocker. One of them (`usps-retail-clerk-unisex-eagle-logo-cardigan-sweater-pswcc`)
    embeds a `file:///C:\DOCUME~1\...` image path from whoever's desktop wrote it — that image is
    broken on the live site right now and will be broken on Shopify. It is the only unresolvable
-   link in the entire 10,689-link prototype.
+   link in the prototype, across 9,926 internal links on 381 pages.
 7. **Four blank option labels and two duplicated sizes.** Four Elbeco shirts have a "Sleeve Length"
    value whose description row is missing from the export; two boots list the same size twice.
    Shopify rejects both on import. They need four labels typed in and two duplicates removed.
+8. **Twenty-two option groups are labelled literally "Option".** Two of them sit on the same
+   W. Alboum cap — one is *P Button / FD Button*, the police-versus-fire cap device, and the other
+   is band style. The customer is told a choice is required without being told what it is about, and
+   the validation message reads "Choose option first." on a page with seven groups. The code no
+   longer loses the second one, but only the person who knows the business can name them.
+9. **Six products advertise a price no configuration can reach**, because a required group has no
+   zero-cost choice. The W. Alboum Round Top cap shows **$59.99** and cannot be built below
+   **$116.98** — a forced $56.99 visor. Also the Pershing cap, the Fire Dept. Bell Crown cap, the
+   Elbeco Double Breasted Dress Coat, the Pro Style Public Safety Vest, and the Mini Mag Holder.
+   Either add a zero-cost default to those groups or display "from $116.98"; a quartermaster
+   budgeting twenty caps off the listed price is $1,140 short.
+10. **The department collections are nearly empty, and Fire/EMS is missing entirely.** Police holds
+    4 items, Corrections 3, Security 7, out of 321 — the Elbeco cargo trousers an officer would
+    actually buy are in none of them. A `fire-ems` collection exists with **1 item** and is linked
+    from nowhere, while the homepage headline promises "police, fire, EMS, corrections, constables,
+    and postal carriers". Products need tagging to departments, or the rail should be dropped.
+11. **Two content gaps the client has to fill.** `/pages/contact` gives no street address for a shop
+    whose pitch is walking in for a fitting, and `/pages/sizing` says "the numbers below get you
+    close" above no numbers at all — there is no size table on the page.
 
 ---
 
@@ -177,8 +205,8 @@ looking for, and it should inform the category structure before the Shopify stor
   ~67 MB under `%PROJECT_DATA_ROOT%\inputs\opencart-export\2026-08-14\`, with a manifest and
   checksums. Outside Git, because it holds real customer PII and admin password hashes.
 - **The whole Shopify conversion**, generated and validated 2026-08-15, at
-  `%PROJECT_DATA_ROOT%\outputs\shopify-import\2026-08-15\` — 407 products across 12,409 rows, 2,212
-  customers, 1,154 orders, 469 redirects, and 6 reviews. Three defects found and fixed in the same
+  `%PROJECT_DATA_ROOT%\outputs\shopify-import\2026-08-15\` — 407 products across 12,409 CSV rows (12,098 variants plus 311 image-only rows), 2,212
+  customers, 1,154 orders, 568 redirects, and 6 reviews. Three defects found and fixed in the same
   pass: ounce-weighted products were converting at 16× their real weight, product handles were being
   taken from a second storefront that is not the live one, and one product-level SKU was repeating
   across every variant of that product.

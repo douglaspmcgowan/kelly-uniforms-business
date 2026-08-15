@@ -15,8 +15,8 @@
 <section class="reviews">
   <div class="shell">
     <div class="reviews__head">
-      <h2>{{ section.settings.heading }}</h2>
-      <p>{{ section.settings.subheading }}</p>
+      <h2>{{ section.settings.heading | escape }}</h2>
+      <p>{{ section.settings.subheading | escape }}</p>
     </div>
 
     <ul class="reviews__grid" role="list">
@@ -25,21 +25,21 @@
           <p class="review__stars" aria-label="Rated 5 out of 5">
             <span aria-hidden="true">★★★★★</span>
           </p>
-          <blockquote class="review__body">{{ block.settings.body }}</blockquote>
+          <blockquote class="review__body">{{ block.settings.body | escape }}</blockquote>
           <p class="review__meta">
-            <span class="review__author">{{ block.settings.author }}</span>
+            <span class="review__author">{{ block.settings.author | escape }}</span>
             {%- if block.settings.product != blank -%}
               <span class="review__product">
                 on
                 {%- if block.settings.product_url != blank %}
-                  <a href="{{ block.settings.product_url }}">{{ block.settings.product }}</a>
+                  <a href="{{ block.settings.product_url | escape }}">{{ block.settings.product | escape }}</a>
                 {%- else %}
-                  {{ block.settings.product }}
+                  {{ block.settings.product | escape }}
                 {%- endif -%}
               </span>
             {%- endif -%}
             {%- if block.settings.date != blank -%}
-              <span class="review__date">{{ block.settings.date }}</span>
+              <span class="review__date">{{ block.settings.date | escape }}</span>
             {%- endif -%}
           </p>
         </li>

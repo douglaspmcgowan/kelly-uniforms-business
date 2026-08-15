@@ -1,5 +1,5 @@
 {
-  "revision": 182,
+  "revision": 183,
   "backburner": [
     {
       "id": "legacy-task-L73",
@@ -2115,6 +2115,36 @@
       ],
       "status": "ready",
       "captured_at": "2026-08-14T20:53:53.3846328Z"
+    },
+    {
+      "id": "shopify-conversion-workstream-has-no-workscope-cell-20260815",
+      "title": "The Shopify migration and storefront workstream runs with no Work Scope cell of its own",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "opencart.shopify.conversion",
+      "entry_depth": "D2",
+      "discovered_from": "kelly-uniforms-business: parsing the full OpenCart export into Shopify import formats and adding the reviews showcase",
+      "relationship": "defect",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "medium",
+      "obligation_class": "actionable",
+      "evidence": [
+        {
+          "receipt_id": "514ede43-9aab-4ce6-b556-a67361cefb00",
+          "verifier": "inspection",
+          "subject": "active Work Scope cell versus the work actually in flight",
+          "result": "verified",
+          "reference": ".agents/work/state.json",
+          "sha256": "19aa6ea7cc99b08b1b9947331d35c6232a9eed414a37b2ff8d5be8e92e9cc6d8",
+          "size_bytes": 101312,
+          "captured_at": "2026-08-15T04:09:11.2745266Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-15T04:09:11.3106917Z"
     }
   ],
   "tracks": [
@@ -2175,8 +2205,8 @@
       ]
     }
   ],
-  "updated_at": "2026-08-14T20:53:58.6748823Z",
-  "last_event_hash": "b4c55465edb8fd067f16898f5dabde20f28bbe262cbf941c4463ac62b09115be",
+  "updated_at": "2026-08-15T04:09:13.8282969Z",
+  "last_event_hash": "9b6ac66a42481c423302677cb0bac288c2e7053f8c12c7611fd3346a2ef82f58",
   "schema_version": "1.0.0",
   "ownership": {
     "sessions": [
@@ -2325,7 +2355,7 @@
     ]
   },
   "created_at": "2026-08-09T06:14:25.2526853Z",
-  "last_event_id": "657c93af-b22c-44e1-8222-d1ab12f61ceb",
+  "last_event_id": "6c33c253-7ca4-4209-8973-ecf4d8d9badb",
   "active": {
     "track_id": "business-continuity",
     "capability_id": "portable-recovery-repository-custody",
@@ -2386,7 +2416,8 @@
       "shopify-basic-store-provisioning",
       "shopify-catalog-import",
       "opencart-data-offload-runbook",
-      "clover-integration-setup"
+      "clover-integration-setup",
+      "shopify-conversion-workstream-has-no-workscope-cell-20260815"
     ]
   }
 }

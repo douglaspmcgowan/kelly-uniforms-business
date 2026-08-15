@@ -22,8 +22,14 @@
       <select name="options[{{ option.id }}]" data-option-input {% if option.required %}required{% endif %}>
         <option value="">Select {{ option.name | downcase }}…</option>
         {%- for v in option.values -%}
-          <option value="{{ v.id }}" data-price-delta="{{ v.price_delta | default: 0 }}">
-            {{ v.label }}{% if v.price_delta and v.price_delta != 0 %} ({{ v.price_delta | money_with_sign }}){% endif %}
+          {%- comment -%}
+            `data-label` carries the clean label. The cart reads THIS, never the element's text,
+            because the visible text has the surcharge appended — an order ticket that says
+            "Plus (2XL-5XL) 52-64 (+$5.00)" puts a price fragment inside a size, and the local-cart
+            key changes the moment that surcharge is re-priced, splitting one line into two.
+          {%- endcomment -%}
+          <option value="{{ v.id }}" data-price-delta="{{ v.price_delta | default: 0 }}" data-label="{{ v.label | escape }}">
+            {{ v.label }}{% if v.price_delta and v.price_delta != 0 %} ({% render 'price-delta', delta: v.price_delta %}){% endif %}
           </option>
         {%- endfor -%}
       </select>
@@ -37,8 +43,9 @@
                 data-option-id="{{ option.id }}"
                 data-value-id="{{ v.id }}"
                 data-price-delta="{{ v.price_delta | default: 0 }}"
+                data-label="{{ v.label | escape }}"
                 aria-pressed="false">
-          {{ v.label }}{% if v.price_delta and v.price_delta != 0 %} ({{ v.price_delta | money_with_sign }}){% endif %}
+          {{ v.label }}{% if v.price_delta and v.price_delta != 0 %} ({% render 'price-delta', delta: v.price_delta %}){% endif %}
         </button>
       {%- endfor -%}
       <input type="hidden" name="options[{{ option.id }}]" data-option-input value=""

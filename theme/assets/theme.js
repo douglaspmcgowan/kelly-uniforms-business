@@ -78,7 +78,12 @@
 
     var checkout = $('[data-cart-checkout]')
     if (checkout) {
-      checkout.href = window.MTCommerce.checkoutUrl()
+      var url = window.MTCommerce.checkoutUrl()
+      /* Remove the href outright when there is nothing to send. `aria-disabled` announces a state to
+         assistive technology; it does not stop an <a> from activating, so an empty cart used to open
+         the customer's mail client on a blank order. */
+      if (cart.items.length && url) checkout.href = url
+      else checkout.removeAttribute('href')
       checkout.textContent = window.MTCommerce.mode === 'local' ? 'Send this order to the store' : 'Continue to checkout'
       checkout.setAttribute('aria-disabled', cart.items.length ? 'false' : 'true')
     }
@@ -109,10 +114,13 @@
     var input = $('[data-option-input]', group)
     if (input) {
       input.value = chip.getAttribute('data-value-id')
-      input.setAttribute('data-label', chip.textContent.trim())
+      /* The chip's own data-label, never its text: the text has the surcharge appended, so
+         reading it put "(+$5.00)" inside the size on the order ticket the shop works from. */
+      input.setAttribute('data-label', chip.getAttribute('data-label') || chip.textContent.trim())
       input.setAttribute('data-price-delta', chip.getAttribute('data-price-delta') || '0')
     }
     group.removeAttribute('aria-invalid')
+    clearFormError(chip.closest('form'))
     updatePrice(chip.closest('form'))
   })
 
@@ -120,9 +128,23 @@
     if (!e.target.matches('select[data-option-input]')) return
     var sel = e.target.selectedOptions[0]
     e.target.setAttribute('data-price-delta', sel ? (sel.getAttribute('data-price-delta') || '0') : '0')
-    e.target.setAttribute('data-label', sel ? sel.textContent.trim() : '')
+    e.target.setAttribute('data-label', sel ? (sel.getAttribute('data-label') || sel.textContent.trim()) : '')
+    // Mirror the chip handler: a select-backed group used to keep aria-invalid and leave the error
+    // message on screen after the customer had fixed it, until the next submit.
+    var group = e.target.closest('[data-option]')
+    if (group && e.target.value) group.removeAttribute('aria-invalid')
+    clearFormError(e.target.closest('form'))
     updatePrice(e.target.closest('form'))
   })
+
+  function clearFormError (form) {
+    if (!form) return
+    // Only once every required group is satisfied — clearing on the first fix would hide a message
+    // that still applies to another group.
+    if (firstMissing(form)) return
+    var err = $('[data-form-error]', form)
+    if (err) err.hidden = true
+  }
 
   /* Every price here is in cents, base and deltas alike, because that is what Shopify's money
      filters expect. Do not reintroduce a conversion in this function: the delta arrives as cents
@@ -149,6 +171,16 @@
       if (!input || !input.value) return
       var legend = $('legend', group)
       var name = legend ? legend.textContent.replace('*', '').trim() : input.name
+      /* Twenty-two groups in this catalog are labelled literally "Option", and the W. Alboum caps
+         carry TWO of them — cap device (P Button / FD Button) and band style. Keying purely by
+         legend text meant the second silently overwrote the first, so an officer could pick the
+         police button, see the right price, and have the shop receive an order that never mentioned
+         it. The option id disambiguates; the label stays first so the order ticket still reads in
+         the shop's own words. Renaming the groups in the catalog is the real fix (SETUP.md manual
+         step 7); this makes the data survive in the meantime instead of vanishing. */
+      if (Object.prototype.hasOwnProperty.call(out, name)) {
+        name = name + ' (' + (group.getAttribute('data-option-id') || input.name) + ')'
+      }
       out[name] = input.getAttribute('data-label') || input.value
     })
     $$('input[name^="properties["], textarea[name^="properties["]', form).forEach(function (el) {
@@ -156,6 +188,32 @@
       out[el.name.replace(/^properties\[|\]$/g, '')] = el.value.trim()
     })
     return out
+  }
+
+  /* The selected values of the variant-defining groups, in the order Shopify lists the options —
+     which is DOM order, because main-product.liquid renders them from product.options_with_values. */
+  function selectedOptionValues (form) {
+    return $$('[data-option]', form).map(function (group) {
+      var input = $('[data-option-input]', group) || $('input[type=text], textarea', group)
+      return input ? (input.getAttribute('data-label') || input.value) : ''
+    })
+  }
+
+  function variantMap (form) {
+    var el = $('script[data-variant-map]', form)
+    if (!el) return []
+    try { return JSON.parse(el.textContent) || [] } catch (e) { return [] }
+  }
+
+  /* Resolve the chosen combination to a variant id. Empty in the preview, which has no variants —
+     the caller falls back to the product id there, which is what the local driver expects. */
+  function resolveVariant (form) {
+    var chosen = selectedOptionValues(form)
+    if (!chosen.length) return null
+    var wanted = chosen.join(' / ')
+    return variantMap(form).filter(function (v) {
+      return (v.options || []).join(' / ') === wanted
+    })[0] || null
   }
 
   function firstMissing (form) {
@@ -185,14 +243,29 @@
     if (err) err.hidden = true
 
     var qtyEl = $('input[name=quantity]', form)
+    var variant = resolveVariant(form)
+    var opts = collectOptions(form)
+
+    /* When a real variant carries the choice, do not also send it as a line-item property: Shopify
+       already prints the variant's options on the order line, and sending both put every size and
+       colour on the ticket twice. The demoted groups and the decoration fields stay properties,
+       which is the whole point of the demotion. */
+    if (variant) {
+      $$('[data-option]', form).forEach(function (group) {
+        var legend = $('legend', group)
+        if (legend) delete opts[legend.textContent.replace('*', '').trim()]
+      })
+    }
+
     window.MTCommerce.add({
       id: form.getAttribute('data-product-id'),
-      variantId: form.getAttribute('data-variant-id') || form.getAttribute('data-product-id'),
+      variantId: (variant && variant.id) || form.getAttribute('data-variant-id') || form.getAttribute('data-product-id'),
       title: form.getAttribute('data-title'),
       price: unitPrice(form),
       image: form.getAttribute('data-image'),
       quantity: Math.max(1, Number(qtyEl && qtyEl.value) || 1),
-      options: collectOptions(form)
+      options: opts,
+      variantOptions: variant ? selectedOptionValues(form) : null
     }).then(function (cart) {
       renderCart(cart)
       openDrawer()

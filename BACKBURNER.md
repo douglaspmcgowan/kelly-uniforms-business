@@ -69,3 +69,4 @@ This is a discovery queue. It does not become active until a verified frontier t
 | shopify-catalog-import | Import 321 products with option groups into Shopify | storefront-modernization | customer-storefront | D2 | actionable | ready |
 | opencart-data-offload-runbook | Write and execute the OpenCart full data offload | storefront-modernization | customer-storefront | D2 | actionable | ready |
 | clover-integration-setup | Set up Clover API access and define the sync direction | storefront-modernization | customer-storefront | D2 | actionable | ready |
+| shopify-conversion-workstream-has-no-workscope-cell-20260815 | The Shopify migration and storefront workstream runs with no Work Scope cell of its own | storefront-modernization | opencart.shopify.conversion | D2 | actionable | ready |

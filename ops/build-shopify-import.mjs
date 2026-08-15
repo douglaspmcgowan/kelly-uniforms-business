@@ -25,10 +25,48 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { loadCatalog, exportDir, localDate, loadWeightClasses } from './parse-opencart.mjs'
+import {
+  loadCatalog, exportDir, localDate, loadWeightClasses, readTable, CATALOG, CONTENT, SYSTEM,
+} from './parse-opencart.mjs'
 
+// Shopify's hard limit, unchanged: three option groups per product. Its own documented workaround
+// for a product needing more is a third-party app or extracting the extra choices as line item
+// properties in theme code — which is exactly the demotion below, so this design is vendor-
+// sanctioned rather than a workaround of ours.
 const MAX_OPTION_GROUPS = 3
-const MAX_VARIANTS = 2000
+// Shopify's confirmed per-product variant ceiling for ALL merchants on ALL plans, raised from 100
+// in October 2025 ("The product variant limit is now 2048 for all merchants", Shopify developer
+// changelog). Recorded with its source so the number is not re-litigated from memory.
+const MAX_VARIANTS = 2048
+
+// What a THEME can show is a different, much lower ceiling than what the store can hold: Liquid's
+// `product.variants` "returns a maximum of 250 variants when unpaginated"
+// (https://shopify.dev/docs/api/liquid/objects/product). Products above this are legitimately
+// importable, so this is reported and never demoted to fit — cutting option groups to reach 250
+// would drop choices the customer actually needs, and the right answer is more likely Shopify's
+// deferred variant-loading pattern. That is a storefront design decision, not a data one.
+const LIQUID_RENDER_LIMIT = 250
+
+/* A dump file that is missing, renamed, or written in a form the parser does not match yields an
+   empty table and no error, which used to produce a headers-only products.csv and a report reading
+   `products: 0` on a clean exit — a broken export that looks like a successful build. These are the
+   tables the import genuinely cannot be built without. */
+const REQUIRED_TABLES = [
+  ['oc_product', CATALOG],
+  ['oc_product_description', CATALOG],
+  ['oc_seo_url', CONTENT],
+  ['oc_weight_class', SYSTEM],
+]
+
+function assertExportLoaded () {
+  for (const [table, files] of REQUIRED_TABLES) {
+    if (!readTable(table, files).length) {
+      console.error(`No rows parsed for \`${table}\` (searched ${files.join(', ')} in ${exportDir()}).`)
+      console.error('Refusing to write an import built from an unread export.')
+      process.exit(1)
+    }
+  }
+}
 
 // Option names that describe a stock-bearing physical dimension. Matched case-insensitively as
 // whole words so "Hat Size" and "Waist Size" match but "Hat Band" does not.
@@ -55,7 +93,10 @@ function planOptions (product) {
 
   const demoted = []
   while (variants.length > MAX_OPTION_GROUPS) demoted.push(demote())
-  while (combos() > MAX_VARIANTS && variants.length > 1) demoted.push(demote())
+  // Down to zero groups, not down to one. A single group with more values than the cap could not
+  // demote itself under the old `> 1` guard, so it escaped the limit entirely and the product was
+  // written oversized anyway.
+  while (combos() > MAX_VARIANTS && variants.length > 0) demoted.push(demote())
 
   return { variants, properties, demoted }
 }
@@ -111,11 +152,16 @@ function optionPrice (base, v) {
 const imageUrl = (p) => (p ? 'https://mtuniforms.com/image/' + p.split('/').map(encodeURIComponent).join('/') : '')
 
 function build () {
+  assertExportLoaded()
   const catalog = loadCatalog()
+  if (!catalog.length) {
+    console.error(`No products parsed from \`oc_product\` in ${exportDir()}. Refusing to write an empty import.`)
+    process.exit(1)
+  }
   const rows = []
   const propertyMap = {}
   const usedSkus = new Set()
-  const report = { generated: localDate(), products: catalog.length, demotions: [], pricedDemotions: [], oversized: [], noHandle: [], blankOptionValues: [], duplicateOptionLabels: [], duplicateSkus: [] }
+  const report = { generated: localDate(), products: catalog.length, demotions: [], pricedDemotions: [], oversized: [], exceedsLiquidRenderLimit: [], promotedGalleryImage: [], noHandle: [], blankOptionValues: [], duplicateOptionLabels: [], duplicateSkus: [] }
 
   for (const p of catalog) {
     if (!p.handle) { report.noHandle.push(p.name); continue }
@@ -157,9 +203,17 @@ function build () {
 
     const combos = variants.length ? cartesian(variants) : [[]]
     if (combos.length > MAX_VARIANTS) report.oversized.push({ handle: p.handle, variants: combos.length })
+    if (combos.length > LIQUID_RENDER_LIMIT) {
+      report.exceedsLiquidRenderLimit.push({ handle: p.handle, variants: combos.length })
+    }
 
     const tags = [...new Set([...p.categories, p.brand].filter(Boolean))].join(', ')
-    const images = [p.image, ...p.extraImages].filter(Boolean)
+    // The primary and the gallery are computed separately because they were once one list: the
+    // primary row wrote `p.image` while the gallery rows wrote `images.slice(1)`, so a product with
+    // an empty `p.image` had its first extra image written by neither and lost it outright.
+    const gallery = p.extraImages.filter(Boolean)
+    const primaryImage = p.image || gallery.shift() || ''
+    if (!p.image && primaryImage) report.promotedGalleryImage.push(p.handle)
 
     combos.forEach((combo, i) => {
       const first = i === 0
@@ -191,8 +245,8 @@ function build () {
         'Variant Compare At Price': '',
         'Variant Requires Shipping': 'TRUE',
         'Variant Taxable': 'TRUE',
-        'Image Src': first ? imageUrl(p.image) : '',
-        'Image Position': first && p.image ? 1 : '',
+        'Image Src': first ? imageUrl(primaryImage) : '',
+        'Image Position': first && primaryImage ? 1 : '',
         'Image Alt Text': first ? p.name : '',
         'Gift Card': first ? 'FALSE' : '',
         'SEO Title': first ? (p.metaTitle || p.name) : '',
@@ -207,9 +261,19 @@ function build () {
     })
 
     // Extra gallery images ride on their own handle-only rows, which is how Shopify's CSV works.
-    images.slice(1).forEach((img, n) => {
+    gallery.forEach((img, n) => {
       rows.push({ Handle: p.handle, 'Image Src': imageUrl(img), 'Image Position': n + 2 })
     })
+  }
+
+  // An oversized product cannot be imported at all, so writing the CSV and logging the count made a
+  // failed build look like a successful one. Demotion is supposed to make this unreachable; reaching
+  // it means the planner has a hole, and that is a stop rather than a note.
+  if (report.oversized.length) {
+    console.error(`${report.oversized.length} product(s) exceed Shopify's ${MAX_VARIANTS}-variant limit after demotion:`)
+    for (const o of report.oversized) console.error(`  ${o.handle}: ${o.variants} variants`)
+    console.error('No files written.')
+    process.exit(1)
   }
 
   const outRoot = path.join(exportDir().replace(/inputs[\\/]opencart-export[\\/].*/, ''), 'outputs', 'shopify-import', report.generated)
@@ -240,12 +304,22 @@ function build () {
     demotions: report.demotions.length,
     propertyProducts: report.propertyProducts,
     oversized: report.oversized.length,
+    exceedsLiquidRenderLimit: report.exceedsLiquidRenderLimit.length,
+    promotedGalleryImage: report.promotedGalleryImage.length,
     noHandle: report.noHandle.length,
     pricedDemotions: report.pricedDemotions.length,
     blankOptionValues: report.blankOptionValues.length,
     duplicateOptionLabels: report.duplicateOptionLabels.length,
     duplicateSkus: report.duplicateSkus.length,
   }, null, 1))
+
+  // A warning, not a failure: these products import fine and it is the THEME that cannot render
+  // them unpaginated. Named individually because the fix is chosen per product, not in bulk.
+  if (report.exceedsLiquidRenderLimit.length) {
+    console.warn(`\nWARNING: ${report.exceedsLiquidRenderLimit.length} product(s) exceed Liquid's ${LIQUID_RENDER_LIMIT}-variant unpaginated render limit.`)
+    console.warn('They import correctly but a default theme cannot show every variant. See report.exceedsLiquidRenderLimit.')
+    for (const o of report.exceedsLiquidRenderLimit) console.warn(`  ${o.handle}: ${o.variants} variants`)
+  }
 }
 
 build()

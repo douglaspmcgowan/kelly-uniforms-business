@@ -10,7 +10,12 @@
 
     <form class="search" action="{{ routes.search_url | default: '/search' }}" method="get" role="search">
       <label class="visually-hidden" for="site-search">Search the catalog</label>
-      <input id="site-search" type="search" name="q" placeholder="Search by item, model, or agency…" autocomplete="off">
+      {%- comment -%}
+        size="1" so the input's intrinsic width stops sizing the header. Without it a search input
+        reports ~356px no matter what the CSS says, which burst the 375px viewport and pushed the
+        cart button — the only cart entry point on mobile — entirely off-screen.
+      {%- endcomment -%}
+      <input id="site-search" type="search" name="q" size="1" placeholder="Search by item, model, or agency…" autocomplete="off">
       <button type="submit">Search</button>
     </form>
 

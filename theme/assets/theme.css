@@ -7,7 +7,10 @@
   --navy-soft: #16304d;
   --paper: #f3f2ee;
   --white: #fbfaf7;
-  --steel: #6d7780;
+  /* Darkened from #6d7780, which measured 4.07:1 on paper and 4.37:1 on white — both under the
+     4.5:1 AA floor. This token carries every 13px/11px line on the site, including the fit-question
+     phone prompt and the product model numbers, so it is the text that most needs to be readable. */
+  --steel: #5b656e;
   --hairline: #c8c8c2;
   --orange: #b8440c;
   --ink: #12181f;
@@ -72,6 +75,10 @@ a { color: inherit; }
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
 .header__inner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--gap); padding: .75rem 0; }
+/* Same `min-width: auto` trap as `.workbench`: the search field sized the header rather than
+   shrinking inside it, giving 452px of content in a 375px viewport and horizontal drift on every
+   page — which is the one thing the site's own acceptance criteria say must not happen. */
+.header__inner > * { min-width: 0; }
 .brand { display: flex; align-items: center; gap: .625rem; text-decoration: none; font-weight: 700; letter-spacing: .01em; }
 .brand__mark {
   width: 34px; height: 34px; border-radius: var(--radius-sm);
@@ -81,9 +88,11 @@ a { color: inherit; }
 .brand__name { font-size: 1.0625rem; }
 .brand__sub { display: block; font-size: .6875rem; font-weight: 500; color: #9fb0c4; letter-spacing: .08em; text-transform: uppercase; }
 
-.search { display: flex; }
+/* `min-width: 0` and `size="1"` together are what let the input shrink: a search input's intrinsic
+   width is ~356px, and without both it refused to go below 436px inside a 343px header cell. */
+.search { display: flex; min-width: 0; }
 .search input {
-  width: 100%; padding: .625rem .875rem; border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  width: 100%; min-width: 0; padding: .625rem .875rem; border-radius: var(--radius-sm) 0 0 var(--radius-sm);
   border: 1px solid var(--hairline); border-right: 0; font: inherit; font-size: .9375rem;
   background: var(--white); color: var(--ink);
 }
@@ -99,8 +108,20 @@ a { color: inherit; }
 }
 .cart-button[data-count]:not([data-count="0"])::after { content: " (" attr(data-count) ")"; }
 
+/* Screen-reader-only text. Three templates used this class and nothing ever defined it, so the
+   labels rendered as visible body copy — "Search the catalog" sat in the header on every page, and
+   at 375px it pushed the wordmark to three lines and clipped the cart button off-screen. */
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
 /* ---- Layout: role rail + catalog ---- */
 .workbench { display: grid; grid-template-columns: 210px 1fr; gap: 1.5rem; padding: 1.5rem 0 3rem; align-items: start; }
+/* A grid track defaults to `min-width: auto`, so the 1fr column cannot shrink below its content.
+   Without this the category shelf sized the whole page — 2733px wide at a 1440px viewport — and
+   `.shelf { overflow-x: auto }` below never engaged, because there was nothing to overflow. */
+.workbench > * { min-width: 0; }
 .rail { position: sticky; top: 86px; }
 .rail h2, .shelf h2 { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--steel); margin: 0 0 .5rem; }
 .rail__list { display: flex; flex-direction: column; gap: .25rem; }
@@ -110,6 +131,18 @@ a { color: inherit; }
   text-align: left; cursor: pointer; text-decoration: none; display: block;
 }
 .chip[aria-pressed="true"], .chip.is-active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+/* Hover states. The stylesheet previously had none at all — not on chips, buttons, cards, or nav —
+   while focus was fully handled, which is the asymmetry that gave it away. On a catalog where the
+   chips and cards *are* the navigation, nothing confirmed a target was live before the click.
+   A hairline darken and a paper tint, staying inside the brief's no-shadow rule. */
+.chip:hover { border-color: var(--steel); background: var(--paper); }
+.chip[aria-pressed="true"]:hover, .chip.is-active:hover { background: var(--navy-soft); border-color: var(--navy-soft); }
+.card:hover { border-color: var(--steel); }
+.card:hover .card__title { text-decoration: underline; }
+.btn:hover { background: var(--navy-soft); }
+.btn--ghost:hover { background: var(--paper); border-color: var(--steel); }
+.header__nav a:hover, .review__product a:hover, .footer a:hover { text-decoration: underline; }
 
 .shelf { display: flex; gap: .5rem; overflow-x: auto; padding-bottom: .5rem; margin-bottom: 1rem; }
 .shelf .chip { white-space: nowrap; }
@@ -177,6 +210,10 @@ legend { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; co
 .drawer-scrim[hidden] { display: none; }
 .line-item { display: grid; grid-template-columns: 56px 1fr auto; gap: .75rem; padding: .75rem 0; border-bottom: 1px solid var(--hairline); }
 .line-item__opts { font-size: .8125rem; color: var(--steel); }
+/* The quantity stepper's buttons are `.chip`, which is `display: block` for the category rail — so
+   in the drawer the minus, the count and the plus stacked vertically down the card and stopped
+   reading as a stepper at all. Quantity is the control a department buyer touches most. */
+.line-item__opts .chip { display: inline-block; padding: .25rem .5rem; }
 
 /* ---- Service band + footer ---- */
 .service-band { background: var(--navy); color: #fff; padding: 1.5rem 0; }
@@ -202,10 +239,15 @@ legend { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; co
 .review__body { margin: 0; font-size: .9375rem; line-height: 1.55; }
 .review__meta {
   margin: 0; margin-top: auto; padding-top: .5rem; border-top: 1px solid var(--hairline);
-  color: var(--steel); font-size: .8125rem; display: flex; flex-wrap: wrap; gap: .375rem .625rem;
+  color: var(--steel); font-size: .8125rem; display: grid; gap: .125rem .625rem;
+  grid-template-columns: auto 1fr;
 }
+/* A wrapping flex row plus `margin-left: auto` on the date made this footer a function of string
+   length, so the four cards laid their meta out four different ways. Fixed rows instead: author and
+   product on the first, date on the second, aligned across every card regardless of name length. */
+.review__product { grid-column: 2; }
+.review__date { grid-column: 1 / -1; }
 .review__author { color: var(--ink); font-weight: 600; }
-.review__date { margin-left: auto; }
 
 .footer { background: var(--navy-soft); color: #cdd7e2; padding: 2rem 0; font-size: .875rem; }
 .footer__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; }
@@ -223,12 +265,28 @@ legend { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; co
   .workbench { grid-template-columns: 1fr; }
   .rail { position: static; }
   .rail__list { flex-direction: row; overflow-x: auto; }
-  .header__inner { grid-template-columns: auto auto; row-gap: .5rem; }
+  .header__inner { grid-template-columns: minmax(0, auto) minmax(0, auto); row-gap: .5rem; }
   .search { grid-column: 1 / -1; order: 3; }
+  /* The nav row is the second overflow source once the search field is dealt with: Catalog,
+     Departments, Contact and the Cart button do not fit beside the wordmark, and the Cart button —
+     the only route to the cart on a phone — was the piece that ended up off-screen. Wrapping it to
+     its own full-width row keeps every control reachable without a hamburger. */
+  .header__nav { grid-column: 1 / -1; order: 2; flex-wrap: wrap; justify-content: flex-start; }
 }
 @media (max-width: 480px) {
   .grid { grid-template-columns: 1fr 1fr; }
   .drawer { width: 100%; }
+}
+
+/* Touch targets. Measured on a phone, 39 controls came in between 17px and 41px tall — nav links,
+   footer links, option chips, and the drawer's − and +, which is the smallest control on the page
+   and removes a line in one tap. Padding rather than fixed heights, so the text still sets the
+   width and nothing is stretched into a slab. */
+@media (pointer: coarse) {
+  .header__nav a, .footer a, .card__title { display: inline-block; padding: .625rem 0; }
+  .chip { min-height: 44px; display: flex; align-items: center; }
+  .line-item__opts .chip { min-width: 44px; min-height: 44px; justify-content: center; }
+  .cart-button, .btn { min-height: 44px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

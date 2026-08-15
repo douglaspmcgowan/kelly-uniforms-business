@@ -148,7 +148,11 @@ const REVIEW_BLOCKS = (CATALOG.reviews || []).map(r => ({
 
 const routes = {
   root_url: '/',
-  search_url: '/search.html',
+  /* Extensionless on purpose. Both the local `serve` and Vercel's `cleanUrls` 301 `/search.html`
+     to `/search`, and the local one drops the query string doing it — so the search form posted
+     `?q=` to a URL that redirected the query away, and every search arrived blank. Pointing the
+     form at the destination means there is no redirect to lose it. */
+  search_url: '/search',
   all_products_collection_url: '/collections/all.html'
 }
 
@@ -175,7 +179,7 @@ const base = () => ({
   }
 })
 
-async function page (template, scope, outPath, title) {
+async function page (template, scope, outPath, title, bodyScript) {
   const layout = fs.readFileSync(path.join(THEME, 'layout', 'theme.liquid'), 'utf8')
   const ctx = Object.assign(base(), scope, {
     page_title: title,
@@ -183,7 +187,8 @@ async function page (template, scope, outPath, title) {
     content_for_header: '',
     content_for_layout: await engine.renderFile(template, Object.assign(base(), scope, { page_title: title, template }))
   })
-  const html = await engine.parseAndRender(layout, ctx)
+  let html = await engine.parseAndRender(layout, ctx)
+  if (bodyScript) html = html.replace('</body>', bodyScript + '</body>')
   const dest = path.join(OUT, outPath)
   fs.mkdirSync(path.dirname(dest), { recursive: true })
   fs.writeFileSync(dest, html)
@@ -207,16 +212,38 @@ for (const c of collections) {
 for (const p of products) {
   await page('product', { product: p }, `products/${p.handle}.html`, p.title)
 }
-await page('search', { search: { terms: '', results: [], results_count: 0 } }, 'search.html', 'Search')
+/* Search, in the preview only.
+
+   On Shopify this page is server-rendered: `search.results` arrives populated and `main-search.liquid`
+   renders it. A static build has no server, so the prototype's search box submitted a query that
+   nothing ever answered — the page came back empty for every term, including terms that match. A
+   search index was already being written to dist and nothing read it.
+
+   This script is injected into search.html by the preview build and is NOT part of `theme/`, so it
+   never ships to Shopify and cannot mask the real behaviour there. */
+await page('search', { search: { terms: '', results: [], results_count: 0 } }, 'search.html', 'Search',
+  '<script src="/assets/preview-search.js" defer></script>')
 await page('404', {}, '404.html', 'Not found')
 
 for (const pg of CATALOG.pages) {
   await page('page', { page: pg }, `pages/${pg.handle}.html`, pg.title)
 }
 
-// The client-side search index. Small enough to ship whole; no server needed.
-fs.writeFileSync(path.join(OUT, 'search-index.json'), JSON.stringify(
-  products.map(p => ({ t: p.title, v: p.vendor, m: p.model, u: p.url, i: p.featured_image, p: p.price }))
-))
+/* The client-side search index. Small enough to ship whole; no server needed.
+
+   Option values and the info pages are in it because a uniform buyer searches the way they talk:
+   "hemming", "name tape", "36". All three returned nothing when the index held titles and model
+   numbers only, and the tailoring page that answers the first two is the best writing on the site. */
+fs.writeFileSync(path.join(OUT, 'search-index.json'), JSON.stringify({
+  products: products.map(p => ({
+    t: p.title, v: p.vendor, m: p.model, u: p.url, i: p.featured_image, p: p.price,
+    o: (p.options_with_values || []).map(o => o.name + ' ' + (o.values || []).map(v => v.label).join(' ')).join(' ')
+  })),
+  pages: CATALOG.pages.map(pg => ({
+    t: pg.title, u: `/pages/${pg.handle}.html`,
+    x: String(pg.content || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').slice(0, 1200)
+  }))
+}))
+fs.copyFileSync(path.join(HERE, 'preview-search.js'), path.join(OUT, 'assets', 'preview-search.js'))
 
 console.log(`[preview] ${products.length} products · ${collections.length} collections · ${CATALOG.pages.length} pages -> ${OUT}`)

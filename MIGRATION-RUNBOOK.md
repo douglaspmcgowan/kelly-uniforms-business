@@ -63,8 +63,8 @@ The generated import is at `%PROJECT_DATA_ROOT%\outputs\shopify-import\2026-08-1
 
 | File | What it is | How it gets in |
 |---|---|---|
-| `products.csv` | 407 products, 12,409 rows | **Native** — Products › Import |
-| `redirects.csv` | 469 rows | **Native** — Navigation › URL Redirects |
+| `products.csv` | 407 products, 12,409 rows — 12,098 variants plus 311 image-only rows | **Native** — Products › Import |
+| `redirects.csv` | 568 rows | **Native** — Navigation › URL Redirects |
 | `customers.csv` | 2,212 rows | **Native** — Customers › Import, but see stage 3 |
 | `reviews.csv` | 6 reviews, 5 of them five-star | A review app (Judge.me) |
 | `orders.jsonl` | 1,154 real orders; 347 abandoned checkouts excluded | **No native route.** Admin API or a migration app |
@@ -129,7 +129,7 @@ fine anywhere and is the thing to look at — `report.json` lists the 12 money-b
 ## Stage 3 — the things the import cannot carry
 
 1. **Stock is all zeros.** OpenCart holds stock per *product*, not per option value, so 407 counts
-   cannot be split across 12,409 variants without inventing numbers. Every variant imports at 0 with
+   cannot be split across 12,098 variants without inventing numbers. Every variant imports at 0 with
    inventory policy `continue`, so nothing blocks a sale. The first real count comes from Clover or
    a manual export — see `CLOVER-SETUP.md`.
 2. **Customers and orders are not migrated, and should not be by default.** 2,212 customers and
@@ -146,11 +146,20 @@ fine anywhere and is the thing to look at — `report.json` lists the 12 money-b
 The export carries **1,099 SEO URLs**, 538 URL aliases, and 24 existing 301 redirects.
 
 **Only half of those SEO URLs are the live site's.** This install runs a second storefront
-(`store_id = 2`) with its own keyword for every product, and the two disagree on 26 products —
-product 99 is `usps-baseball-cap-summer-pbcs` live and
-`usps-letter-carrier-mailman-postal-baseball-cap-summer` on store 2. `redirects.csv` filters to
-`store_id = 0`, which is why it holds 469 rows and not the 873 an unfiltered read produces. The
-extra 404 would have been redirects from paths that were never live on mtuniforms.com.
+(`store_id = 2`) which carries its own keyword for all 407 products, and **402 of the 407 differ**
+from the live one — product 99 is `usps-baseball-cap-summer-pbcs` live and
+`usps-letter-carrier-mailman-postal-baseball-cap-summer` on store 2. (This document said "26
+products" until 2026-08-15, which was wrong by an order of magnitude and made the store-0 filter
+look like a nicety rather than the thing the whole handle set depends on.) `redirects.csv` filters
+to `store_id = 0`, which is why it holds 568 rows and not the 873 an unfiltered read produces. The
+extra 305 would have been redirects from paths that were never live on mtuniforms.com.
+
+The 568 breaks down as 407 products, 99 categories, 32 manufacturers, 6 information pages, and the
+24 existing 301s. Categories were **silently dropped until 2026-08-15**: the builder branched on a
+`path=` query kind that this export never emits — OpenCart 3 files category URLs under
+`category_id=` — so `/police`, `/boots`, `/corrections` and 96 others were absent from a map whose
+whole purpose is that they survive. The arithmetic was the tell: the old total of 469 is exactly
+24 + 407 + 32 + 6, with the category branch contributing nothing.
 
 1. Build a redirect map from `oc_seo_url` to the new Shopify handles. The handles in `products.csv`
    are taken from `oc_seo_url`, so **most products keep their exact URL path** — the map is mostly

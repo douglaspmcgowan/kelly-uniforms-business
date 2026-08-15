@@ -7,6 +7,7 @@
  *
  *   node ops/admin.mjs          then open http://127.0.0.1:8930
  */
+import crypto from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import http from 'node:http'
@@ -24,8 +25,21 @@ const all = (sql, ...a) => db.prepare(sql).all(...a)
 const get = (sql, ...a) => db.prepare(sql).get(...a)
 const run = (sql, ...a) => db.prepare(sql).run(...a)
 
+/* Binding to 127.0.0.1 keeps the NETWORK out; it does nothing about the browser already running on
+   this machine. Any page the shop's browser visits can POST to http://127.0.0.1:8930/... and change
+   an order status, and DNS rebinding can point an attacker's hostname at this port. So: every
+   state-changing POST carries a token minted for this process, the Origin must be one of our own,
+   and the Host header must name the loopback address rather than an attacker's domain. */
+const CSRF_TOKEN = crypto.randomBytes(24).toString('hex')
+const MAX_BODY_BYTES = 64 * 1024
+
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
 const money = c => '$' + ((Number(c) || 0) / 100).toFixed(2)
+const csrfField = () => `<input type="hidden" name="_token" value="${CSRF_TOKEN}">`
+
+/* `%` and `_` are wildcards inside LIKE, so a search for "50_" matched "501" and "50%" matched
+   everything. Escaped with a backslash, declared to SQLite with ESCAPE at each call site. */
+const likeTerm = s => '%' + String(s).replace(/[\\%_]/g, c => '\\' + c) + '%'
 
 const CSS = `
 :root{--navy:#0b1d34;--paper:#f3f2ee;--white:#fbfaf7;--steel:#6d7780;--hairline:#c8c8c2;--orange:#b8440c;--ink:#12181f}
@@ -112,10 +126,15 @@ function order (id) {
   const o = get('SELECT * FROM v_order_summary WHERE id = ?', id)
   if (!o) return null
   const lines = all('SELECT * FROM order_line WHERE order_id = ?', id)
+  // v_order_summary carries only total_cents, which the schema defines as subtotal + decoration +
+  // tax. It was shown labelled "Goods", so a $313.96 order with $74 of decoration read as $313.96
+  // of garments. The four figures come off the order row and are each labelled for what they are.
+  const t = get('SELECT subtotal_cents, decoration_cents, tax_cents, total_cents FROM "order" WHERE id = ?', id)
   return page('Order ' + o.reference, 'orders', `
     <p><b>${esc(o.customer)}</b> · ${esc(o.channel)} · ${esc(o.payment_status)}
        ${o.purchase_order_number ? '· PO ' + esc(o.purchase_order_number) : ''}</p>
     <form method="post" action="/orders/${id}/status" class="inline">
+      ${csrfField()}
       <label>Status
         <select name="status">${STATUSES.map(s => `<option ${s === o.status ? 'selected' : ''}>${s}</option>`).join('')}</select>
       </label>
@@ -134,7 +153,8 @@ function order (id) {
       </div>`
     }).join('') || '<p class="empty">No lines.</p>'}
     <h2>Totals</h2>
-    <p>Goods ${money(o.total_cents)}</p>`)
+    <p>Goods ${money(t.subtotal_cents)} · Decoration ${money(t.decoration_cents)}
+       · Tax ${money(t.tax_cents)} · <b>Total ${money(t.total_cents)}</b></p>`)
 }
 
 function decoration () {
@@ -152,14 +172,15 @@ function decoration () {
     rows,
     r => [`<a href="/orders/${r.order_id}">${esc(r.reference)}</a>`, esc(r.customer), esc(r.name_at_sale),
       `<span class="tag">${esc(r.kind)}</span>`, esc(r.instructions), esc(r.status),
-      `<form class="inline" method="post" action="/decoration/${r.id}/done"><button>Mark done</button></form>`]))
+      `<form class="inline" method="post" action="/decoration/${r.id}/done">${csrfField()}<button>Mark done</button></form>`]))
 }
 
 function catalog (q) {
   const rows = q
     ? all(`SELECT p.*, (SELECT COUNT(*) FROM product_option o WHERE o.product_id = p.id) opts
-             FROM product p WHERE p.name LIKE ? OR p.model LIKE ? OR p.brand LIKE ?
-            ORDER BY p.name LIMIT 300`, `%${q}%`, `%${q}%`, `%${q}%`)
+             FROM product p WHERE p.name LIKE ? ESCAPE '\\' OR p.model LIKE ? ESCAPE '\\'
+                               OR p.brand LIKE ? ESCAPE '\\'
+            ORDER BY p.name LIMIT 300`, likeTerm(q), likeTerm(q), likeTerm(q))
     : all(`SELECT p.*, (SELECT COUNT(*) FROM product_option o WHERE o.product_id = p.id) opts
              FROM product p ORDER BY p.name LIMIT 300`)
   return page('Catalog', 'catalog', `
@@ -186,6 +207,42 @@ function reorder () {
 
 /* ----------------------------------------------------------------- server */
 
+const LOCAL_HOSTS = new Set([`127.0.0.1:${PORT}`, `localhost:${PORT}`])
+const LOCAL_ORIGINS = new Set([`http://127.0.0.1:${PORT}`, `http://localhost:${PORT}`])
+
+/** The reason to refuse a state-changing POST, or null when it is one of ours. */
+function refuseUnsafePost (req) {
+  // A rebinding attack reaches this port with the ATTACKER's hostname in Host, which is how it gets
+  // the browser to treat our responses as same-origin. Anything not naming loopback is not us.
+  if (!LOCAL_HOSTS.has(String(req.headers.host || '').toLowerCase())) {
+    return 'Unexpected Host header. This console only answers to 127.0.0.1 or localhost.'
+  }
+  // Browsers send Origin on cross-site form POSTs, so an absent Origin is a non-browser client and
+  // a foreign one is exactly the attack. Both are refused rather than trusted.
+  const origin = req.headers.origin
+  if (origin && !LOCAL_ORIGINS.has(origin)) return 'Cross-origin request refused.'
+  return null
+}
+
+/** The form body, or null when the client sent more than we will hold in memory. */
+function readBody (req) {
+  return new Promise((resolve, reject) => {
+    let size = 0
+    const chunks = []
+    req.on('data', c => {
+      size += c.length
+      // Capped and hung up on, because an unbounded accumulator is a one-request memory exhaustion.
+      if (size > MAX_BODY_BYTES) { req.destroy(); resolve(null); return }
+      chunks.push(c)
+    })
+    req.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')))
+    // Without these the promise never settled on a dropped or aborted connection and the handler
+    // waited forever, holding the request open.
+    req.on('aborted', () => resolve(null))
+    req.on('error', reject)
+  })
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://127.0.0.1')
   const send = (code, html) => { res.writeHead(code, { 'content-type': 'text/html; charset=utf-8' }); res.end(html) }
@@ -193,8 +250,17 @@ const server = http.createServer(async (req, res) => {
 
   try {
     if (req.method === 'POST') {
-      const body = await new Promise(r => { let b = ''; req.on('data', c => { b += c }); req.on('end', () => r(b)) })
+      const refused = refuseUnsafePost(req)
+      if (refused) return send(403, page('Refused', '', `<p>${esc(refused)}</p>`))
+      const body = await readBody(req)
+      if (body === null) return send(413, page('Too large', '', '<p>Request body too large.</p>'))
       const form = new URLSearchParams(body)
+      // Constant-time so a wrong token cannot be discovered a character at a time.
+      const supplied = Buffer.from(form.get('_token') || '')
+      const expected = Buffer.from(CSRF_TOKEN)
+      if (supplied.length !== expected.length || !crypto.timingSafeEqual(supplied, expected)) {
+        return send(403, page('Refused', '', '<p>Missing or stale form token. Reload the page and try again.</p>'))
+      }
       let m
       if ((m = url.pathname.match(/^\/orders\/(\d+)\/status$/))) {
         const status = form.get('status')

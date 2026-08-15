@@ -50,10 +50,39 @@ const products = JSON.parse(fs.readFileSync(path.join(SRC, 'products-public.json
 const dbDir = path.join(ROOT, 'db')
 fs.mkdirSync(dbDir, { recursive: true })
 const dbPath = path.join(dbDir, 'operations.sqlite')
+
+// The previous database is set aside, not deleted — but a SQLite database is up to three files, and
+// renaming only the main one left `operations.sqlite-wal` and `-shm` in place for the NEW database
+// to adopt. SQLite would then replay the OLD write-ahead log over a freshly created file. Check the
+// WAL back into the main file first so the archived copy is complete, then move all three together.
+let archivedAs = null
 if (fs.existsSync(dbPath)) {
   const stamp = new Date().toISOString().replace(/[:.]/g, '-')
-  fs.renameSync(dbPath, path.join(dbDir, `operations.${stamp}.sqlite`))
+  const prior = new DatabaseSync(dbPath)
+  try { prior.exec('PRAGMA wal_checkpoint(TRUNCATE)') } finally { prior.close() }
+  archivedAs = path.join(dbDir, `operations.${stamp}.sqlite`)
+  for (const suffix of ['', '-wal', '-shm']) {
+    if (fs.existsSync(dbPath + suffix)) fs.renameSync(dbPath + suffix, archivedAs + suffix)
+  }
   console.log('[db] existing database kept as operations.' + stamp + '.sqlite')
+}
+
+// A failure partway through the load used to leave the transaction open, a half-written database in
+// place, and the only good copy renamed away under a timestamp nobody would think to look for.
+function abort (err) {
+  try { db.exec('ROLLBACK') } catch {}
+  try { db.close() } catch {}
+  for (const suffix of ['', '-wal', '-shm']) {
+    if (fs.existsSync(dbPath + suffix)) fs.rmSync(dbPath + suffix)
+  }
+  if (archivedAs) {
+    for (const suffix of ['', '-wal', '-shm']) {
+      if (fs.existsSync(archivedAs + suffix)) fs.renameSync(archivedAs + suffix, dbPath + suffix)
+    }
+    console.error('[db] build failed; the previous database has been restored.')
+  }
+  console.error(err.stack || String(err))
+  process.exit(1)
 }
 
 const db = new DatabaseSync(dbPath)
@@ -79,36 +108,40 @@ const KINDS = new Set(['select', 'radio', 'checkbox', 'text', 'textarea', 'date'
 db.exec('BEGIN')
 let optionCount = 0
 let valueCount = 0
-for (const p of products) {
-  if (p.price == null || !p.handle) continue
-  const { lastInsertRowid: productId } = insProduct.run(
-    p.productId, p.handle, p.name, p.model || '', p.brand || '', p.weight || '',
-    cents(p.price), p.image || '', p.descriptionHtml || ''
-  )
-
-  for (const c of p.categories || []) {
-    const h = slug(c.name)
-    insCategory.run(c.name, h)
-    insProdCat.run(productId, getCategory.get(h).id)
-  }
-
-  ;(p.options || []).forEach((o, i) => {
-    const kind = KINDS.has(o.type) ? o.type : 'select'
-    const { lastInsertRowid: optionId } = insOption.run(
-      productId, o.optionId || '', o.name || 'Option', kind, o.required ? 1 : 0, i
+try {
+  for (const p of products) {
+    if (p.price == null || !p.handle) continue
+    const { lastInsertRowid: productId } = insProduct.run(
+      p.productId, p.handle, p.name, p.model || '', p.brand || '', p.weight || '',
+      cents(p.price), p.image || '', p.descriptionHtml || ''
     )
-    optionCount++
-    ;(o.values || []).forEach((v, j) => {
-      insValue.run(optionId, v.valueId || '', v.label, cents(v.priceDelta), j)
-      valueCount++
-    })
-  })
 
-  // No authenticated inventory export is wired in yet, so counts start at zero and are recorded as
-  // unknown rather than guessed. counted_at stays null until a real count lands.
-  insInventory.run(productId, 0, 0)
+    for (const c of p.categories || []) {
+      const h = slug(c.name)
+      insCategory.run(c.name, h)
+      insProdCat.run(productId, getCategory.get(h).id)
+    }
+
+    ;(p.options || []).forEach((o, i) => {
+      const kind = KINDS.has(o.type) ? o.type : 'select'
+      const { lastInsertRowid: optionId } = insOption.run(
+        productId, o.optionId || '', o.name || 'Option', kind, o.required ? 1 : 0, i
+      )
+      optionCount++
+      ;(o.values || []).forEach((v, j) => {
+        insValue.run(optionId, v.valueId || '', v.label, cents(v.priceDelta), j)
+        valueCount++
+      })
+    })
+
+    // No authenticated inventory export is wired in yet, so counts start at zero and are recorded as
+    // unknown rather than guessed. counted_at stays null until a real count lands.
+    insInventory.run(productId, 0, 0)
+  }
+  db.exec('COMMIT')
+} catch (err) {
+  abort(err)
 }
-db.exec('COMMIT')
 
 const one = sql => db.prepare(sql).get()
 console.log('[db] ' + dbPath)

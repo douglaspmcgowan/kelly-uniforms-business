@@ -1,0 +1,14 @@
+{%- comment -%}
+  A signed surcharge, e.g. "+$8.00" or "-$2.50". Takes `delta` in cents.
+
+  This exists because the theme used to call `money_with_sign`, which is NOT a Shopify filter —
+  only the preview renderer defined it. On a real Shopify store an unknown filter passes the value
+  through untouched, so an $8.00 braid surcharge would have rendered as the bare integer `800` next
+  to the option label. That is the same "the label disagrees with the charge" failure already fixed
+  once for cents-vs-dollars, and it would have reappeared on the platform that actually matters.
+
+  `money` and `abs` are both stock Shopify filters, so this renders identically in both places.
+{%- endcomment -%}
+{%- if delta > 0 -%}+{{ delta | money }}
+{%- elsif delta < 0 -%}-{{ delta | abs | money }}
+{%- endif -%}

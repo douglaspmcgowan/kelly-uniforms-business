@@ -32,8 +32,21 @@
   var LocalDriver = {
     name: 'local',
     KEY: 'mt-cart-v1',
+    /* Any stored value that is not an array of well-formed lines is discarded rather than trusted.
+       `JSON.parse(...) || []` accepted anything valid-JSON — `{"items":[],"total":0}`, a bare
+       string, a number — and `_shape` then called `.reduce` on it and threw SYNCHRONOUSLY, before
+       any promise existed, so theme.js's `.catch` never ran and the customer saw no error at all:
+       the Add to order button simply stopped working on every page until they cleared site data.
+       An older cart shape or a half-written value was enough to do it. */
     _read: function () {
-      try { return JSON.parse(localStorage.getItem(this.KEY)) || [] } catch (e) { return [] }
+      var raw
+      try { raw = JSON.parse(localStorage.getItem(this.KEY)) } catch (e) { return [] }
+      if (!Array.isArray(raw)) return []
+      return raw.filter(function (i) {
+        return i && typeof i === 'object' &&
+          typeof i.key === 'string' &&
+          isFinite(i.price) && isFinite(i.quantity) && i.quantity > 0
+      })
     },
     _write: function (items) {
       try { localStorage.setItem(this.KEY, JSON.stringify(items)) } catch (e) { /* private mode */ }
@@ -51,16 +64,25 @@
     get: function () { return Promise.resolve(this._shape(this._read())) },
     add: function (line) {
       var items = this._read()
-      var key = line.id + ':' + JSON.stringify(line.options || {})
+      var price = Number(line.price)
+      if (!isFinite(price) || price < 0) {
+        return Promise.reject(new Error('That item has no usable price. Please call us to order it.'))
+      }
+      var quantity = Math.max(1, Math.floor(Number(line.quantity) || 1))
+      /* Key off the option values sorted by name. Keying off JSON.stringify of the raw object made
+         the merge depend on property insertion order, so the same variant added from two templates
+         that happened to render the groups differently produced two lines. */
+      var opts = line.options || {}
+      var key = line.id + ':' + JSON.stringify(Object.keys(opts).sort().map(function (k) { return [k, opts[k]] }))
       var found = items.filter(function (i) { return i.key === key })[0]
-      if (found) found.quantity += line.quantity || 1
+      if (found) found.quantity += quantity
       else {
         items.push({
           key: key,
           id: line.id,
           title: line.title,
-          quantity: line.quantity || 1,
-          price: line.price,
+          quantity: quantity,
+          price: price,
           image: line.image || '',
           options: line.options || {}
         })
@@ -68,23 +90,52 @@
       return Promise.resolve(this._write(items))
     },
     change: function (key, quantity) {
-      var items = this._read().filter(function (i) { return i.key !== key || quantity > 0 })
-      items.forEach(function (i) { if (i.key === key) i.quantity = quantity })
+      /* A non-finite quantity used to fall through the `> 0` filter and silently DELETE the line —
+         and the value comes from a `data-to` attribute, so any markup defect became a deletion.
+         Explicitly: a bad number changes nothing, 0 removes the line, and the top is bounded. */
+      var q = Number(quantity)
+      if (!isFinite(q)) return Promise.resolve(this._shape(this._read()))
+      q = Math.min(999, Math.max(0, Math.floor(q)))
+      var items = this._read().filter(function (i) { return i.key !== key || q > 0 })
+      items.forEach(function (i) { if (i.key === key) i.quantity = q })
       return Promise.resolve(this._write(items.filter(function (i) { return i.quantity > 0 })))
     },
     checkoutUrl: function () {
       // No payment rail in local mode. Hand the ticket to the store the way a phone order works.
       var self = this
-      var lines = self._read().map(function (i) {
+      var stored = self._read()
+      // An empty cart used to return a live mailto:, and theme.js set it as the href regardless —
+      // aria-disabled announces a state, it does not stop an <a> from activating. Customers opened
+      // their mail client on a blank order.
+      if (!stored.length) return ''
+      var lines = stored.map(function (i) {
         var opts = Object.keys(i.options || {}).map(function (k) { return k + ': ' + i.options[k] }).join(', ')
         return '- ' + i.quantity + ' x ' + i.title + (opts ? ' (' + opts + ')' : '') + ' — ' + money(i.price * i.quantity)
-      }).join('\n')
-      var body = 'I would like to place this order:\n\n' + lines +
-        '\n\nTotal: ' + money(self._shape(self._read()).total) +
+      })
+      /* Outlook and the Windows shell handoff truncate a mailto: near 2,000 characters, and a
+         60-line cart produced 8,634 — so a large agency order, which is this store's best customer,
+         would have arrived at the shop with its tail silently missing and no server-side copy to
+         reconcile against. Measured on the ENCODED url, because that is what actually gets cut, and
+         a name tape full of spaces triples in encoding. Past the limit the body says so. */
+      var LIMIT = 1900
+      var address = CONFIG.contactEmail || 'orders@mtuniforms.com'
+      var subject = '?subject=' + encodeURIComponent('Order request from the website')
+      var tail = '\n\nTotal: ' + money(self._shape(stored).total) +
         '\n\nName:\nDepartment / agency:\nPhone:\nPickup or ship:\n'
-      return 'mailto:' + (CONFIG.contactEmail || 'orders@mtuniforms.com') +
-        '?subject=' + encodeURIComponent('Order request from the website') +
-        '&body=' + encodeURIComponent(body)
+      var build = function (kept, dropped) {
+        return 'mailto:' + address + subject + '&body=' + encodeURIComponent(
+          'I would like to place this order:\n\n' + kept.join('\n') +
+          (dropped
+            ? '\n\n[' + dropped + ' more lines could not fit in this email. Please call ' +
+              (CONFIG.contactPhone || '(814) 536-2390') + ' and we will take the whole order over ' +
+              'the phone.]'
+            : '') + tail)
+      }
+      var url = build(lines, 0)
+      for (var n = lines.length; url.length > LIMIT && n > 1; n--) {
+        url = build(lines.slice(0, n - 1), lines.length - (n - 1))
+      }
+      return url
     }
   }
 

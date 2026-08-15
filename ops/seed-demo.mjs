@@ -18,16 +18,25 @@ db.exec('PRAGMA foreign_keys = ON')
 const run = (sql, ...a) => db.prepare(sql).run(...a)
 const get = (sql, ...a) => db.prepare(sql).get(...a)
 
-if (get(`SELECT COUNT(*) n FROM "order" WHERE reference LIKE 'MT-D%'`).n) {
-  console.log('[seed] demo orders already present; leaving them alone.')
-  process.exit(0)
-}
-
 const AGENCIES = [
   ['Laurel Ridge Township PD', 'police', 'Shoulder patch both sleeves, 1in below shoulder seam. Silver hardware.'],
   ['Conemaugh Valley Fire Co.', 'fire-ems', 'Maltese cross left chest. Bugles by rank on collar.'],
   ['Cambria County Constables', 'constable', 'Keystone patch left sleeve only.']
 ]
+
+// The guard used to test only for MT-D orders, but agencies and people are written BEFORE the first
+// order — so a run that seeded them and then created no order left the agencies behind, and the next
+// run died on agency.name's UNIQUE constraint instead of politely doing nothing. Both halves are
+// checked now, and the whole seed is one transaction so a run that creates no order leaves nothing.
+const seeded = get(`SELECT COUNT(*) n FROM "order" WHERE reference LIKE 'MT-D%'`).n
+  || get('SELECT COUNT(*) n FROM agency WHERE name IN (?, ?, ?)', ...AGENCIES.map(a => a[0])).n
+if (seeded) {
+  console.log('[seed] demo data already present; leaving it alone.')
+  process.exit(0)
+}
+
+db.exec('BEGIN')
+
 const agencyIds = AGENCIES.map(([name, kind, spec]) =>
   run('INSERT INTO agency (name, kind, spec_notes) VALUES (?, ?, ?)', name, kind, spec).lastInsertRowid)
 
@@ -115,14 +124,29 @@ for (const o of ORDERS) {
     if (['in-decoration', 'ready', 'collected', 'shipped'].includes(o.status)) {
       run(`INSERT INTO inventory_movement (product_id, delta, reason, order_id, note)
            VALUES (?, ?, 'sold', ?, 'demo seed')`, l.product.id, -l.qty, orderId)
+      // The movement without the balance left SUM(delta) and inventory.on_hand disagreeing from the
+      // very first seeded order — and verify-db.mjs asserts they agree, so the demo data
+      // contradicted the invariant the test suite proves.
+      run('UPDATE inventory SET on_hand = on_hand - ? WHERE product_id = ?', l.qty, l.product.id)
     }
   }
 
-  const tax = Math.round((subtotal + decoration) * 0.06)
+  // Pennsylvania exempts most clothing from sales tax, including the uniforms and the alteration
+  // labour that make up these lines, so a flat 6% here was demonstrating a charge the shop would
+  // not make. Any genuinely taxable line is a per-item determination, not a blanket rate.
+  const tax = 0
   run(`UPDATE "order" SET subtotal_cents = ?, decoration_cents = ?, tax_cents = ?, total_cents = ? WHERE id = ?`,
     subtotal, decoration, tax, subtotal + decoration + tax, orderId)
   made++
 }
 
-console.log(`[seed] ${made} demonstration orders, ${AGENCIES.length} agencies, ${PEOPLE.length} people`)
+if (made) {
+  db.exec('COMMIT')
+  console.log(`[seed] ${made} demonstration orders, ${AGENCIES.length} agencies, ${PEOPLE.length} people`)
+} else {
+  // No order means no catalog matched, and the agencies and people alone are not demo data worth
+  // keeping — they would only block the next run.
+  db.exec('ROLLBACK')
+  console.log('[seed] no demonstration order matched the catalog; nothing was written.')
+}
 db.close()
