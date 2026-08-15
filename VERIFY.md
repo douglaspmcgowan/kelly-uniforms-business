@@ -81,3 +81,22 @@ Manual checks, none of which a script can stand in for:
    has been demoted, the `STOCK_BEARING` pattern in `ops/build-shopify-import.mjs` needs a term.
 4. **Nothing from the export is inside the repository.** `find . -name '*.sql'` should return only
    `ops/schema.sql`.
+
+## Storefront regression checks — added 2026-08-14
+
+Both were found by testing the built site rather than reading the source, and both would pass a
+source review.
+
+1. **Option surcharge labels must match what the cart charges.** On a product with a priced option
+   (Elbeco Tek3 Trousers, braid `+$8.00`), confirm the label reads `+$8.00` and the resulting cart
+   line is `6699` cents against a `5899` base. A label reading `+$0.08` means `price_delta` reached
+   the money filter in dollars: every price the theme touches is cents, in `preview/build.mjs` and
+   in `theme/assets/theme.js` alike.
+2. **Every internal link must resolve, accounting for `cleanUrls`.** Crawl `preview/dist`, resolve
+   each internal href against the file, `file + .html`, and `file/index.html`, and require zero
+   unresolvable. Expect 51 collections. If it drops to 39, the shelf threshold in `build.mjs` has
+   been applied to page generation again rather than to the shelf, and product breadcrumbs will
+   point at pages that do not exist.
+
+Verified 2026-08-14 against production: 10,684 internal links, 0 unresolvable; validation, option
+pricing, line merging, quantity, removal, empty state, and the mailto checkout all pass.

@@ -19,15 +19,48 @@ Updated 2026-08-14, after the full OpenCart export.
 ## 1. Cardholder data is sitting in the current site's database
 
 `oc_offline_cc_data` holds **39 rows**. That is OpenCart's offline credit-card module, which stores
-card details submitted through the storefront in the site's own database. The contents were not
-read and will not be.
+card details submitted through the storefront in the site's own database.
 
-This outranks everything else on this page, including the migration.
+**No value in that table was read.** Everything below comes from column names and value *shapes* —
+lengths, uniqueness, and character classes — which answer the question without exposing anything.
 
-**Action:** establish what is in those rows and for how long it has been there, then purge them and
-disable the offline credit-card module. If real card numbers are stored, this is a PCI matter and
-the card processor's disclosure requirements apply — that is a conversation with the merchant
-services provider, not a code change.
+### What is actually in there
+
+| Field | Finding | Reading |
+|---|---|---|
+| `cc_number` | 39 values, uniform 45 characters, only 14% digits | **Encrypted or encoded, not a plaintext card number.** A plaintext PAN would be 15–16 characters and ~100% digits. |
+| `cc_cvv` | **One distinct value across all 39 rows** | **CVV is not retained.** A constant is a placeholder, not 39 security codes. This is the single most important finding. |
+| `cc_name` | 30 distinct values, plain text | Cardholder names, in the clear. |
+| `cc_exp` | 24 distinct values, `MM/YY` shaped | Expiry dates, in the clear. |
+| `cc_postcode` | 25 distinct values, mostly digits | Billing postcodes, in the clear. |
+
+### How old, and why that matters
+
+The 39 rows reference order IDs **1836–2906**. The surviving `oc_order` table starts at ID **3844**,
+dated **2021-07-24**. Not one of those 39 orders still exists.
+
+**These are orphaned records.** The orders were deleted years ago and the card data was left behind
+— it has outlived the transactions it belonged to by at least five years, which is the part that
+makes it a retention problem rather than an operational one.
+
+### What this means
+
+It is **materially better than the worst case**: no CVV retention and no plaintext card numbers.
+It is still a real problem: personal data with no business purpose, retained indefinitely, and the
+encryption is OpenCart's own with the key in `config.php` on the same server — so anyone who can
+read the database can very likely also read the key.
+
+**Action, in order:**
+
+1. **Purge the 39 rows.** They belong to orders that no longer exist. Nothing references them.
+2. **Disable the offline credit-card payment module** so no more accumulate.
+3. **Confirm the module is not still live on the storefront** before the Shopify cutover.
+
+A disclosure conversation with the merchant services provider is the cautious call given cardholder
+names and expiry dates were stored in the clear, but the absence of CVV and plaintext PANs means
+this is very likely a retention and hygiene finding rather than a reportable breach. **Neither I nor
+this document is the right authority on that** — if the answer matters, it is a question for the
+processor or a QSA, not an inference from column shapes.
 
 ## 2. The OpenCart admin password you pasted is still burned
 
