@@ -1,3 +1,12 @@
+{%- comment -%}
+  The default message read "Serving Pennsylvania departments since 1985" until 2026-08-15. Nothing
+  sourced that year, and four incompatible claims exist in the wild: 1945 (hub.biz), 1980
+  (Buzzfile), 1985 (the previous owner's site copy), and a BBB "business started" date of 2005 that
+  is a filing date rather than a founding one. Sixty years apart, none of them the client's own
+  word — and a wrong "since 19XX" on a Johnstown storefront is exactly the line a local customer
+  notices. The replacement claims only what the shop demonstrably does. Open decision
+  `mtu-published-business-facts-20260815`.
+{%- endcomment -%}
 <div class="announcement">
   <div class="shell announcement__inner">
     <span>{{ section.settings.message }}</span>
@@ -12,7 +21,7 @@
   "name": "Announcement bar",
   "settings": [
     { "type": "text", "id": "message", "label": "Message",
-      "default": "Serving Pennsylvania departments since 1985 — walk-in tailoring and on-site fittings." },
+      "default": "Uniforms for Pennsylvania's first responders — walk-in tailoring, decoration, and on-site fittings." },
     { "type": "text", "id": "link_label", "label": "Link label", "default": "Call (814) 536-2390" },
     { "type": "url", "id": "link_url", "label": "Link URL", "default": "tel:+18145362390" }
   ]

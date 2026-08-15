@@ -39,3 +39,9 @@ db/
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm
+
+# Work Scope keeps rolling state backups and pre-migration schema copies. They are recovery
+# artifacts for one machine, not shared project state.
+.agents/work/backups/
+.agents/work/*.bak
+STATUS.md.lock.json

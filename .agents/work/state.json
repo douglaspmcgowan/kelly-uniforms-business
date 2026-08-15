@@ -1,5 +1,5 @@
 {
-  "revision": 183,
+  "revision": 200,
   "backburner": [
     {
       "id": "legacy-task-L73",
@@ -2141,10 +2141,290 @@
           "sha256": "19aa6ea7cc99b08b1b9947331d35c6232a9eed414a37b2ff8d5be8e92e9cc6d8",
           "size_bytes": 101312,
           "captured_at": "2026-08-15T04:09:11.2745266Z"
+        },
+        {
+          "receipt_id": "13c73161-5186-4f56-aa88-f9892898d3f9",
+          "verifier": "inspection",
+          "subject": "work-scope-enrolment",
+          "result": "verified",
+          "reference": ".agents/work/state.json",
+          "sha256": "d5992ce013ad77fcb714d0b2832a6caca1e51124b11f43a93ff1e694693ad881",
+          "size_bytes": 119790,
+          "captured_at": "2026-08-15T20:22:47.6394326Z"
+        }
+      ],
+      "status": "closed",
+      "captured_at": "2026-08-15T04:09:11.3106917Z"
+    },
+    {
+      "id": "confirm-physical-business-facts-with-the-client",
+      "title": "Confirm address, ZIP, hours, phone and founding year with the client before the storefront publishes them",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "customer-storefront",
+      "entry_depth": "D3",
+      "discovered_from": "Enrolling the project as a client business project and connecting it to the physical Johnstown shop, 2026-08-15",
+      "relationship": "adjacent",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "high",
+      "obligation_class": "human",
+      "evidence": [
+        {
+          "receipt_id": "b630098a-d201-4579-8373-c0b0ee326684",
+          "verifier": "inspection",
+          "subject": "confirm-physical-business-facts-with-the-client",
+          "result": "verified",
+          "reference": "SETUP.md",
+          "sha256": "a5a87300b105d8b313e3c051b4304d24b915c86117ab3dd11b4e7b54cf0126c3",
+          "size_bytes": 16833,
+          "captured_at": "2026-08-15T20:21:50.5514106Z"
         }
       ],
       "status": "ready",
-      "captured_at": "2026-08-15T04:09:11.3106917Z"
+      "captured_at": "2026-08-15T20:21:50.5928372Z"
+    },
+    {
+      "id": "align-storefront-with-google-business-profile",
+      "title": "Make the storefront's address, hours and phone match the Google Business Profile, and add a street address and map link to the contact page",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "customer-storefront",
+      "entry_depth": "D3",
+      "discovered_from": "Enrolling the project as a client business project and connecting it to the physical Johnstown shop, 2026-08-15",
+      "relationship": "adjacent",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "low",
+      "obligation_class": "actionable",
+      "evidence": [
+        {
+          "receipt_id": "b0349da0-c01f-4e9a-bd43-a92b43de0d4c",
+          "verifier": "inspection",
+          "subject": "align-storefront-with-google-business-profile",
+          "result": "verified",
+          "reference": "SETUP.md",
+          "sha256": "a5a87300b105d8b313e3c051b4304d24b915c86117ab3dd11b4e7b54cf0126c3",
+          "size_bytes": 16833,
+          "captured_at": "2026-08-15T20:21:57.0971791Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-15T20:21:57.1107502Z"
+    },
+    {
+      "id": "april-2026-ownership-change-reframes-the-data-migration",
+      "title": "Re-examine the customer and order migration in light of the April 2026 change of ownership",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "customer-storefront",
+      "entry_depth": "D3",
+      "discovered_from": "Enrolling the project as a client business project and connecting it to the physical Johnstown shop, 2026-08-15",
+      "relationship": "adjacent",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "high",
+      "obligation_class": "human",
+      "evidence": [
+        {
+          "receipt_id": "78841533-983d-46eb-9add-beac11656407",
+          "verifier": "inspection",
+          "subject": "april-2026-ownership-change-reframes-the-data-migration",
+          "result": "verified",
+          "reference": "SETUP.md",
+          "sha256": "a5a87300b105d8b313e3c051b4304d24b915c86117ab3dd11b4e7b54cf0126c3",
+          "size_bytes": 16833,
+          "captured_at": "2026-08-15T20:22:01.2614805Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-15T20:22:01.269681Z"
+    },
+    {
+      "id": "agency-order-path-cannot-carry-a-twenty-officer-order",
+      "title": "Replace the mailto: checkout with an order path that carries a PO number, per-officer sizes, and a confirmation",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "customer-storefront",
+      "entry_depth": "D3",
+      "discovered_from": "Enrolling the project as a client business project and connecting it to the physical Johnstown shop, 2026-08-15",
+      "relationship": "adjacent",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "high",
+      "risk": "medium",
+      "obligation_class": "actionable",
+      "evidence": [
+        {
+          "receipt_id": "6f310468-29dd-4d70-b994-a6ac1945d9fd",
+          "verifier": "inspection",
+          "subject": "agency-order-path-cannot-carry-a-twenty-officer-order",
+          "result": "verified",
+          "reference": "SETUP.md",
+          "sha256": "a5a87300b105d8b313e3c051b4304d24b915c86117ab3dd11b4e7b54cf0126c3",
+          "size_bytes": 16833,
+          "captured_at": "2026-08-15T20:22:04.4744275Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-15T20:22:04.477226Z"
+    },
+    {
+      "id": "six-products-advertise-an-unbuildable-price",
+      "title": "Six products list a price no configuration can reach because a required option group has no zero-cost choice",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "customer-storefront",
+      "entry_depth": "D3",
+      "discovered_from": "Enrolling the project as a client business project and connecting it to the physical Johnstown shop, 2026-08-15",
+      "relationship": "adjacent",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "medium",
+      "risk": "medium",
+      "obligation_class": "actionable",
+      "evidence": [
+        {
+          "receipt_id": "15887ef6-2f32-450a-8b4d-1b6c080c929f",
+          "verifier": "inspection",
+          "subject": "six-products-advertise-an-unbuildable-price",
+          "result": "verified",
+          "reference": "SETUP.md",
+          "sha256": "a5a87300b105d8b313e3c051b4304d24b915c86117ab3dd11b4e7b54cf0126c3",
+          "size_bytes": 16833,
+          "captured_at": "2026-08-15T20:22:07.2875838Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-15T20:22:07.2896308Z"
+    },
+    {
+      "id": "department-collections-are-nearly-empty-and-fire-ems-is-missing",
+      "title": "Tag products to departments; Police holds 4 of 321 items and Fire/EMS is promised in the headline but absent from the rail",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "customer-storefront",
+      "entry_depth": "D3",
+      "discovered_from": "Enrolling the project as a client business project and connecting it to the physical Johnstown shop, 2026-08-15",
+      "relationship": "adjacent",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "medium",
+      "risk": "low",
+      "obligation_class": "actionable",
+      "evidence": [
+        {
+          "receipt_id": "58aec8e8-4770-4ba8-8521-7fafd9bc8a6b",
+          "verifier": "inspection",
+          "subject": "department-collections-are-nearly-empty-and-fire-ems-is-missing",
+          "result": "verified",
+          "reference": "SETUP.md",
+          "sha256": "a5a87300b105d8b313e3c051b4304d24b915c86117ab3dd11b4e7b54cf0126c3",
+          "size_bytes": 16833,
+          "captured_at": "2026-08-15T20:22:09.7181878Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-15T20:22:09.7204229Z"
+    },
+    {
+      "id": "twenty-two-option-groups-are-named-literally-option",
+      "title": "Name the 22 option groups labelled 'Option', including the police-versus-fire cap device",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "customer-storefront",
+      "entry_depth": "D3",
+      "discovered_from": "Enrolling the project as a client business project and connecting it to the physical Johnstown shop, 2026-08-15",
+      "relationship": "adjacent",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "medium",
+      "risk": "medium",
+      "obligation_class": "human",
+      "evidence": [
+        {
+          "receipt_id": "3c4d0fae-ca12-4956-8d44-83b4d3a897ce",
+          "verifier": "inspection",
+          "subject": "twenty-two-option-groups-are-named-literally-option",
+          "result": "verified",
+          "reference": "SETUP.md",
+          "sha256": "a5a87300b105d8b313e3c051b4304d24b915c86117ab3dd11b4e7b54cf0126c3",
+          "size_bytes": 16833,
+          "captured_at": "2026-08-15T20:22:11.9544882Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-15T20:22:11.9563493Z"
+    },
+    {
+      "id": "reviews-band-provenance-is-not-defensible",
+      "title": "Decide the reviews band's fate: four reviews, two people, one day in 2014, about patches rather than duty gear",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "customer-storefront",
+      "entry_depth": "D3",
+      "discovered_from": "Enrolling the project as a client business project and connecting it to the physical Johnstown shop, 2026-08-15",
+      "relationship": "adjacent",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "medium",
+      "risk": "medium",
+      "obligation_class": "human",
+      "evidence": [
+        {
+          "receipt_id": "057c2a94-0c60-4819-aea4-1c07abdd3593",
+          "verifier": "inspection",
+          "subject": "reviews-band-provenance-is-not-defensible",
+          "result": "verified",
+          "reference": "SETUP.md",
+          "sha256": "a5a87300b105d8b313e3c051b4304d24b915c86117ab3dd11b4e7b54cf0126c3",
+          "size_bytes": 16833,
+          "captured_at": "2026-08-15T20:22:14.2432684Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-15T20:22:14.2454075Z"
+    },
+    {
+      "id": "storefront-ships-an-undesigned-dark-mode",
+      "title": "Delete or design the prefers-color-scheme dark block; orange on dark paper measures 3.35:1",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "storefront-modernization",
+      "suggested_capability": "customer-storefront",
+      "entry_depth": "D3",
+      "discovered_from": "Enrolling the project as a client business project and connecting it to the physical Johnstown shop, 2026-08-15",
+      "relationship": "adjacent",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "low",
+      "risk": "medium",
+      "obligation_class": "human",
+      "evidence": [
+        {
+          "receipt_id": "a5de7219-07bd-4aa1-830e-54a398845b8c",
+          "verifier": "inspection",
+          "subject": "storefront-ships-an-undesigned-dark-mode",
+          "result": "verified",
+          "reference": "SETUP.md",
+          "sha256": "a5a87300b105d8b313e3c051b4304d24b915c86117ab3dd11b4e7b54cf0126c3",
+          "size_bytes": 16833,
+          "captured_at": "2026-08-15T20:22:17.0550502Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-15T20:22:17.05751Z"
     }
   ],
   "tracks": [
@@ -2205,9 +2485,9 @@
       ]
     }
   ],
-  "updated_at": "2026-08-15T04:09:13.8282969Z",
-  "last_event_hash": "9b6ac66a42481c423302677cb0bac288c2e7053f8c12c7611fd3346a2ef82f58",
-  "schema_version": "1.0.0",
+  "updated_at": "2026-08-15T20:22:50.8421274Z",
+  "last_event_hash": "e4a409cd4b935cfd2759f38e1ce796e0f9881f9667c0ce99360198b5668a63f1",
+  "schema_version": "1.1.0",
   "ownership": {
     "sessions": [
       {
@@ -2337,7 +2617,8 @@
       "All active-cell tasks are closed with evidence.",
       "Generated views reconcile with canonical state."
     ],
-    "remote": "github.com/douglaspmcgowan/kelly-uniforms-business"
+    "remote": "github.com/douglaspmcgowan/kelly-uniforms-business",
+    "intent": "M.T. Uniforms LLC is a real uniform shop at 525 Franklin Street in Johnstown, Pennsylvania, serving police, fire, EMS, corrections, constables, and postal carriers across western Pennsylvania. It fits people in person, hems and decorates what it sells, and quotes that work at the counter. This project exists to serve that business, not to produce a website artifact.\n\nThis is a client business project, not an internal workstream. Every deliverable is judged by whether it helps the shop take, fit, decorate, and bill an order better than it does today, and by whether what it publishes about the business is true. A storefront that renders correctly while stating the wrong hours, the wrong address, or a founding year nobody can source is a failure of this project even if every test passes.\n\nThree things follow from that framing and govern the work. The counter is the source of truth about the business, so any fact the site publishes about hours, location, history, or services is confirmed with the client before it ships rather than inferred from the old site or a directory listing. Decoration and agency billing are the real business and are almost entirely absent from the existing product data, so the gap between what the shop sells and what any website can express is the central design problem rather than an edge case. And the customer and order records inherited from the previous site are other people personal data, held by a business that changed hands in April 2026, so moving them anywhere is a decision with a reason attached and never a default step of a migration."
   },
   "frontier": {
     "mode": "expand",
@@ -2355,7 +2636,7 @@
     ]
   },
   "created_at": "2026-08-09T06:14:25.2526853Z",
-  "last_event_id": "6c33c253-7ca4-4209-8973-ecf4d8d9badb",
+  "last_event_id": "7f402752-eed2-445e-bb64-6e1650a0662d",
   "active": {
     "track_id": "business-continuity",
     "capability_id": "portable-recovery-repository-custody",
@@ -2417,7 +2698,66 @@
       "shopify-catalog-import",
       "opencart-data-offload-runbook",
       "clover-integration-setup",
-      "shopify-conversion-workstream-has-no-workscope-cell-20260815"
+      "shopify-conversion-workstream-has-no-workscope-cell-20260815",
+      "confirm-physical-business-facts-with-the-client",
+      "align-storefront-with-google-business-profile",
+      "april-2026-ownership-change-reframes-the-data-migration",
+      "agency-order-path-cannot-carry-a-twenty-officer-order",
+      "six-products-advertise-an-unbuildable-price",
+      "department-collections-are-nearly-empty-and-fire-ems-is-missing",
+      "twenty-two-option-groups-are-named-literally-option",
+      "reviews-band-provenance-is-not-defensible",
+      "storefront-ships-an-undesigned-dark-mode"
     ]
-  }
+  },
+  "specs": [
+    {
+      "id": "published-business-facts-are-client-confirmed",
+      "statement": "Every fact the storefront publishes about the physical business — street address, ZIP, phone, hours, founding year, and services offered — traces to a client confirmation recorded in SOURCES.md. No such fact is carried forward from the previous owner's site or from a third-party directory listing without that confirmation. The storefront currently claims 'since 1985' with no source, and publishes Monday-Friday 9:00-5:00 hours that no external listing corroborates.",
+      "status": "active",
+      "created_at": "2026-08-15T20:21:02.3816343Z",
+      "met_at": null,
+      "satisfied_by": []
+    },
+    {
+      "id": "storefront-matches-the-google-business-profile",
+      "statement": "The address, phone, and hours on the storefront match the business's Google Business Profile exactly, and the storefront gives a street address and a map link on its contact page. A customer who finds the shop on Google and a customer who finds it on the website are told the same thing about where it is and when it is open.",
+      "status": "active",
+      "created_at": "2026-08-15T20:21:06.6220253Z",
+      "met_at": null,
+      "satisfied_by": []
+    },
+    {
+      "id": "inherited-personal-data-moves-only-on-a-recorded-decision",
+      "statement": "The 2,212 customer records and 1,154 order records extracted from the previous site are not loaded into any new system until a dated decision recording the business reason appears in the project's Open Decisions document. Absent that decision, the generated customers.csv and orders.jsonl stay under PROJECT_DATA_ROOT and outside Git. The business changed hands in April 2026, which makes this a transfer between owners rather than an internal migration.",
+      "status": "active",
+      "created_at": "2026-08-15T20:21:12.1669643Z",
+      "met_at": null,
+      "satisfied_by": []
+    },
+    {
+      "id": "the-counter-can-take-an-agency-order",
+      "statement": "A quartermaster ordering for twenty officers can complete that order through whatever the project ships, carrying a PO number and per-officer sizes, and receives one invoice. Today this is impossible: there is no quantity-by-size grid, no PO field, and the checkout is a mailto: that cannot hold a twenty-line order.",
+      "status": "active",
+      "created_at": "2026-08-15T20:21:15.659872Z",
+      "met_at": null,
+      "satisfied_by": []
+    },
+    {
+      "id": "decoration-is-expressible",
+      "statement": "Hemming, name tapes, patches, and embroidery can be requested, priced or explicitly quoted, and routed to the person who does the work. This is the highest-margin service the shop sells and it appears nowhere in the 407-product catalog extracted from the old site.",
+      "status": "active",
+      "created_at": "2026-08-15T20:21:18.9874734Z",
+      "met_at": null,
+      "satisfied_by": []
+    },
+    {
+      "id": "no-unbuildable-price-is-advertised",
+      "statement": "No product displays a price that no valid configuration can reach. Six products currently do, because a required option group has no zero-cost choice: a cap listed at 59.99 US dollars cannot be built below 116.98.",
+      "status": "active",
+      "created_at": "2026-08-15T20:21:22.0198847Z",
+      "met_at": null,
+      "satisfied_by": []
+    }
+  ]
 }

@@ -75,6 +75,34 @@ This is the second occurrence.
 
 ---
 
+## 2b. The Google listing is telling customers the shop is closed
+
+This has nothing to do with the website rebuild and is probably worth more than any of it this month.
+
+The **Google Business Profile** for M.T. Uniforms LLC publishes hours of **Monday, Wednesday and
+Friday, 10:00–4:00, closed Tuesday, Thursday and Saturday**. Yelp — which is business-maintained
+under the new ownership, carries "Verified by Business" service tags and forward-dated 2026 holiday
+closures — publishes **9:00–5:00 Monday/Wednesday/Friday, 9:00–7:00 Tuesday and Thursday, and
+9:00–2:00 Saturday**. The current website says **Monday–Friday 9:00–5:00**.
+
+Three sources, three answers, and no two agree. If Yelp is the accurate one, **Google is turning
+customers away three days a week**, including Saturday, and Google is what almost everyone checks.
+Bing mirrors Google, so it says the same thing.
+
+Two smaller items on the same profile:
+
+- Google shows the **800-535-0134** toll-free number as the tap-to-call, while both storefronts
+  publish **(814) 536-2390**. A customer clicking Call in Google Maps reaches a different line than
+  the one the site tells them to use.
+- The Google profile's newest review is roughly a year old, and its content still reflects the
+  previous owner's era. **4.6 stars from 11 reviews** is a real asset that nobody is tending.
+
+**Action:** get the real hours from the client, correct the Google profile first, then the website.
+There is also a **stale duplicate listing at 564 Central Ave** (same phone, no hours, no reviews,
+unclaimed) worth asking Yelp to merge or remove.
+
+---
+
 ## 3. Approvals needed
 
 Numbered so you can reply with just the numbers you approve.

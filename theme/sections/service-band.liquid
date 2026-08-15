@@ -8,7 +8,13 @@
     {%- else -%}
       <div><h3>In-house tailoring</h3><p>Hemming, name tapes, and patch work done on site — no third-party turnaround.</p></div>
       <div><h3>Department accounts</h3><p>Purchase orders and agency billing handled the way your business office expects.</p></div>
-      <div><h3>Fitted in person</h3><p>Walk-in fittings at the Johnstown store, or scheduled on-site sizing for your shift.</p></div>
+      {%- comment -%}
+        "Walk-in fittings" became "Call ahead" on 2026-08-15. Three sources publish three different
+        sets of opening hours for this shop and none is confirmed, so inviting someone to walk in is
+        inviting them to a possibly locked door — the Google profile currently says closed Tuesday,
+        Thursday and Saturday. Restore the walk-in wording once the hours are settled.
+      {%- endcomment -%}
+      <div><h3>Fitted in person</h3><p>Call ahead for a fitting at the Johnstown store, or scheduled on-site sizing for your shift.</p></div>
       <div><h3>Stocked locally</h3><p>Duty staples held on the shelf, so a replacement does not wait on a vendor.</p></div>
     {%- endfor -%}
   </div>

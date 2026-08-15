@@ -17,9 +17,8 @@ $requiredFiles = @(
     'CLIENT.md',
     'DELIVERABLES.md',
     'SOURCES.md',
-    'CURRENT-TASK.md',
-    'WORK_QUEUE.md',
-    'STATUS.md',
+    'TASK.md',
+    'MAP.md',
     'LOG.md',
     'VERIFY.md',
     'data-manifest.yaml',
@@ -31,6 +30,19 @@ foreach ($relative in $requiredFiles) {
     $path = Join-Path $repo $relative
     if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
         $failures.Add("Missing required file: $relative")
+    }
+}
+
+# CURRENT-TASK.md, WORK_QUEUE.md and STATUS.md are retired by the agent contract: TASK.md owns the
+# active queue and MAP.md owns durable project state. This script used to require all three, which
+# meant the verifier failed on any project that actually followed the contract. It now asserts the
+# opposite -- their presence is the defect, because a second task file drifts from the real one.
+$retiredFiles = @('CURRENT-TASK.md', 'WORK_QUEUE.md', 'STATUS.md')
+
+foreach ($relative in $retiredFiles) {
+    $path = Join-Path $repo $relative
+    if (Test-Path -LiteralPath $path -PathType Leaf) {
+        $failures.Add("Retired file present, delete it: $relative")
     }
 }
 

@@ -106,18 +106,35 @@ tags on and the original receipt.</p>
 <p>Sizing exchanges on undecorated garments are routine and we do not make them difficult. Call
 before shipping anything back so we can tell you what is in stock to swap into.</p>`
   },
+  /* The address, both phone numbers and the fax are the shop's own published details, confirmed
+     across its own site, its Google Business Profile, Yelp and BBB on 2026-08-15. ZIP 15901: seven
+     sources including Google's geocoded profile say 15901 and only BBB says 15902.
+
+     The HOURS are deliberately not stated, and that is not an oversight. Three live sources give
+     three mutually exclusive answers — this site said Monday-Friday 9:00-5:00, the Google Business
+     Profile says Monday/Wednesday/Friday 10-4 and closed the rest, and Yelp says 9-5 with Tuesday
+     and Thursday to 7 and Saturday 9-2. Publishing any one of them would be picking a guess and
+     printing it as fact on the door of a shop whose whole pitch is walking in. Until the client
+     says which is right, the honest thing is to send people to the phone. Open decision
+     `mtu-published-business-facts-20260815`. */
   {
     handle: 'contact',
     title: 'Contact',
     content: `
-<p><strong>M.T. Uniforms LLC</strong><br>Johnstown, Pennsylvania</p>
+<p><strong>M.T. Uniforms LLC</strong><br>
+525 Franklin Street<br>
+Johnstown, Pennsylvania 15901</p>
+<p><a href="https://maps.google.com/?q=525+Franklin+St,+Johnstown,+PA+15901">Directions</a></p>
 <p>Phone: <a href="tel:+18145362390">(814) 536-2390</a><br>
+Toll free: <a href="tel:+18005350134">800-535-0134</a><br>
+Fax: 814-536-5770<br>
 Email: <a href="mailto:orders@mtuniforms.com">orders@mtuniforms.com</a></p>
 <h2>Hours</h2>
-<p>Monday–Friday 9:00–5:00<br>Saturday by appointment</p>
+<p>Please call before you come in — <a href="tel:+18145362390">(814) 536-2390</a>. Our posted hours
+are being updated and we would rather you reach a person than a locked door.</p>
 <h2>Fittings</h2>
-<p>Walk in any weekday for a fitting. For a whole shift or a new class, call ahead and we will
-schedule time — or bring the fitting to your station.</p>`
+<p>Call ahead for a fitting and we will have time set aside for you. For a whole shift or a new
+class, we will schedule it — or bring the fitting to your station.</p>`
   }
 ]
 

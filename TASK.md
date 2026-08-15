@@ -55,6 +55,15 @@ Complete and verify Commit and push the verified portable recovery system and Wo
 - opencart-data-offload-runbook
 - clover-integration-setup
 - shopify-conversion-workstream-has-no-workscope-cell-20260815
+- confirm-physical-business-facts-with-the-client
+- align-storefront-with-google-business-profile
+- april-2026-ownership-change-reframes-the-data-migration
+- agency-order-path-cannot-carry-a-twenty-officer-order
+- six-products-advertise-an-unbuildable-price
+- department-collections-are-nearly-empty-and-fire-ems-is-missing
+- twenty-two-option-groups-are-named-literally-option
+- reviews-band-provenance-is-not-defensible
+- storefront-ships-an-undesigned-dark-mode
 
 ## Next transition
 
