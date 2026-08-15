@@ -1,0 +1,71 @@
+{%- comment -%}
+  Five-star reviews, as blocks.
+
+  Blocks rather than a settings array on purpose: on Shopify a section may only read settings its
+  own schema declares, so anything the preview injects through a side channel renders as nil on the
+  real store. Blocks are the native shape for a repeating list and survive the trip in both
+  directions — the merchant edits them in the theme editor, and preview/build.mjs supplies the same
+  block objects from the real review data.
+
+  Every review here is a real, approved review from the current mtuniforms.com store. The Journal 3
+  testimonial table is demo Lorem Ipsum under invented names and must never reach this section.
+{%- endcomment -%}
+
+{%- if section.blocks.size > 0 -%}
+<section class="reviews">
+  <div class="shell">
+    <div class="reviews__head">
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.subheading }}</p>
+    </div>
+
+    <ul class="reviews__grid" role="list">
+      {%- for block in section.blocks -%}
+        <li class="review" {{ block.shopify_attributes }}>
+          <p class="review__stars" aria-label="Rated 5 out of 5">
+            <span aria-hidden="true">★★★★★</span>
+          </p>
+          <blockquote class="review__body">{{ block.settings.body }}</blockquote>
+          <p class="review__meta">
+            <span class="review__author">{{ block.settings.author }}</span>
+            {%- if block.settings.product != blank -%}
+              <span class="review__product">
+                on
+                {%- if block.settings.product_url != blank %}
+                  <a href="{{ block.settings.product_url }}">{{ block.settings.product }}</a>
+                {%- else %}
+                  {{ block.settings.product }}
+                {%- endif -%}
+              </span>
+            {%- endif -%}
+            {%- if block.settings.date != blank -%}
+              <span class="review__date">{{ block.settings.date }}</span>
+            {%- endif -%}
+          </p>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What customers say" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Reviews left on mtuniforms.com by the people who wear this gear to work." }
+  ],
+  "max_blocks": 12,
+  "blocks": [
+    { "type": "review", "name": "Review", "settings": [
+      { "type": "textarea", "id": "body", "label": "Review" },
+      { "type": "text", "id": "author", "label": "Author" },
+      { "type": "text", "id": "product", "label": "Product name" },
+      { "type": "url", "id": "product_url", "label": "Product link" },
+      { "type": "text", "id": "date", "label": "Date" }
+    ]}
+  ],
+  "presets": [{ "name": "Reviews" }]
+}
+{% endschema %}

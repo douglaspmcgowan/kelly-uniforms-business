@@ -87,7 +87,8 @@ Numbered so you can reply with just the numbers you approve.
 | 4 | Confirm the **Clover merchant account** permits API access | The whole integration design is unverifiable until the account's tier is known. See `CLOVER-SETUP.md` stage 1. | Free, needs your merchant login |
 | 5 | Decide whether the client sees the **prototype URL** | It is live and reads as a real store. It should not reach the client's customers by accident. | Decision only |
 | 6 | **Push the branch.** Send `[allow-push]` or run the command below | Committed locally through `fc8df6d` on `codex/mt-uniforms-storefront`; Gitleaks clean. The tag expires with the turn it was sent in. | Free |
-| 7 | Decide whether **customers and orders** migrate at all | 2,212 customers and 1,501 orders are real personal data. Moving them starts a new retention clock in a new system and needs a business reason, not a default. | Decision only |
+| 7 | Decide whether **customers and orders** migrate at all | 2,212 customers and 1,154 real orders are personal data. Moving them starts a new retention clock in a new system and needs a business reason, not a default. | Decision only |
+| 8 | Decide how **12 priced option groups** get charged | Shopify's line-item properties carry no price. Twelve demoted groups across eight products have surcharges — Hat Visor up to **$56.99**, Hat Band $18.99, Braid $10.00. As imported, the customer picks them and is charged $0. See below. | Decision only, but it is revenue |
 
 ```bash
 git -C C:/Users/dougl/Projects/kelly-uniforms-business push origin codex/mt-uniforms-storefront
@@ -124,6 +125,31 @@ The Ecwid-via-Clover pricing note that used to sit here is retired — Shopify i
 4. **Decoration pricing.** Hemming, name tapes, patches, and embroidery appear nowhere in the
    product data and are quoted at the counter. This is the largest gap between what the store sells
    and what any website can express.
+5. **The twelve priced option groups (approval item 8).** Shopify allows three option groups per
+   product; this catalog uses up to seven, and the surplus is demoted to line-item properties, which
+   carry the customer's choice onto the order but carry **no money**. Twelve demoted groups have a
+   real surcharge:
+
+   | Product | Option | Up to |
+   |---|---|---|
+   | W. Alboum Cushion Air 8-Point / Round Top / Pershing caps | Hat Visor | **$56.99** |
+   | The same three caps | Hat Band | $18.99 |
+   | Elbeco dress coats (3) | "Option" | $16.00 |
+   | Elbeco Tek3 and Tex-Trop2 trousers | Braid | $10.00 |
+
+   Three ways out, and it is your call which: fold the surcharge into the base price, keep the group
+   as a variant and demote something else instead, or leave it as a property and quote it at the
+   counter the way decoration already is. Doing nothing means selling a $56.99 visor for $0.
+   `report.json` lists all twelve under `pricedDemotions`.
+6. **192 of 321 product descriptions carry Microsoft Word paste markup** — `mso-` styles, `<o:p>`
+   tags, Windows font stacks. It renders acceptably today and imports fine, so this is cleanup
+   rather than a blocker. One of them (`usps-retail-clerk-unisex-eagle-logo-cardigan-sweater-pswcc`)
+   embeds a `file:///C:\DOCUME~1\...` image path from whoever's desktop wrote it — that image is
+   broken on the live site right now and will be broken on Shopify. It is the only unresolvable
+   link in the entire 10,689-link prototype.
+7. **Four blank option labels and two duplicated sizes.** Four Elbeco shirts have a "Sleeve Length"
+   value whose description row is missing from the export; two boots list the same size twice.
+   Shopify rejects both on import. They need four labels typed in and two duplicates removed.
 
 ---
 
@@ -150,8 +176,15 @@ looking for, and it should inform the category structure before the Shopify stor
 - **Full OpenCart export**, 2026-08-14 — 210 of 212 tables, 121,957 rows, plus 518 images.
   ~67 MB under `%PROJECT_DATA_ROOT%\inputs\opencart-export\2026-08-14\`, with a manifest and
   checksums. Outside Git, because it holds real customer PII and admin password hashes.
-- **Shopify import**, generated — 407 products, 12,409 rows, validated.
-  `%PROJECT_DATA_ROOT%\outputs\shopify-import\2026-08-14\`.
+- **The whole Shopify conversion**, generated and validated 2026-08-15, at
+  `%PROJECT_DATA_ROOT%\outputs\shopify-import\2026-08-15\` — 407 products across 12,409 rows, 2,212
+  customers, 1,154 orders, 469 redirects, and 6 reviews. Three defects found and fixed in the same
+  pass: ounce-weighted products were converting at 16× their real weight, product handles were being
+  taken from a second storefront that is not the live one, and one product-level SKU was repeating
+  across every variant of that product.
+- **A five-star review showcase on the storefront** — real, approved reviews from the current site,
+  built as theme-editor blocks so it works identically on Shopify and in the preview. Journal 3's
+  eight demo testimonials are excluded by construction and verified absent from the built site.
 - **Live prototype:** <https://mt-uniforms-storefront-prototype.vercel.app/> — working cart and
   option selection. Checkout hands the order to the store by email, because no payment rail is
   wired and pretending otherwise would be worse than saying so.

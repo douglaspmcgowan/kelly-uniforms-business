@@ -183,6 +183,30 @@ legend { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; co
 .service-band__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.25rem; }
 .service-band h3 { font-size: .875rem; margin: 0 0 .25rem; }
 .service-band p { margin: 0; color: #9fb0c4; font-size: .875rem; }
+/* ---- Reviews ----
+   Real customer words, set quietly. No card shadows, no avatars, no stock photography: the
+   Quartermaster direction earns trust by looking like a record rather than like marketing. */
+.reviews { padding: 2.5rem 0; border-top: 1px solid var(--hairline); }
+.reviews__head { max-width: var(--measure); margin-bottom: 1.5rem; }
+.reviews__head h2 { font-size: 1.25rem; margin: 0 0 .25rem; }
+.reviews__head p { margin: 0; color: var(--steel); font-size: .9375rem; }
+.reviews__grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--gap); list-style: none; margin: 0; padding: 0;
+}
+.review {
+  background: var(--white); border: 1px solid var(--hairline); border-radius: var(--radius);
+  padding: 1.125rem 1.25rem; display: flex; flex-direction: column; gap: .625rem;
+}
+.review__stars { margin: 0; color: var(--orange); letter-spacing: .12em; font-size: .9375rem; }
+.review__body { margin: 0; font-size: .9375rem; line-height: 1.55; }
+.review__meta {
+  margin: 0; margin-top: auto; padding-top: .5rem; border-top: 1px solid var(--hairline);
+  color: var(--steel); font-size: .8125rem; display: flex; flex-wrap: wrap; gap: .375rem .625rem;
+}
+.review__author { color: var(--ink); font-weight: 600; }
+.review__date { margin-left: auto; }
+
 .footer { background: var(--navy-soft); color: #cdd7e2; padding: 2rem 0; font-size: .875rem; }
 .footer__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; }
 .footer a { text-decoration: none; }

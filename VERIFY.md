@@ -65,9 +65,25 @@ Manual checks that the commands cannot make for you:
 node ops/build-shopify-import.mjs
 ```
 
-Passing looks like: 407 products, 12,409 CSV rows, 0 oversized, 0 without a handle. A changed
-product count means the export under `%PROJECT_DATA_ROOT%\inputs\opencart-export\2026-08-14\` was
-replaced; confirm that was intended before trusting the output.
+Passing looks like: 407 products, 12,409 CSV rows, 0 oversized, 0 without a handle, **0 duplicate
+SKUs**. A changed product count means the export under
+`%PROJECT_DATA_ROOT%\inputs\opencart-export\` was replaced; confirm that was intended before
+trusting the output. Both build scripts print the export folder they resolved — check it is the one
+you meant, since `exportDir()` takes the newest dated folder unless `MT_EXPORT_DIR` says otherwise.
+
+```bash
+node ops/build-shopify-data.mjs
+```
+
+Passing looks like: 2,212 customers, 1,154 orders with 347 abandoned excluded, 469 redirects, 6
+reviews of which 5 are five-star, and 8 testimonials **excluded**. The testimonial count being
+non-zero and excluded is the check, not a warning — those rows are Journal 3 Lorem Ipsum under
+invented names and putting them on a real store would be fabricated praise.
+
+**Two numbers that must never quietly grow.** `redirects` was 873 while the parser was reading both
+storefronts out of `oc_seo_url`; only `store_id = 0` is live. If it returns to the 800s, the
+store-id filter has been lost. `duplicateSkus` was 3 while product-level SKUs were copied onto every
+variant row; any non-zero value means inventory can no longer tell two garments apart.
 
 Manual checks, none of which a script can stand in for:
 
@@ -97,6 +113,15 @@ source review.
    unresolvable. Expect 51 collections. If it drops to 39, the shelf threshold in `build.mjs` has
    been applied to page generation again rather than to the shelf, and product breadcrumbs will
    point at pages that do not exist.
+
+3. **The reviews band shows real reviews, and only real ones.** The homepage must render
+   `section.reviews` with four cards, each linking to a product page that exists. Nothing in the
+   storefront may read `oc_testimonial`: those eight rows are Journal 3 Lorem Ipsum under invented
+   names, and a review card whose body reads like filler copy is the symptom. Grep the built site
+   for a testimonial author name and expect zero hits.
+
+   The count is 4 here and 5 in `reviews.csv` on purpose. The fifth is on a product outside the
+   321-product public slice the preview carries; the full 407-product Shopify import includes it.
 
 Verified 2026-08-14 against production: 10,684 internal links, 0 unresolvable; validation, option
 pricing, line merging, quantity, removal, empty state, and the mailto checkout all pass.

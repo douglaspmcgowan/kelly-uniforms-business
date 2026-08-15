@@ -14,6 +14,11 @@ if (!SRC) { console.error('MT_EXPORT_DIR required (the dated export folder under
 
 const raw = JSON.parse(fs.readFileSync(path.join(SRC, 'products-public.json'), 'utf8'))
 
+// Reviews live in the SQL dump rather than in products-public.json, so they come through the one
+// parser that owns the dump. Pinned to the same export folder this script was pointed at.
+process.env.MT_EXPORT_DIR = SRC
+const { loadReviews } = await import('../ops/parse-opencart.mjs')
+
 const products = raw
   .filter(p => p.price != null && p.handle)
   .map(p => ({
@@ -116,11 +121,34 @@ schedule time — or bring the fitting to your station.</p>`
   }
 ]
 
+/* Real customer reviews, already published on mtuniforms.com and therefore public storefront
+ * facts under the same boundary as prices and product names. Only approved five-star reviews that
+ * still point at a product in this catalog travel into the repository.
+ *
+ * Journal 3's `oc_testimonial` table is deliberately NOT read here. Every row in it is Lorem Ipsum
+ * demo copy under an invented name; `loadTestimonials()` exists in ops/parse-opencart.mjs so that
+ * fact is visible, never so it can ship. Putting fabricated praise on a real store is the one
+ * failure mode this section has to be built to make impossible.
+ */
+const handles = new Set(products.map(p => p.handle))
+const reviews = loadReviews()
+  .filter(r => r.approved && r.rating === 5 && handles.has(r.productHandle) && r.body.trim())
+  .map(r => ({
+    author: r.author,
+    body: r.body.replace(/\s+/g, ' ').trim(),
+    rating: r.rating,
+    date: String(r.createdAt).slice(0, 10),
+    productHandle: r.productHandle,
+    productName: r.productName
+  }))
+  .sort((a, b) => b.date.localeCompare(a.date))
+
 const out = {
   generatedFrom: path.basename(SRC),
   notice: 'Prototype for review. Prices and stock come from the current mtuniforms.com catalog; ordering is not live.',
   roles: ['Police', 'Fire-EMS', 'Corrections', 'Security', 'PA Constable', 'Postal Letter Carrier', 'Postal Police'],
   pages,
+  reviews,
   products
 }
 

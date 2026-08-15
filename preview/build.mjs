@@ -47,10 +47,17 @@ engine.registerTag('section', {
     const body = raw.replace(/{%-?\s*schema\s*-?%}[\s\S]*?{%-?\s*endschema\s*-?%}/g, '')
     const schema = parseSchema(raw)
     const scope = ctx.getAll()
+    // `blocks` is reserved in an override: everything else is a settings value, but blocks are a
+    // separate part of the section object on Shopify and a section may not read them as settings.
+    const { blocks = [], ...settingOverrides } = (scope.section_overrides || {})[this.name] || {}
     scope.section = {
       id: this.name,
-      settings: Object.assign(defaults(schema.settings), (scope.section_overrides || {})[this.name] || {}),
-      blocks: [],
+      settings: Object.assign(defaults(schema.settings), settingOverrides),
+      blocks: blocks.map((b, i) => Object.assign(
+        { id: `${this.name}-${i}`, type: b.type || 'block', shopify_attributes: '' },
+        b,
+        { settings: Object.assign(defaults((schema.blocks || []).find(s => s.type === b.type)?.settings), b.settings) }
+      )),
       shopify_attributes: ''
     }
     return engine.parseAndRender(body, scope)
@@ -122,6 +129,21 @@ const ROLES = shelvable.filter(c => CATALOG.roles.includes(c.title))
 const SHELF = shelvable.filter(c => !CATALOG.roles.includes(c.title)).slice(0, 18)
 const ALL = { title: 'Full catalog', handle: 'all', url: '/collections/all.html', products, description: '' }
 
+/* Real five-star reviews, as the section's own block shape. `make-catalog.mjs` already filtered to
+   approved five-star reviews whose product still exists; this only translates them, and links each
+   one to the product page it was written about so the claim is checkable rather than decorative. */
+const productByHandle = new Map(products.map(p => [p.handle, p]))
+const REVIEW_BLOCKS = (CATALOG.reviews || []).map(r => ({
+  type: 'review',
+  settings: {
+    body: r.body,
+    author: r.author,
+    product: r.productName,
+    product_url: productByHandle.get(r.productHandle)?.url || '',
+    date: r.date
+  }
+}))
+
 /* ------------------------------------------------------------------- render */
 
 const routes = {
@@ -148,7 +170,8 @@ const base = () => ({
   page_description: '',
   canonical_url: '',
   section_overrides: {
-    'main-collection': { roles: ROLES, shelf: SHELF }
+    'main-collection': { roles: ROLES, shelf: SHELF },
+    'reviews-band': { blocks: REVIEW_BLOCKS }
   }
 })
 

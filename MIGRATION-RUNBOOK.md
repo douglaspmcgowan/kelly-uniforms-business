@@ -11,7 +11,7 @@ Related: `SETUP.md` owns approvals and money · `CLOVER-SETUP.md` owns the POS s
 
 ## Stage 0 — the offload, which is finished
 
-Done on 2026-08-14. Nothing here needs repeating.
+Done on 2026-08-14. Nothing here needs repeating. The conversion below was last regenerated 2026-08-15.
 
 | | |
 |---|---|
@@ -59,13 +59,50 @@ re-running needs no database server and no credentials.
 
 ## Stage 2 — import the catalog
 
-The generated import is at `%PROJECT_DATA_ROOT%\outputs\shopify-import\2026-08-14\`.
+The generated import is at `%PROJECT_DATA_ROOT%\outputs\shopify-import\2026-08-15\`.
 
-| File | What it is |
-|---|---|
-| `products.csv` | 407 products, 12,409 rows, Shopify's native import format |
-| `line-item-properties.json` | The option groups that could not be variants, per product |
-| `report.json` | Every demotion decision, named |
+| File | What it is | How it gets in |
+|---|---|---|
+| `products.csv` | 407 products, 12,409 rows | **Native** — Products › Import |
+| `redirects.csv` | 469 rows | **Native** — Navigation › URL Redirects |
+| `customers.csv` | 2,212 rows | **Native** — Customers › Import, but see stage 3 |
+| `reviews.csv` | 6 reviews, 5 of them five-star | A review app (Judge.me) |
+| `orders.jsonl` | 1,154 real orders; 347 abandoned checkouts excluded | **No native route.** Admin API or a migration app |
+| `line-item-properties.json` | The option groups that could not be variants, per product | Consumed by the theme |
+| `report.json` | Every demotion decision, plus the defect lists below | Read it before importing |
+
+Regenerate both halves with:
+
+```bash
+node ops/build-shopify-import.mjs
+```
+
+```bash
+node ops/build-shopify-data.mjs
+```
+
+### Read `report.json` before you import
+
+Four lists in it are the reason to open the file rather than trust the summary line:
+
+- **`pricedDemotions` — 12 entries, and this one costs money.** A Shopify line-item property carries
+  no price. Where a demoted option group had a surcharge, the customer picks it and is charged
+  **nothing**: Hat Visor up to **$56.99**, Hat Band $18.99, Braid $10.00, and a group named "Option"
+  at $16.00. Eight products are affected. Decide how each is priced before the catalog goes live —
+  fold it into the base price, keep it as a variant at the cost of another group, or quote it at the
+  counter. This is a business decision and no code change makes it go away.
+- **`blankOptionValues` — 4 entries.** Four Elbeco shirts have a "Sleeve Length" value whose
+  description row is missing from the export, so the label is empty. Shopify rejects a blank option
+  value on import. Supply the four labels by hand.
+- **`duplicateOptionLabels` — 2 entries.** Two boots list the same size twice, which Shopify reads
+  as a duplicate variant. Remove the repeat.
+- **`duplicateSkus` — must be 0.** Anything else means two physically different garments share a
+  SKU and inventory cannot tell them apart.
+
+**Weights are converted through the store's own `oc_weight_class` table**, not assumed. This catalog
+mixes units — 265 products in pounds, 142 in ounces — and converting everything as pounds shipped
+those 142 at 16× their real weight, which mispriced carrier-calculated shipping on every order
+containing one. An unrecognised weight class now fails the build rather than guessing.
 
 1. **Import `products.csv`** through Products → Import. Images pull from the live
    `mtuniforms.com` URLs, so **do not take the old site down until the import has finished.** That
@@ -84,9 +121,10 @@ properties**, which Shopify carries onto the order line natively and which `them
 Ten products were demoted. The rule: groups that bear stock — size, colour, length, waist — stay
 variants; braid, hat bands, hardware finish, and visors become properties.
 
-**What you lose by demotion:** a property has no SKU and no stock count of its own. For braid and
-hat bands that is correct, because they are made to order anyway. Review `report.json` and overrule
-anything that looks wrong before importing.
+**What you lose by demotion:** a property has no SKU, no stock count of its own, **and no price**.
+The first two are fine for braid and hat bands, which are made to order anyway. The third is not
+fine anywhere and is the thing to look at — `report.json` lists the 12 money-bearing demotions under
+`pricedDemotions`. Review it and overrule anything that looks wrong before importing.
 
 ## Stage 3 — the things the import cannot carry
 
@@ -95,7 +133,7 @@ anything that looks wrong before importing.
    inventory policy `continue`, so nothing blocks a sale. The first real count comes from Clover or
    a manual export — see `CLOVER-SETUP.md`.
 2. **Customers and orders are not migrated, and should not be by default.** 2,212 customers and
-   1,501 orders are real personal data. Shopify can import customers, but that puts personal records
+   1,154 real orders are personal data. Shopify can import customers, but that puts personal records
    into a new system and starts a new retention clock. Treat it as a separate decision with a
    business reason, not a default step of the migration.
 3. **Decoration is not in the catalog at all.** Hemming, name tapes, patches, and embroidery are
@@ -106,6 +144,13 @@ anything that looks wrong before importing.
 ## Stage 4 — SEO, which is where migrations quietly fail
 
 The export carries **1,099 SEO URLs**, 538 URL aliases, and 24 existing 301 redirects.
+
+**Only half of those SEO URLs are the live site's.** This install runs a second storefront
+(`store_id = 2`) with its own keyword for every product, and the two disagree on 26 products —
+product 99 is `usps-baseball-cap-summer-pbcs` live and
+`usps-letter-carrier-mailman-postal-baseball-cap-summer` on store 2. `redirects.csv` filters to
+`store_id = 0`, which is why it holds 469 rows and not the 873 an unfiltered read produces. The
+extra 404 would have been redirects from paths that were never live on mtuniforms.com.
 
 1. Build a redirect map from `oc_seo_url` to the new Shopify handles. The handles in `products.csv`
    are taken from `oc_seo_url`, so **most products keep their exact URL path** — the map is mostly

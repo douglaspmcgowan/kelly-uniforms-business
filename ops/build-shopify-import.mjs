@@ -1,7 +1,7 @@
 // Builds a Shopify product-import CSV from the OpenCart export.
 //
 // Run:  node ops/build-shopify-import.mjs
-// Out:  PROJECT_DATA_ROOT/outputs/shopify-import/<date>/  (products.csv, properties.json, report.json)
+// Out:  PROJECT_DATA_ROOT/outputs/shopify-import/<date>/  (products.csv, line-item-properties.json, report.json)
 //
 // The output goes to PROJECT_DATA_ROOT rather than the repository. It carries no customer data, but
 // it is a large generated artifact derived from a private export, and the repository owns source
@@ -25,7 +25,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { loadCatalog, exportDir } from './parse-opencart.mjs'
+import { loadCatalog, exportDir, localDate, loadWeightClasses } from './parse-opencart.mjs'
 
 const MAX_OPTION_GROUPS = 3
 const MAX_VARIANTS = 2000
@@ -78,8 +78,29 @@ const HEADERS = [
   'Gift Card', 'SEO Title', 'SEO Description', 'Status',
 ]
 
-// OpenCart weights are in the store's weight class; class 1 is pounds on this install.
-const toGrams = (lb) => Math.round(Number(lb || 0) * 453.592)
+// Grams, converted through the store's OWN weight-class table rather than an assumed unit. This
+// catalog mixes classes: 265 products are pounds and 142 are ounces. Converting everything as
+// pounds shipped those 142 at 16x their real weight, which mispriced carrier-calculated shipping
+// on every order containing one. An unrecognised class is a hard failure, never a silent guess.
+const WEIGHT_CLASSES = loadWeightClasses()
+function toGrams (weight, classId) {
+  const gramsPerUnit = WEIGHT_CLASSES[classId]
+  if (!gramsPerUnit) throw new Error(`Unknown weight_class_id ${classId} — refusing to guess a unit.`)
+  return Math.round(Number(weight || 0) * gramsPerUnit)
+}
+
+const skuBase = (p) => (p.sku || p.model || `oc-${p.productId}`).trim()
+
+/* Unique across the whole import, not merely within a product. Two distinct products can share a
+   model number — three do here — so a base that collides is disambiguated with the OpenCart product
+   id, which is unique by definition. `used` is passed in so the check is the same object that
+   decides, rather than a report written after the fact. */
+function skuFor (p, combo, used) {
+  const base = combo.length ? `${skuBase(p)}-${combo.map(v => v.rowId).join('-')}` : skuBase(p)
+  const sku = used.has(base) ? `${base}-${p.productId}` : base
+  used.add(sku)
+  return sku
+}
 
 function optionPrice (base, v) {
   const delta = Number(v.price || 0)
@@ -93,7 +114,8 @@ function build () {
   const catalog = loadCatalog()
   const rows = []
   const propertyMap = {}
-  const report = { generated: new Date().toISOString().slice(0, 10), products: catalog.length, demotions: [], oversized: [], noHandle: [] }
+  const usedSkus = new Set()
+  const report = { generated: localDate(), products: catalog.length, demotions: [], pricedDemotions: [], oversized: [], noHandle: [], blankOptionValues: [], duplicateOptionLabels: [], duplicateSkus: [] }
 
   for (const p of catalog) {
     if (!p.handle) { report.noHandle.push(p.name); continue }
@@ -106,6 +128,23 @@ function build () {
         keptAsVariants: variants.map(o => o.name),
         demotedToProperties: demoted.map(o => `${o.name} (${o.values.length} values)`),
       })
+      // A line-item property carries no money. Where a demoted group had a surcharge, the customer
+      // picks the option and Shopify charges nothing for it — a $56.99 hat visor sold at $0. This
+      // is the real cost of demotion and it is named here rather than left to be discovered on an
+      // order. MIGRATION-RUNBOOK.md stage 2 carries the same warning.
+      for (const o of demoted) {
+        const max = Math.max(0, ...o.values.map(v => Number(v.price || 0)))
+        if (max > 0) report.pricedDemotions.push({ handle: p.handle, option: o.name, maxSurcharge: max })
+      }
+    }
+    for (const o of p.options) {
+      for (const v of o.values) {
+        if (!v.name) report.blankOptionValues.push({ handle: p.handle, option: o.name, valueId: v.valueId })
+      }
+      const labels = o.values.map(v => v.name)
+      if (new Set(labels).size !== labels.length) {
+        report.duplicateOptionLabels.push({ handle: p.handle, option: o.name })
+      }
     }
     if (properties.length) {
       propertyMap[p.handle] = properties.map(o => ({
@@ -134,8 +173,13 @@ function build () {
         Type: first ? (p.categories[0] || '') : '',
         Tags: first ? tags : '',
         Published: first ? (p.status ? 'TRUE' : 'FALSE') : '',
-        'Variant SKU': p.sku || `${p.model}${combo.length ? '-' + combo.map(v => v.name.replace(/[^A-Za-z0-9]/g, '').slice(0, 6)).join('-') : ''}`,
-        'Variant Grams': toGrams(p.weight),
+        // Unique per variant, always. The product-level `sku` used to be copied onto every row,
+        // so all 1,020 rows of one product carried one SKU and inventory could not tell a 32x30
+        // from a 44x36. The option-value row ids are unique by construction, which the truncated
+        // labels were not — "Brushed Silver W/Polished Edge" and "Brushed Gold W/Polished Edge"
+        // both collapsed to `Brushe`.
+        'Variant SKU': skuFor(p, combo, usedSkus),
+        'Variant Grams': toGrams(p.weight, p.weightClassId),
         'Variant Inventory Tracker': 'shopify',
         // OpenCart stores stock at product level, not per option value, so the count cannot be
         // split across variants without inventing numbers. Every variant starts at 0 and is set by
@@ -177,6 +221,13 @@ function build () {
   fs.writeFileSync(path.join(outRoot, 'products.csv'), csv, 'utf8')
   fs.writeFileSync(path.join(outRoot, 'line-item-properties.json'), JSON.stringify(propertyMap, null, 1))
 
+  const skus = rows.map(r => r['Variant SKU']).filter(Boolean)
+  const skuSeen = new Set()
+  for (const sku of skus) {
+    if (skuSeen.has(sku)) report.duplicateSkus.push(sku)
+    skuSeen.add(sku)
+  }
+
   report.csvRows = rows.length
   report.productsWritten = new Set(rows.map(r => r.Handle)).size
   report.propertyProducts = Object.keys(propertyMap).length
@@ -190,6 +241,10 @@ function build () {
     propertyProducts: report.propertyProducts,
     oversized: report.oversized.length,
     noHandle: report.noHandle.length,
+    pricedDemotions: report.pricedDemotions.length,
+    blankOptionValues: report.blankOptionValues.length,
+    duplicateOptionLabels: report.duplicateOptionLabels.length,
+    duplicateSkus: report.duplicateSkus.length,
   }, null, 1))
 }
 
