@@ -64,6 +64,7 @@ Complete and verify Commit and push the verified portable recovery system and Wo
 - twenty-two-option-groups-are-named-literally-option
 - reviews-band-provenance-is-not-defensible
 - storefront-ships-an-undesigned-dark-mode
+- legacy-task-state-blocks-setup-20260816
 
 ## Next transition
 

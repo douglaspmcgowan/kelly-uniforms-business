@@ -79,3 +79,4 @@ This is a discovery queue. It does not become active until a verified frontier t
 | twenty-two-option-groups-are-named-literally-option | Name the 22 option groups labelled 'Option', including the police-versus-fire cap device | storefront-modernization | customer-storefront | D3 | human | ready |
 | reviews-band-provenance-is-not-defensible | Decide the reviews band's fate: four reviews, two people, one day in 2014, about patches rather than duty gear | storefront-modernization | customer-storefront | D3 | human | ready |
 | storefront-ships-an-undesigned-dark-mode | Delete or design the prefers-color-scheme dark block; orange on dark paper measures 3.35:1 | storefront-modernization | customer-storefront | D3 | human | ready |
+| legacy-task-state-blocks-setup-20260816 | Consolidate VERIFY.md into TASK.md and archive the source, which currently blocks harness project setup | intake | intake.external | D1 | actionable | ready |

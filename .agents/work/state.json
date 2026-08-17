@@ -1,5 +1,5 @@
 {
-  "revision": 200,
+  "revision": 201,
   "backburner": [
     {
       "id": "legacy-task-L73",
@@ -2425,6 +2425,36 @@
       ],
       "status": "ready",
       "captured_at": "2026-08-15T20:22:17.05751Z"
+    },
+    {
+      "id": "legacy-task-state-blocks-setup-20260816",
+      "title": "Consolidate VERIFY.md into TASK.md and archive the source, which currently blocks harness project setup",
+      "project": "kelly-uniforms-business",
+      "suggested_track": "intake",
+      "suggested_capability": "intake.external",
+      "entry_depth": "D1",
+      "discovered_from": "agent-harness harness sweep, EnsureProject across 41 projects on 2026-08-16",
+      "relationship": "prerequisite",
+      "dependencies": [],
+      "blockers": [],
+      "conflicts": [],
+      "value": "medium",
+      "risk": "low",
+      "obligation_class": "actionable",
+      "evidence": [
+        {
+          "receipt_id": "ceee00ae-657f-407e-b12b-f96c80505dbd",
+          "verifier": "command",
+          "subject": "VERIFY.md carries 130 nonblank lines of verification state beside a 71 line TASK.md and EnsureProject refused with Legacy active state remains before any write",
+          "result": "verified",
+          "reference": "AGENTS.md",
+          "sha256": "53856c15aa80302151b945daa4e1ae26d30199813772b70719cd06c94b7fd19c",
+          "size_bytes": 11724,
+          "captured_at": "2026-08-16T11:44:00.3480010Z"
+        }
+      ],
+      "status": "ready",
+      "captured_at": "2026-08-16T11:44:00.3757171Z"
     }
   ],
   "tracks": [
@@ -2485,8 +2515,8 @@
       ]
     }
   ],
-  "updated_at": "2026-08-15T20:22:50.8421274Z",
-  "last_event_hash": "e4a409cd4b935cfd2759f38e1ce796e0f9881f9667c0ce99360198b5668a63f1",
+  "updated_at": "2026-08-16T11:44:01.8498120Z",
+  "last_event_hash": "f7db7d0aff8501ceaaeb669ef345c5ca6d4fa399ff65c0ca986deb0a263705c8",
   "schema_version": "1.1.0",
   "ownership": {
     "sessions": [
@@ -2636,7 +2666,7 @@
     ]
   },
   "created_at": "2026-08-09T06:14:25.2526853Z",
-  "last_event_id": "7f402752-eed2-445e-bb64-6e1650a0662d",
+  "last_event_id": "a271ab7e-8778-4526-93bc-6be866be491c",
   "active": {
     "track_id": "business-continuity",
     "capability_id": "portable-recovery-repository-custody",
@@ -2707,7 +2737,8 @@
       "department-collections-are-nearly-empty-and-fire-ems-is-missing",
       "twenty-two-option-groups-are-named-literally-option",
       "reviews-band-provenance-is-not-defensible",
-      "storefront-ships-an-undesigned-dark-mode"
+      "storefront-ships-an-undesigned-dark-mode",
+      "legacy-task-state-blocks-setup-20260816"
     ]
   },
   "specs": [

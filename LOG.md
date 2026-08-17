@@ -201,3 +201,4 @@
 - 08/15/2026 20:22:16 [discovery_captured] cell=portable-recovery-repository-custody@D3 event=e68d77a1-95f7-4ccb-8d42-516a439f7df7
 - 08/15/2026 20:22:18 [discovery_captured] cell=portable-recovery-repository-custody@D3 event=9345bf74-5674-4e67-8bab-2eb52f5d7267
 - 08/15/2026 20:22:49 [discovery_disposition] cell=portable-recovery-repository-custody@D3 event=7f402752-eed2-445e-bb64-6e1650a0662d
+- 08/16/2026 11:44:01 [discovery_captured] cell=portable-recovery-repository-custody@D3 event=a271ab7e-8778-4526-93bc-6be866be491c
