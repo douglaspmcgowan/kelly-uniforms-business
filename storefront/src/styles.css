@@ -6,8 +6,8 @@
 }
 :root {
   font-family: Archivo, Arial, sans-serif;
-  color: #0b1d34;
-  background: #f3f2ee;
+  color: var(--ink);
+  background: var(--paper);
   font-synthesis: none;
   --navy: #0b1d34;
   --paper: #f3f2ee;
@@ -17,6 +17,78 @@
   --orange: #b8440c;
   --error: #a52819;
   --radius: 14px;
+
+  /* Colour tokens. Every value below is the literal it replaced, unchanged. */
+  --pure-white: #fff;
+  --pure-black: #000;
+  --orange-pressed: #983706;
+  --focus-ring: #ffb083;
+  --error-surface: #fae8e5;
+  --notice-surface: #f6ebe5;
+  --success-surface: #e6f1ea;
+  --success-ink: #175b31;
+  --info-surface: #e9edf1;
+  --disabled-surface: #777f84;
+  --border-strong: #aeb2b3;
+  --on-navy-dim: #c7cdd2;
+  --on-navy-muted: #bfc6cc;
+  --surface-1: #f8f7f3;
+  --surface-2: #efeee9;
+  --surface-3: #eeede8;
+  --surface-4: #ebeae5;
+  --surface-5: #e9e8e3;
+  --ink-muted-1: #46515a;
+  --ink-muted-2: #4f5a63;
+  --ink-muted-3: #505b64;
+  --ink-muted-4: #56616a;
+  --ink-muted-5: #58636c;
+  --ink-muted-6: #5b6670;
+  --ink-muted-7: #5e6971;
+  --ink-muted-8: #606b74;
+  --ink-muted-9: #626d75;
+  --ink-muted-10: #647078;
+  --ink-muted-11: #657079;
+  --ink-muted-12: #68737b;
+  --ink-muted-13: #69737a;
+
+  /* Type scale. Twenty sizes is too many; see LOG.md for the collapse recommendation. */
+  --fs-09: 9px;
+  --fs-10: 10px;
+  --fs-11: 11px;
+  --fs-12: 12px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-15: 15px;
+  --fs-17: 17px;
+  --fs-18: 18px;
+  --fs-19: 19px;
+  --fs-20: 20px;
+  --fs-21: 21px;
+  --fs-22: 22px;
+  --fs-23: 23px;
+  --fs-25: 25px;
+  --fs-27: 27px;
+  --fs-28: 28px;
+  --fs-34: 34px;
+  --fs-36: 36px;
+  --fs-45: 45px;
+  --fs-display-1: clamp(38px, 5vw, 76px);
+  --fs-display-2: clamp(38px, 12vw, 58px);
+  --fs-display-3: clamp(28px, 4vw, 52px);
+
+  /* Radii. --radius (14px) above is the original token. */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-round: 50%;
+
+  /* Role tokens. Each holds the value its use sites already resolved to; they exist
+     so the dark block below can flip an ink without flipping a filled navy surface. */
+  --ink: #0b1d34;
+  --surface-inverse: #0b1d34;
+  --surface-card: #fff;
+  --skip-link-ink: #000;
+  color-scheme: light dark;
 }
 * {
   box-sizing: border-box;
@@ -47,8 +119,8 @@ button {
   left: 8px;
   z-index: 99;
   padding: 12px 16px;
-  background: #fff;
-  color: #000;
+  background: var(--surface-card);
+  color: var(--skip-link-ink);
   transform: translateY(-150%);
 }
 .skip-link:focus {
@@ -67,20 +139,23 @@ a {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
-  outline: 3px solid #ffb083;
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 .notice {
   min-height: 42px;
   background: var(--orange);
-  color: #fff;
+  color: var(--pure-white);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 22px;
   padding: 8px 24px;
-  font-size: 14px;
+  font-size: var(--fs-14);
   font-weight: 750;
   text-align: center;
 }
@@ -91,13 +166,13 @@ textarea:focus-visible {
 .notice a {
   padding: 5px 9px;
   border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   text-decoration: none;
 }
 .site-header {
   height: 78px;
-  background: var(--navy);
-  color: #fff;
+  background: var(--surface-inverse);
+  color: var(--pure-white);
   display: grid;
   grid-template-columns: auto minmax(280px, 1fr) auto auto;
   align-items: center;
@@ -114,15 +189,15 @@ textarea:focus-visible {
   text-decoration: none;
   font-weight: 860;
   letter-spacing: 0.025em;
-  font-size: 20px;
+  font-size: var(--fs-20);
   white-space: nowrap;
 }
 .brand small {
   display: block;
-  color: #bfc6cc;
+  color: var(--on-navy-muted);
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  font-size: 9px;
+  font-size: var(--fs-09);
   margin-top: 3px;
 }
 .brand-mark {
@@ -130,8 +205,8 @@ textarea:focus-visible {
   place-items: center;
   width: 44px;
   height: 44px;
-  border: 2px solid #fff;
-  font-size: 23px;
+  border: 2px solid var(--pure-white);
+  font-size: var(--fs-23);
   line-height: 0.75;
 }
 .brand-mark span {
@@ -140,23 +215,23 @@ textarea:focus-visible {
 }
 .header-search {
   height: 46px;
-  background: #fff;
-  color: var(--navy);
-  border-radius: 10px;
+  background: var(--surface-card);
+  color: var(--ink);
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 0 16px;
 }
 .header-search svg {
-  font-size: 21px;
+  font-size: var(--fs-21);
 }
 .header-search input {
   border: 0;
   outline: 0;
   width: 100%;
   background: transparent;
-  font-size: 15px;
+  font-size: var(--fs-15);
 }
 .site-header nav {
   display: flex;
@@ -175,11 +250,12 @@ textarea:focus-visible {
   cursor: pointer;
 }
 .icon-button {
+  transition: background-color 160ms cubic-bezier(0.22, 1, 0.36, 1), border-color 160ms cubic-bezier(0.22, 1, 0.36, 1), color 160ms cubic-bezier(0.22, 1, 0.36, 1), outline-color 160ms cubic-bezier(0.22, 1, 0.36, 1);
   width: 42px;
   height: 42px;
   display: grid;
   place-items: center;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
 }
 .icon-button:hover {
   background: rgba(11, 29, 52, 0.08);
@@ -191,7 +267,7 @@ textarea:focus-visible {
 .request-button {
   height: 44px;
   border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   padding: 0 14px;
   display: flex;
   align-items: center;
@@ -203,11 +279,11 @@ textarea:focus-visible {
   display: inline-grid;
   place-items: center;
   background: var(--orange);
-  color: #fff;
-  border-radius: 50%;
+  color: var(--pure-white);
+  border-radius: var(--radius-round);
   min-width: 23px;
   height: 23px;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .mobile-menu {
   display: none;
@@ -220,7 +296,7 @@ textarea:focus-visible {
   padding: 54px clamp(18px, 4vw, 64px) 36px;
 }
 .intro h1 {
-  font-size: clamp(38px, 5vw, 76px);
+  font-size: var(--fs-display-1);
   line-height: 0.92;
   letter-spacing: -0.035em;
   text-transform: uppercase;
@@ -228,8 +304,8 @@ textarea:focus-visible {
   max-width: 850px;
 }
 .intro p {
-  font-size: 17px;
-  color: #46515a;
+  font-size: var(--fs-17);
+  color: var(--ink-muted-1);
   max-width: 620px;
   margin: 20px 0 0;
 }
@@ -244,16 +320,16 @@ textarea:focus-visible {
   background: var(--white);
 }
 .snapshot-note svg {
-  font-size: 25px;
+  font-size: var(--fs-25);
   flex: 0 0 auto;
 }
 .snapshot-note span {
-  font-size: 13px;
-  color: #505b64;
+  font-size: var(--fs-13);
+  color: var(--ink-muted-3);
 }
 .snapshot-note strong {
   display: block;
-  color: var(--navy);
+  color: var(--ink);
   margin-bottom: 3px;
 }
 .workbench {
@@ -276,7 +352,7 @@ textarea:focus-visible {
   align-items: center;
   padding: 0 8px 12px;
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: var(--fs-11);
   font-weight: 800;
   letter-spacing: 0.12em;
 }
@@ -284,7 +360,7 @@ textarea:focus-visible {
   width: 100%;
   min-height: 52px;
   border: 0;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   background: transparent;
   display: grid;
   grid-template-columns: 24px 1fr 20px;
@@ -294,32 +370,33 @@ textarea:focus-visible {
   padding: 9px 10px;
   cursor: pointer;
   font-weight: 650;
+  transition: background-color 160ms cubic-bezier(0.22, 1, 0.36, 1), border-color 160ms cubic-bezier(0.22, 1, 0.36, 1), color 160ms cubic-bezier(0.22, 1, 0.36, 1), outline-color 160ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .role-rail > button:hover {
-  background: #ebeae5;
+  background: var(--surface-4);
 }
 .role-rail > button.is-active {
-  background: var(--navy);
-  color: #fff;
+  background: var(--surface-inverse);
+  color: var(--pure-white);
 }
 .role-rail > button svg {
-  font-size: 20px;
+  font-size: var(--fs-20);
 }
 .rail-help {
   margin-top: 26px;
   padding: 18px 12px;
   border-top: 1px solid var(--line);
-  font-size: 13px;
+  font-size: var(--fs-13);
 }
 .rail-help > svg {
-  font-size: 28px;
+  font-size: var(--fs-28);
 }
 .rail-help strong {
   display: block;
   margin: 7px 0;
 }
 .rail-help p {
-  color: #58636c;
+  color: var(--ink-muted-5);
   line-height: 1.45;
 }
 .rail-help a {
@@ -330,7 +407,7 @@ textarea:focus-visible {
   background: transparent;
   text-decoration: underline;
   cursor: pointer;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .catalog-pane {
   padding: 0 clamp(18px, 2.5vw, 34px) 44px;
@@ -348,15 +425,16 @@ textarea:focus-visible {
   border: 0;
   background: transparent;
   padding: 10px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   white-space: nowrap;
   cursor: pointer;
   font-weight: 600;
-  color: #56616a;
+  color: var(--ink-muted-4);
+  transition: background-color 160ms cubic-bezier(0.22, 1, 0.36, 1), border-color 160ms cubic-bezier(0.22, 1, 0.36, 1), color 160ms cubic-bezier(0.22, 1, 0.36, 1), outline-color 160ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .category-tabs button.is-active {
-  background: var(--navy);
-  color: #fff;
+  background: var(--surface-inverse);
+  color: var(--pure-white);
 }
 .catalog-heading {
   display: flex;
@@ -368,21 +446,21 @@ textarea:focus-visible {
   display: block;
   text-transform: uppercase;
   letter-spacing: 0.13em;
-  font-size: 10px;
+  font-size: var(--fs-10);
   font-weight: 800;
-  color: #606b74;
+  color: var(--ink-muted-8);
 }
 .catalog-heading h2,
 .configurator h2,
 .drawer h2,
 .modal h2 {
   margin: 5px 0 0;
-  font-size: 27px;
+  font-size: var(--fs-27);
   line-height: 1.05;
 }
 .catalog-heading > span {
-  font-size: 13px;
-  color: #626d75;
+  font-size: var(--fs-13);
+  color: var(--ink-muted-9);
 }
 .product-grid {
   display: grid;
@@ -390,12 +468,13 @@ textarea:focus-visible {
   gap: 12px;
 }
 .product-card {
+  transition: background-color 160ms cubic-bezier(0.22, 1, 0.36, 1), border-color 160ms cubic-bezier(0.22, 1, 0.36, 1), color 160ms cubic-bezier(0.22, 1, 0.36, 1), outline-color 160ms cubic-bezier(0.22, 1, 0.36, 1);
   border-radius: var(--radius);
-  background: #fff;
+  background: var(--surface-card);
   overflow: hidden;
 }
 .product-card.is-active {
-  outline: 2px solid var(--navy);
+  outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
 .product-card__hit {
@@ -403,13 +482,16 @@ textarea:focus-visible {
   height: 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: #fff;
+  background: var(--surface-card);
   padding: 0;
   text-align: left;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+.product-card__media img {
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .product-card__hit:hover .product-card__media img {
   transform: scale(1.025);
@@ -419,7 +501,7 @@ textarea:focus-visible {
   place-items: center;
   width: 100%;
   aspect-ratio: 1.45;
-  background: #efeee9;
+  background: var(--surface-2);
   overflow: hidden;
 }
 .product-card__media img {
@@ -433,13 +515,13 @@ textarea:focus-visible {
   display: flex;
   justify-content: space-between;
   padding: 14px 15px 7px;
-  color: #657079;
-  font-size: 10px;
+  color: var(--ink-muted-11);
+  font-size: var(--fs-10);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 .product-card strong {
-  font-size: 15px;
+  font-size: var(--fs-15);
   line-height: 1.18;
   padding: 0 15px;
   min-height: 54px;
@@ -457,21 +539,21 @@ textarea:focus-visible {
   align-items: center;
   gap: 4px;
   color: var(--orange);
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .text-action svg {
-  font-size: 15px;
+  font-size: var(--fs-15);
 }
 .configurator {
   border-left: 1px solid var(--line);
   position: relative;
-  background: #f8f7f3;
+  background: var(--surface-1);
 }
 .configurator__top {
   height: 270px;
   display: grid;
   place-items: center;
-  background: #e9e8e3;
+  background: var(--surface-5);
   position: relative;
 }
 .configurator__top img {
@@ -485,10 +567,10 @@ textarea:focus-visible {
   left: 14px;
   bottom: 14px;
   padding: 6px 8px;
-  background: var(--navy);
-  color: #fff;
-  border-radius: 6px;
-  font-size: 10px;
+  background: var(--surface-inverse);
+  color: var(--pure-white);
+  border-radius: var(--radius-xs);
+  font-size: var(--fs-10);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -496,12 +578,12 @@ textarea:focus-visible {
   padding: 23px;
 }
 .configurator h2 {
-  font-size: 25px;
+  font-size: var(--fs-25);
 }
 .configurator__body > p {
-  font-size: 13px;
+  font-size: var(--fs-13);
   line-height: 1.5;
-  color: #505b64;
+  color: var(--ink-muted-3);
 }
 .price-line {
   display: flex;
@@ -510,16 +592,16 @@ textarea:focus-visible {
   margin: 16px 0;
 }
 .price-line strong {
-  font-size: 23px;
+  font-size: var(--fs-23);
 }
 .price-line a {
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .fit-callout {
   width: 100%;
   border: 1px solid var(--line);
-  border-radius: 10px;
-  background: #fff;
+  border-radius: var(--radius-md);
+  background: var(--surface-card);
   padding: 13px;
   text-align: left;
   display: flex;
@@ -530,13 +612,13 @@ textarea:focus-visible {
 }
 .fit-callout strong {
   display: block;
-  font-size: 12px;
+  font-size: var(--fs-12);
   margin-bottom: 3px;
 }
 .fit-callout span {
-  font-size: 11px;
+  font-size: var(--fs-11);
   line-height: 1.35;
-  color: #56616a;
+  color: var(--ink-muted-4);
 }
 .fit-callout svg {
   flex: 0 0 auto;
@@ -549,12 +631,12 @@ textarea:focus-visible {
 }
 .options legend,
 .fulfillment legend {
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 800;
   margin-bottom: 9px;
 }
 .options legend span {
-  font-size: 9px;
+  font-size: var(--fs-09);
   color: var(--orange);
   text-transform: uppercase;
   margin-left: 6px;
@@ -566,20 +648,21 @@ textarea:focus-visible {
 }
 .choice-grid button {
   min-height: 38px;
-  border: 1px solid #aeb2b3;
-  border-radius: 8px;
-  background: #fff;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-card);
   padding: 8px 10px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: var(--fs-12);
   display: flex;
   align-items: center;
   gap: 5px;
+  transition: background-color 160ms cubic-bezier(0.22, 1, 0.36, 1), border-color 160ms cubic-bezier(0.22, 1, 0.36, 1), color 160ms cubic-bezier(0.22, 1, 0.36, 1), outline-color 160ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .choice-grid button.is-selected {
-  background: var(--navy);
-  color: #fff;
-  border-color: var(--navy);
+  background: var(--surface-inverse);
+  color: var(--pure-white);
+  border-color: var(--surface-inverse);
 }
 .field-help {
   display: block;
@@ -592,28 +675,28 @@ textarea:focus-visible {
 }
 .notes-field > span {
   display: block;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 800;
   margin-bottom: 8px;
 }
 .notes-field span small {
   font-weight: 500;
-  color: #68737b;
+  color: var(--ink-muted-12);
 }
 .notes-field textarea {
   width: 100%;
   min-height: 76px;
-  border: 1px solid #aeb2b3;
-  border-radius: 8px;
-  background: #fff;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-card);
   padding: 10px;
   resize: vertical;
-  font-size: 12px;
+  font-size: var(--fs-12);
 }
 .notes-field > small {
   display: block;
   text-align: right;
-  color: #69737a;
+  color: var(--ink-muted-13);
 }
 .fulfillment {
   display: grid;
@@ -630,19 +713,19 @@ textarea:focus-visible {
   gap: 4px;
   padding: 8px 3px;
   border: 1px solid var(--line);
-  border-radius: 8px;
-  font-size: 10px;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-10);
   cursor: pointer;
 }
 .fulfillment label:has(input:checked) {
-  border-color: var(--navy);
-  background: #e9edf1;
+  border-color: var(--ink);
+  background: var(--info-surface);
 }
 .fulfillment input {
-  accent-color: var(--navy);
+  accent-color: var(--ink);
 }
 .fulfillment svg {
-  font-size: 18px;
+  font-size: var(--fs-18);
 }
 .quantity-row {
   display: flex;
@@ -651,19 +734,19 @@ textarea:focus-visible {
   margin: 15px 0;
 }
 .quantity-row > span {
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 800;
 }
 .quantity-row > div {
   display: flex;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
 }
 .quantity-row button {
   width: 36px;
   border: 0;
-  background: #fff;
+  background: var(--surface-card);
   cursor: pointer;
 }
 .quantity-row output {
@@ -673,8 +756,9 @@ textarea:focus-visible {
   border-inline: 1px solid var(--line);
 }
 .button {
+  transition: background-color 160ms cubic-bezier(0.22, 1, 0.36, 1), border-color 160ms cubic-bezier(0.22, 1, 0.36, 1), color 160ms cubic-bezier(0.22, 1, 0.36, 1), outline-color 160ms cubic-bezier(0.22, 1, 0.36, 1);
   min-height: 46px;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   border: 1px solid transparent;
   padding: 0 17px;
   display: inline-flex;
@@ -687,34 +771,34 @@ textarea:focus-visible {
 }
 .button.primary {
   background: var(--orange);
-  color: #fff;
+  color: var(--pure-white);
 }
 .button.primary:hover {
-  background: #983706;
+  background: var(--orange-pressed);
 }
 .button.primary:disabled {
-  background: #777f84;
-  color: #fff;
+  background: var(--disabled-surface);
+  color: var(--pure-white);
   cursor: not-allowed;
 }
 .button.secondary {
   background: transparent;
-  color: var(--navy);
-  border-color: var(--navy);
+  color: var(--ink);
+  border-color: var(--ink);
 }
 .button.full {
   width: 100%;
 }
-.payment-note {
-  text-align: center !important;
-  font-size: 10px !important;
-  margin: 8px 0 0 !important;
+.configurator__body > p.payment-note {
+  text-align: center;
+  font-size: var(--fs-10);
+  margin: 8px 0 0;
 }
 .form-error {
-  padding: 10px !important;
-  background: #fae8e5;
-  color: var(--error) !important;
-  border-radius: 8px;
+  padding: 10px;
+  background: var(--error-surface);
+  color: var(--error);
+  border-radius: var(--radius-sm);
   font-weight: 650;
 }
 .service-band {
@@ -724,19 +808,19 @@ textarea:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  background: var(--navy);
-  color: #fff;
+  background: var(--surface-inverse);
+  color: var(--pure-white);
   border-radius: var(--radius);
 }
 .service-band h2 {
-  font-size: clamp(28px, 4vw, 52px);
+  font-size: var(--fs-display-3);
   line-height: 1;
   margin: 0;
   max-width: 760px;
   text-transform: uppercase;
 }
 .service-band p {
-  color: #c7cdd2;
+  color: var(--on-navy-dim);
   max-width: 660px;
 }
 .service-band > div:last-child {
@@ -750,8 +834,8 @@ footer {
   gap: 20px;
   padding: 24px clamp(18px, 4vw, 64px);
   border-top: 1px solid var(--line);
-  font-size: 12px;
-  color: #5e6971;
+  font-size: var(--fs-12);
+  color: var(--ink-muted-7);
 }
 .drawer {
   position: fixed;
@@ -779,24 +863,24 @@ footer {
 .boundary {
   margin: 15px 20px 8px;
   padding: 10px;
-  background: #e9edf1;
-  border-radius: 8px;
+  background: var(--info-surface);
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: var(--fs-12);
   font-weight: 650;
 }
 .drawer-notice {
   margin: 0 20px 10px;
   padding: 10px 12px;
   border-left: 4px solid var(--orange);
-  background: #f6ebe5;
-  font-size: 11px;
+  background: var(--notice-surface);
+  font-size: var(--fs-11);
   line-height: 1.4;
 }
 .request-note {
-  color: var(--navy) !important;
+  color: var(--ink);
   line-height: 1.35;
 }
 .request-items {
@@ -815,19 +899,19 @@ footer {
   width: 70px;
   height: 76px;
   object-fit: contain;
-  background: #eeede8;
+  background: var(--surface-3);
 }
 .request-item strong {
   display: block;
-  font-size: 13px;
+  font-size: var(--fs-13);
   line-height: 1.25;
 }
 .request-item span,
 .request-item small {
   display: block;
   margin-top: 5px;
-  color: #647078;
-  font-size: 11px;
+  color: var(--ink-muted-10);
+  font-size: var(--fs-11);
 }
 .drawer__actions {
   margin-top: auto;
@@ -840,24 +924,24 @@ footer {
   display: flex;
   align-items: flex-start;
   gap: 7px;
-  background: #e6f1ea;
-  color: #175b31;
+  background: var(--success-surface);
+  color: var(--success-ink);
   padding: 10px;
-  border-radius: 8px;
-  font-size: 12px;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-12);
 }
 .empty-state {
   display: grid;
   place-items: center;
   text-align: center;
   padding: 60px 25px;
-  color: #5b6670;
+  color: var(--ink-muted-6);
 }
 .empty-state > svg {
-  font-size: 45px;
+  font-size: var(--fs-45);
 }
 .empty-state h3 {
-  color: var(--navy);
+  color: var(--ink);
   margin: 12px 0 4px;
 }
 .empty-state p {
@@ -872,7 +956,7 @@ footer {
 }
 .catalog-empty {
   min-height: 420px;
-  border: 1px dashed #aeb2b3;
+  border: 1px dashed var(--border-strong);
   border-radius: var(--radius);
 }
 .scrim {
@@ -913,7 +997,7 @@ footer {
 .modal ol {
   padding-left: 22px;
   line-height: 1.6;
-  color: #4f5a63;
+  color: var(--ink-muted-2);
 }
 .modal .button {
   width: calc(100% - 44px);
@@ -945,25 +1029,25 @@ footer {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .product-card strong {
-    font-size: 13px;
+    font-size: var(--fs-13);
   }
   .product-card__meta {
-    font-size: 9px;
+    font-size: var(--fs-09);
   }
   .request-button {
     font-size: 0;
   }
   .request-button b {
-    font-size: 12px;
+    font-size: var(--fs-12);
   }
   .request-button svg {
-    font-size: 22px;
+    font-size: var(--fs-22);
   }
 }
 @media (max-width: 800px) {
   .notice {
     display: block;
-    font-size: 12px;
+    font-size: var(--fs-12);
   }
   .notice span {
     justify-content: center;
@@ -976,12 +1060,12 @@ footer {
     padding: 0 14px;
   }
   .brand {
-    font-size: 15px;
+    font-size: var(--fs-15);
   }
   .brand-mark {
     width: 38px;
     height: 38px;
-    font-size: 19px;
+    font-size: var(--fs-19);
   }
   .header-search {
     grid-column: 1/-1;
@@ -1004,7 +1088,7 @@ footer {
     top: 68px;
     left: 0;
     right: 0;
-    background: var(--navy);
+    background: var(--surface-inverse);
     padding: 20px;
     gap: 0;
   }
@@ -1020,7 +1104,7 @@ footer {
     padding-top: 36px;
   }
   .intro h1 {
-    font-size: clamp(38px, 12vw, 58px);
+    font-size: var(--fs-display-2);
   }
   .snapshot-note {
     width: auto;
@@ -1087,7 +1171,7 @@ footer {
     padding: 11px;
   }
   .service-band h2 {
-    font-size: 34px;
+    font-size: var(--fs-34);
   }
 }
 @media (max-width: 480px) {
@@ -1095,10 +1179,10 @@ footer {
     display: none;
   }
   .intro h1 {
-    font-size: 36px;
+    font-size: var(--fs-36);
   }
   .intro p {
-    font-size: 15px;
+    font-size: var(--fs-15);
   }
   .product-grid {
     grid-template-columns: 1fr;
@@ -1107,7 +1191,7 @@ footer {
     aspect-ratio: 1.7;
   }
   .catalog-heading h2 {
-    font-size: 23px;
+    font-size: var(--fs-23);
   }
   .configurator__body {
     padding: 18px;
@@ -1128,4 +1212,91 @@ footer {
   .product-card__media img {
     transition: none;
   }
+}
+
+/* Dark mode. Tokens only -- no component override anywhere below :root, per
+   ~/.agents/DESIGN.md "Express dark mode through tokens rather than per-component
+   overrides." The light appearance is untouched: every declaration outside this
+   block resolves to exactly the value it did before. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #10161d;
+    --white: #161d26;
+    --surface-card: #161d26;
+    --ink: #e9e7e1;
+    --skip-link-ink: #e9e7e1;
+    --line: #2c3641;
+    --border-strong: #3a4653;
+    --steel: #97a1ab;
+    --orange: #f0813c;
+    --orange-pressed: #d3662a;
+    --error: #ff8578;
+    --focus-ring: #ffb083;
+    --surface-1: #131a22;
+    --surface-2: #18202a;
+    --surface-3: #19212b;
+    --surface-4: #1c242f;
+    --surface-5: #1e2732;
+    --error-surface: #3a1d18;
+    --notice-surface: #33211a;
+    --success-surface: #10281c;
+    --success-ink: #7fd6a2;
+    --info-surface: #1a2430;
+    --disabled-surface: #4a535a;
+    --on-navy-dim: #c7cdd2;
+    --on-navy-muted: #bfc6cc;
+    --ink-muted-1: #c3ccd4;
+    --ink-muted-2: #c0c9d1;
+    --ink-muted-3: #bfc8d0;
+    --ink-muted-4: #bcc5cd;
+    --ink-muted-5: #bbc4cc;
+    --ink-muted-6: #b9c2ca;
+    --ink-muted-7: #b7c0c8;
+    --ink-muted-8: #b6bfc7;
+    --ink-muted-9: #b4bdc5;
+    --ink-muted-10: #b3bcc4;
+    --ink-muted-11: #b2bbc3;
+    --ink-muted-12: #b0b9c1;
+    --ink-muted-13: #afb8c0;
+  }
+}
+:root[data-theme="dark"] {
+    --paper: #10161d;
+  --white: #161d26;
+  --surface-card: #161d26;
+  --ink: #e9e7e1;
+  --skip-link-ink: #e9e7e1;
+  --line: #2c3641;
+  --border-strong: #3a4653;
+  --steel: #97a1ab;
+  --orange: #f0813c;
+  --orange-pressed: #d3662a;
+  --error: #ff8578;
+  --focus-ring: #ffb083;
+  --surface-1: #131a22;
+  --surface-2: #18202a;
+  --surface-3: #19212b;
+  --surface-4: #1c242f;
+  --surface-5: #1e2732;
+  --error-surface: #3a1d18;
+  --notice-surface: #33211a;
+  --success-surface: #10281c;
+  --success-ink: #7fd6a2;
+  --info-surface: #1a2430;
+  --disabled-surface: #4a535a;
+  --on-navy-dim: #c7cdd2;
+  --on-navy-muted: #bfc6cc;
+  --ink-muted-1: #c3ccd4;
+  --ink-muted-2: #c0c9d1;
+  --ink-muted-3: #bfc8d0;
+  --ink-muted-4: #bcc5cd;
+  --ink-muted-5: #bbc4cc;
+  --ink-muted-6: #b9c2ca;
+  --ink-muted-7: #b7c0c8;
+  --ink-muted-8: #b6bfc7;
+  --ink-muted-9: #b4bdc5;
+  --ink-muted-10: #b3bcc4;
+  --ink-muted-11: #b2bbc3;
+  --ink-muted-12: #b0b9c1;
+  --ink-muted-13: #afb8c0;
 }

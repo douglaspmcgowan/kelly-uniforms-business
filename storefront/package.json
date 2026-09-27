@@ -3,22 +3,34 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "engines": {
+    "node": "24.x",
+    "npm": ">=11"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "test": "node scripts/verify.mjs"
+    "build": "npm run typecheck && vite build",
+    "test": "npm run typecheck && node scripts/verify.ts && playwright test",
+    "test:e2e": "playwright test",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.node.json --noEmit"
   },
   "dependencies": {
-    "@phosphor-icons/react": "^2.1.7",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "@phosphor-icons/react": "2.1.10",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "@types/react": "^18.3.31",
-    "@types/react-dom": "^18.3.7",
-    "@vitejs/plugin-react": "^6.0.5",
-    "prettier": "^3.9.6",
-    "typescript": "^7.0.2",
-    "vite": "^8.2.1"
+    "@axe-core/playwright": "4.11.0",
+    "@playwright/test": "1.62.1",
+    "@types/node": "24.10.1",
+    "@types/react": "18.3.31",
+    "@types/react-dom": "18.3.7",
+    "@vitejs/plugin-react": "6.0.5",
+    "prettier": "3.9.6",
+    "typescript": "7.0.2",
+    "vite": "8.2.1"
+  },
+  "overrides": {
+    "playwright-core": "1.62.1"
   }
 }

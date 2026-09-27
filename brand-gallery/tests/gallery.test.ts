@@ -1,18 +1,20 @@
 import assert from 'node:assert/strict';
+import type { AddressInfo } from 'node:net';
+import type { Server } from 'node:http';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
 import test from 'node:test';
 
 const root = new URL('../', import.meta.url).pathname.replace(/^\/(.:\/)/, '$1');
-const types = { '.css': 'text/css', '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png' };
+const types: Record<string, string> = { '.css': 'text/css', '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png' };
 
-let server;
-let baseUrl;
+let server: Server;
+let baseUrl: string;
 
 test.before(async () => {
   server = createServer(async (request, response) => {
-    const requested = request.url === '/' ? 'index.html' : request.url.slice(1);
+    const requested = request.url === '/' || !request.url ? 'index.html' : request.url.slice(1);
     const file = normalize(join(root, requested));
     if (!file.startsWith(normalize(root))) {
       response.writeHead(403).end();
@@ -26,11 +28,18 @@ test.before(async () => {
       response.writeHead(404).end();
     }
   });
-  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
-  baseUrl = `http://127.0.0.1:${server.address().port}`;
+  await new Promise<void>((resolve) => {
+    server.listen(0, '127.0.0.1', () => resolve());
+  });
+  baseUrl = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
 });
 
-test.after(() => new Promise((resolve) => server.close(resolve)));
+test.after(
+  () =>
+    new Promise<void>((resolve) => {
+      server.close(() => resolve());
+    }),
+);
 
 test('serves a stakeholder decision page with the verified public status', async () => {
   const response = await fetch(`${baseUrl}/`);
