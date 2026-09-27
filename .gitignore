@@ -18,6 +18,8 @@ taskstate/
 node_modules/
 package-lock.json
 !storefront/package-lock.json
+!preview/package-lock.json
+!scripts/broker/package-lock.json
 .vercel/
 
 # Local interpreter and guarded-state runtime artifacts.
