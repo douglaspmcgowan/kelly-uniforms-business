@@ -31,7 +31,7 @@ excluding `/.next`, `/dist/`, `/out/`, `/.agents/`, `*.min.css`, `/coverage/` an
 | unique hex | 72 | 111 | **up** — see note 1 |
 | distinct font sizes | 55 | 51 | better |
 | custom properties | 24 | 126 | better |
-| `transition` | 6 | 6 | — |
+| `transition` | 6 | 17 | better |
 | `@keyframes` | 0 | 0 | — |
 | `!important` | 9 | 6 | better |
 | `:focus-visible` | 7 | 10 | better |
@@ -43,7 +43,7 @@ excluding `/.next`, `/dist/`, `/out/`, `/.agents/`, `*.min.css`, `/coverage/` an
 Compact form, in the roster's own order:
 
     BASELINE  5 / 64KB / 72 / 55 / 24 / 6 / 0 / 9 / 7 / 1 / 0 / 31 / 3
-    AFTER     5 / 80KB / 111 / 51 / 126 / 6 / 0 / 6 / 10 / 3 / 0 / 32 / 3
+    AFTER     5 / 80KB / 111 / 51 / 126 / 17 / 0 / 6 / 10 / 3 / 0 / 32 / 3
 
 ### Note 1: the two columns that went up, and why the app is still better
 
@@ -107,12 +107,37 @@ resulting declaration list compared to the previous revision's.
                                                                  plus a higher-specificity
                                                                  replacement for it)
 
+## The one change that is deliberately perceptible
+
+Every colour hover and selected state on all three stylesheets snapped, because the
+hover rules were added at some point without a `transition` beside them. `theme/assets/
+theme.css` had seven hover rules and two pressed rules against zero real transitions.
+~/.agents/DESIGN.md section Motion: "An instant state change with no transition, and a
+default `linear` or `ease-in-out` curve, both read as unfinished — real easing carries
+mass." Eleven transitions were added on `.chip`, `.card`, `.btn`, `.icon-button`,
+`.product-card`, `.button`, `.role-rail > button`, `.category-tabs button`,
+`.choice-grid button`, `.product-card__media img` and brand-gallery's `nav a`, all on
+the repository's own existing easing curve.
+
+This *is* perceptible — it is motion where there was none — so it is reported rather
+than buried. What the harness proves is that it changed nothing else. Same six states,
+same 916,454 properties, this time with only the transition work in between:
+
+    differing properties: transition-behavior x170, transition-delay x170,
+                          transition-duration x170, transition-property x170,
+                          transition-timing-function x170
+
+Five sub-properties of `transition` on 170 element-states, and nothing else. No colour,
+size, radius, spacing, border or shadow drifted while the transitions went in. Paint
+properties only are animated; nothing here animates geometry, per this file's
+§ Performance rule against animating `top`, `left`, `width` or `height`.
+
 ## Proving commands
 
     storefront/   npm run typecheck   -> exit 0  (tsc --noEmit && tsc -p tsconfig.node.json --noEmit)
     storefront/   npm run build       -> exit 0  (4557 modules; dist/index.html 1.15 kB,
-                                                 index-CQtn42V7.css 20.37 kB,
-                                                 index-D8ApgN3v.js 211.56 kB; 39.12s)
+                                                 index-uiHR7MJT.css 21.56 kB,
+                                                 index-BAUQvVWt.js 211.56 kB; 32.90s)
     storefront/   npm test            -> exit 0  ({"passed":true,"products":7,
                                                  "asset_hashes":8,"production_contract":true}
                                                  then 6/6 Playwright specs passed)

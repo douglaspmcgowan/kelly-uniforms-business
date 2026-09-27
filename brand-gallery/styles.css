@@ -134,7 +134,7 @@ a:focus-visible,
 }
 
 nav { display: flex; gap: clamp(1rem, 3vw, 2.5rem); }
-nav a { font-size: var(--fs-sm-3); text-decoration: none; color: var(--on-dark-dim); }
+nav a { font-size: var(--fs-sm-3); text-decoration: none; color: var(--on-dark-dim); transition: color 160ms cubic-bezier(.22,.8,.24,1); }
 nav a:hover,
 nav a[aria-current="true"] { color: var(--on-inverse); text-decoration: underline; text-decoration-color: var(--orange); }
 

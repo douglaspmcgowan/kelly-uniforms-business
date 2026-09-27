@@ -151,6 +151,11 @@ a { color: inherit; }
   border-radius: var(--radius-sm); padding: .5rem .75rem; font: inherit; font-size: var(--type-base);
   text-align: left; cursor: pointer; text-decoration: none; display: block;
 }
+/* The hover and pressed states above were added without any transition, so every one
+   of them snapped. ~/.agents/DESIGN.md section Motion: "An instant state change with no
+   transition, and a default linear or ease-in-out curve, both read as unfinished". Paint
+   properties only -- nothing here animates geometry. */
+.chip, .card, .btn { transition: background-color 160ms cubic-bezier(0.22, 1, 0.36, 1), border-color 160ms cubic-bezier(0.22, 1, 0.36, 1), color 160ms cubic-bezier(0.22, 1, 0.36, 1); }
 .chip[aria-pressed="true"], .chip.is-active { background: var(--navy); color: var(--pure-white); border-color: var(--navy); }
 
 /* Hover states. The stylesheet previously had none at all — not on chips, buttons, cards, or nav —
