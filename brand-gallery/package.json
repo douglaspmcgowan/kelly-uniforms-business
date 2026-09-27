@@ -8,6 +8,11 @@
     "npm": ">=11"
   },
   "scripts": {
-    "test": "node --test tests/gallery.test.mjs"
+    "test": "tsc --noEmit && node --test tests/gallery.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.1",
+    "typescript": "7.0.2"
   }
 }

@@ -6,7 +6,7 @@
 }
 :root {
   font-family: Archivo, Arial, sans-serif;
-  color: var(--navy);
+  color: var(--ink);
   background: var(--paper);
   font-synthesis: none;
   --navy: #0b1d34;
@@ -81,6 +81,14 @@
   --radius-sm: 8px;
   --radius-md: 10px;
   --radius-round: 50%;
+
+  /* Role tokens. Each holds the value its use sites already resolved to; they exist
+     so the dark block below can flip an ink without flipping a filled navy surface. */
+  --ink: #0b1d34;
+  --surface-inverse: #0b1d34;
+  --surface-card: #fff;
+  --skip-link-ink: #000;
+  color-scheme: light dark;
 }
 * {
   box-sizing: border-box;
@@ -111,8 +119,8 @@ button {
   left: 8px;
   z-index: 99;
   padding: 12px 16px;
-  background: var(--pure-white);
-  color: var(--pure-black);
+  background: var(--surface-card);
+  color: var(--skip-link-ink);
   transform: translateY(-150%);
 }
 .skip-link:focus {
@@ -131,7 +139,10 @@ a {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
   outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
@@ -160,7 +171,7 @@ textarea:focus-visible {
 }
 .site-header {
   height: 78px;
-  background: var(--navy);
+  background: var(--surface-inverse);
   color: var(--pure-white);
   display: grid;
   grid-template-columns: auto minmax(280px, 1fr) auto auto;
@@ -204,8 +215,8 @@ textarea:focus-visible {
 }
 .header-search {
   height: 46px;
-  background: var(--pure-white);
-  color: var(--navy);
+  background: var(--surface-card);
+  color: var(--ink);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -317,7 +328,7 @@ textarea:focus-visible {
 }
 .snapshot-note strong {
   display: block;
-  color: var(--navy);
+  color: var(--ink);
   margin-bottom: 3px;
 }
 .workbench {
@@ -363,7 +374,7 @@ textarea:focus-visible {
   background: var(--surface-4);
 }
 .role-rail > button.is-active {
-  background: var(--navy);
+  background: var(--surface-inverse);
   color: var(--pure-white);
 }
 .role-rail > button svg {
@@ -419,7 +430,7 @@ textarea:focus-visible {
   color: var(--ink-muted-4);
 }
 .category-tabs button.is-active {
-  background: var(--navy);
+  background: var(--surface-inverse);
   color: var(--pure-white);
 }
 .catalog-heading {
@@ -455,11 +466,11 @@ textarea:focus-visible {
 }
 .product-card {
   border-radius: var(--radius);
-  background: var(--pure-white);
+  background: var(--surface-card);
   overflow: hidden;
 }
 .product-card.is-active {
-  outline: 2px solid var(--navy);
+  outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
 .product-card__hit {
@@ -467,7 +478,7 @@ textarea:focus-visible {
   height: 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--pure-white);
+  background: var(--surface-card);
   padding: 0;
   text-align: left;
   cursor: pointer;
@@ -549,7 +560,7 @@ textarea:focus-visible {
   left: 14px;
   bottom: 14px;
   padding: 6px 8px;
-  background: var(--navy);
+  background: var(--surface-inverse);
   color: var(--pure-white);
   border-radius: var(--radius-xs);
   font-size: var(--fs-10);
@@ -583,7 +594,7 @@ textarea:focus-visible {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  background: var(--pure-white);
+  background: var(--surface-card);
   padding: 13px;
   text-align: left;
   display: flex;
@@ -632,7 +643,7 @@ textarea:focus-visible {
   min-height: 38px;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
-  background: var(--pure-white);
+  background: var(--surface-card);
   padding: 8px 10px;
   cursor: pointer;
   font-size: var(--fs-12);
@@ -641,9 +652,9 @@ textarea:focus-visible {
   gap: 5px;
 }
 .choice-grid button.is-selected {
-  background: var(--navy);
+  background: var(--surface-inverse);
   color: var(--pure-white);
-  border-color: var(--navy);
+  border-color: var(--surface-inverse);
 }
 .field-help {
   display: block;
@@ -669,7 +680,7 @@ textarea:focus-visible {
   min-height: 76px;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
-  background: var(--pure-white);
+  background: var(--surface-card);
   padding: 10px;
   resize: vertical;
   font-size: var(--fs-12);
@@ -699,11 +710,11 @@ textarea:focus-visible {
   cursor: pointer;
 }
 .fulfillment label:has(input:checked) {
-  border-color: var(--navy);
+  border-color: var(--ink);
   background: var(--info-surface);
 }
 .fulfillment input {
-  accent-color: var(--navy);
+  accent-color: var(--ink);
 }
 .fulfillment svg {
   font-size: var(--fs-18);
@@ -727,7 +738,7 @@ textarea:focus-visible {
 .quantity-row button {
   width: 36px;
   border: 0;
-  background: var(--pure-white);
+  background: var(--surface-card);
   cursor: pointer;
 }
 .quantity-row output {
@@ -763,8 +774,8 @@ textarea:focus-visible {
 }
 .button.secondary {
   background: transparent;
-  color: var(--navy);
-  border-color: var(--navy);
+  color: var(--ink);
+  border-color: var(--ink);
 }
 .button.full {
   width: 100%;
@@ -788,7 +799,7 @@ textarea:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  background: var(--navy);
+  background: var(--surface-inverse);
   color: var(--pure-white);
   border-radius: var(--radius);
 }
@@ -860,7 +871,7 @@ footer {
   line-height: 1.4;
 }
 .request-note {
-  color: var(--navy);
+  color: var(--ink);
   line-height: 1.35;
 }
 .request-items {
@@ -921,7 +932,7 @@ footer {
   font-size: var(--fs-45);
 }
 .empty-state h3 {
-  color: var(--navy);
+  color: var(--ink);
   margin: 12px 0 4px;
 }
 .empty-state p {
@@ -1068,7 +1079,7 @@ footer {
     top: 68px;
     left: 0;
     right: 0;
-    background: var(--navy);
+    background: var(--surface-inverse);
     padding: 20px;
     gap: 0;
   }
@@ -1192,4 +1203,91 @@ footer {
   .product-card__media img {
     transition: none;
   }
+}
+
+/* Dark mode. Tokens only -- no component override anywhere below :root, per
+   ~/.agents/DESIGN.md "Express dark mode through tokens rather than per-component
+   overrides." The light appearance is untouched: every declaration outside this
+   block resolves to exactly the value it did before. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #10161d;
+    --white: #161d26;
+    --surface-card: #161d26;
+    --ink: #e9e7e1;
+    --skip-link-ink: #e9e7e1;
+    --line: #2c3641;
+    --border-strong: #3a4653;
+    --steel: #97a1ab;
+    --orange: #f0813c;
+    --orange-pressed: #d3662a;
+    --error: #ff8578;
+    --focus-ring: #ffb083;
+    --surface-1: #131a22;
+    --surface-2: #18202a;
+    --surface-3: #19212b;
+    --surface-4: #1c242f;
+    --surface-5: #1e2732;
+    --error-surface: #3a1d18;
+    --notice-surface: #33211a;
+    --success-surface: #10281c;
+    --success-ink: #7fd6a2;
+    --info-surface: #1a2430;
+    --disabled-surface: #4a535a;
+    --on-navy-dim: #c7cdd2;
+    --on-navy-muted: #bfc6cc;
+    --ink-muted-1: #c3ccd4;
+    --ink-muted-2: #c0c9d1;
+    --ink-muted-3: #bfc8d0;
+    --ink-muted-4: #bcc5cd;
+    --ink-muted-5: #bbc4cc;
+    --ink-muted-6: #b9c2ca;
+    --ink-muted-7: #b7c0c8;
+    --ink-muted-8: #b6bfc7;
+    --ink-muted-9: #b4bdc5;
+    --ink-muted-10: #b3bcc4;
+    --ink-muted-11: #b2bbc3;
+    --ink-muted-12: #b0b9c1;
+    --ink-muted-13: #afb8c0;
+  }
+}
+:root[data-theme="dark"] {
+    --paper: #10161d;
+  --white: #161d26;
+  --surface-card: #161d26;
+  --ink: #e9e7e1;
+  --skip-link-ink: #e9e7e1;
+  --line: #2c3641;
+  --border-strong: #3a4653;
+  --steel: #97a1ab;
+  --orange: #f0813c;
+  --orange-pressed: #d3662a;
+  --error: #ff8578;
+  --focus-ring: #ffb083;
+  --surface-1: #131a22;
+  --surface-2: #18202a;
+  --surface-3: #19212b;
+  --surface-4: #1c242f;
+  --surface-5: #1e2732;
+  --error-surface: #3a1d18;
+  --notice-surface: #33211a;
+  --success-surface: #10281c;
+  --success-ink: #7fd6a2;
+  --info-surface: #1a2430;
+  --disabled-surface: #4a535a;
+  --on-navy-dim: #c7cdd2;
+  --on-navy-muted: #bfc6cc;
+  --ink-muted-1: #c3ccd4;
+  --ink-muted-2: #c0c9d1;
+  --ink-muted-3: #bfc8d0;
+  --ink-muted-4: #bcc5cd;
+  --ink-muted-5: #bbc4cc;
+  --ink-muted-6: #b9c2ca;
+  --ink-muted-7: #b7c0c8;
+  --ink-muted-8: #b6bfc7;
+  --ink-muted-9: #b4bdc5;
+  --ink-muted-10: #b3bcc4;
+  --ink-muted-11: #b2bbc3;
+  --ink-muted-12: #b0b9c1;
+  --ink-muted-13: #afb8c0;
 }

@@ -20,6 +20,7 @@ package-lock.json
 !storefront/package-lock.json
 !preview/package-lock.json
 !scripts/broker/package-lock.json
+!brand-gallery/package-lock.json
 .vercel/
 
 # Local interpreter and guarded-state runtime artifacts.
@@ -47,3 +48,7 @@ db/
 .agents/work/backups/
 .agents/work/*.bak
 STATUS.md.lock.json
+
+# Playwright run output. The suite is the artifact; its reports are not.
+storefront/test-results/
+storefront/playwright-report/

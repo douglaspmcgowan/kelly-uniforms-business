@@ -10,6 +10,24 @@ pwsh -NoProfile -File C:\Users\dougl\.agents\tools\Reconcile-WorkState.ps1 -Root
 pwsh -NoProfile -File C:\Users\dougl\.agents\tools\Test-TaskStateFormat.ps1 -Root C:\Users\dougl\Projects\kelly-uniforms-business
 ```
 
+## Storefront
+
+```powershell
+Set-Location C:\Users\dougl\Projects\kelly-uniforms-business\storefront
+npm run typecheck
+npm run build
+npm test
+```
+
+`npm test` runs the fixture and asset-hash contract (`scripts/verify.ts`) and then the
+Playwright suite in `tests/storefront.spec.ts`, which exercises the primary surface and
+asserts `@axe-core/playwright` reports no serious or critical violation. `tests/README.md`
+documents the computed-style proof harness beside it, which is the check to run whenever a
+change is claimed to be non-visual.
+
+The measured interface floor, with the before-and-after rows and the computed-style proof,
+is in `evidence/2026-09-27-app-repair-floor.md`.
+
 ## Brand gallery
 
 ```powershell

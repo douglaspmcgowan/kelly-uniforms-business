@@ -4,9 +4,10 @@ import { join } from "node:path";
 import { spawnSync } from "node:child_process";
 
 const root = new URL("..", import.meta.url).pathname.replace(/^\/(.:)/, "$1");
-const text = async (path) => readFile(join(root, path), "utf8");
-const failures = [];
-const assert = (condition, message) => {
+const text = async (path: string): Promise<string> =>
+  readFile(join(root, path), "utf8");
+const failures: string[] = [];
+const assert = (condition: unknown, message: string): void => {
   if (!condition) failures.push(message);
 };
 
@@ -140,7 +141,7 @@ assert(
   "direction contract was stripped from production output",
 );
 assert(
-  (await stat(join(root, "dist/index.html")).catch(() => null))?.size > 500,
+  ((await stat(join(root, "dist/index.html")).catch(() => null))?.size ?? 0) > 500,
   "production entry is missing or empty",
 );
 

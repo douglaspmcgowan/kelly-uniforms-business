@@ -339,7 +339,7 @@ export function App() {
             M<span>T</span>
           </span>
           <span>
-            M&amp;T UNIFORMS<small>Professional outfitters</small>
+            M.T. UNIFORMS<small>Professional outfitters</small>
           </span>
         </a>
         <label className="header-search">
@@ -376,9 +376,9 @@ export function App() {
         <section className="intro" aria-labelledby="intro-title">
           <div>
             <h1 id="intro-title">
-              Find the right uniform.
+              Find the right uniform
               <br />
-              Get the fit right.
+              Get the fit right
             </h1>
             <p>
               Browse the recovered public catalog, capture every option, then
@@ -632,7 +632,7 @@ export function App() {
 
         <section className="service-band">
           <div>
-            <h2>Ordering still works while the new site is being built.</h2>
+            <h2>Ordering still works while the new site is being built</h2>
             <p>
               Send the request list by email, or call the Johnstown team to
               confirm fit, customization, and fulfillment.

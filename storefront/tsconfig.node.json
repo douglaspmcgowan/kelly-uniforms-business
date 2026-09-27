@@ -1,0 +1,25 @@
+{
+  "_comment": "Node-side scripts type-check separately from the browser app so the app's src/ never sees Node globals.",
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": [
+      "ES2023"
+    ],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": [
+      "node"
+    ],
+    "allowJs": false,
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "scripts"
+  ]
+}
