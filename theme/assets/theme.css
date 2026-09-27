@@ -22,6 +22,27 @@
 
   --font: 'Archivo', 'Archivo Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --shell: min(1280px, 100% - 2rem);
+
+  /* Colour tokens. Every value below is the literal it replaced, unchanged. */
+  --pure-white: #fff;
+  --on-navy-dim: #9fb0c4;
+  --on-navy-footer: #cdd7e2;
+  --on-navy-muted: #93a3b5;
+  --warn-surface: #2b2113;
+  --warn-ink: #ffd9a8;
+  --warn-line: #6b4d22;
+
+  /* Type scale, named at current values. */
+  --type-2xs: .6875rem;
+  --type-xs: .75rem;
+  --type-sm: .8125rem;
+  --type-md: .875rem;
+  --type-base: .9375rem;
+  --type-lg: 1.0625rem;
+  --type-xl: 1.25rem;
+  --type-2xl: 1.375rem;
+  --type-3xl: 1.5rem;
+  --type-root: 16px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,14 +66,14 @@ body {
   background: var(--paper);
   color: var(--ink);
   line-height: 1.5;
-  font-size: 16px;
+  font-size: var(--type-root);
 }
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 
 .skip-link {
   position: absolute; left: -9999px; top: 0; z-index: 100;
-  background: var(--orange); color: #fff; padding: .75rem 1rem; border-radius: 0 0 var(--radius-sm) 0;
+  background: var(--orange); color: var(--pure-white); padding: .75rem 1rem; border-radius: 0 0 var(--radius-sm) 0;
 }
 .skip-link:focus { left: 0; }
 
@@ -62,16 +83,16 @@ a { color: inherit; }
 
 /* ---- Announcement / continuity bar ---- */
 .announcement {
-  background: var(--orange); color: #fff;
-  font-size: .9375rem; padding: .625rem 0;
+  background: var(--orange); color: var(--pure-white);
+  font-size: var(--type-base); padding: .625rem 0;
 }
-.announcement a { color: #fff; text-underline-offset: 3px; }
+.announcement a { color: var(--pure-white); text-underline-offset: 3px; }
 .announcement__inner { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; justify-content: center; text-align: center; }
 
 /* ---- Header ---- */
 .header {
   position: sticky; top: 0; z-index: 40;
-  background: var(--navy); color: #fff;
+  background: var(--navy); color: var(--pure-white);
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
 .header__inner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--gap); padding: .75rem 0; }
@@ -82,28 +103,28 @@ a { color: inherit; }
 .brand { display: flex; align-items: center; gap: .625rem; text-decoration: none; font-weight: 700; letter-spacing: .01em; }
 .brand__mark {
   width: 34px; height: 34px; border-radius: var(--radius-sm);
-  border: 2px solid #fff; display: grid; place-items: center;
-  font-size: .8125rem; font-weight: 800; letter-spacing: -.03em;
+  border: 2px solid var(--pure-white); display: grid; place-items: center;
+  font-size: var(--type-sm); font-weight: 800; letter-spacing: -.03em;
 }
-.brand__name { font-size: 1.0625rem; }
-.brand__sub { display: block; font-size: .6875rem; font-weight: 500; color: #9fb0c4; letter-spacing: .08em; text-transform: uppercase; }
+.brand__name { font-size: var(--type-lg); }
+.brand__sub { display: block; font-size: var(--type-2xs); font-weight: 500; color: var(--on-navy-dim); letter-spacing: .08em; text-transform: uppercase; }
 
 /* `min-width: 0` and `size="1"` together are what let the input shrink: a search input's intrinsic
    width is ~356px, and without both it refused to go below 436px inside a 343px header cell. */
 .search { display: flex; min-width: 0; }
 .search input {
   width: 100%; min-width: 0; padding: .625rem .875rem; border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-  border: 1px solid var(--hairline); border-right: 0; font: inherit; font-size: .9375rem;
+  border: 1px solid var(--hairline); border-right: 0; font: inherit; font-size: var(--type-base);
   background: var(--white); color: var(--ink);
 }
 .search button {
-  border: 0; background: var(--orange); color: #fff; padding: 0 1rem; font: inherit; font-weight: 600;
+  border: 0; background: var(--orange); color: var(--pure-white); padding: 0 1rem; font: inherit; font-weight: 600;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0; cursor: pointer;
 }
 .header__nav { display: flex; gap: 1rem; align-items: center; }
-.header__nav a { text-decoration: none; font-size: .9375rem; }
+.header__nav a { text-decoration: none; font-size: var(--type-base); }
 .cart-button {
-  background: transparent; border: 1px solid rgba(255,255,255,.35); color: #fff;
+  background: transparent; border: 1px solid rgba(255,255,255,.35); color: var(--pure-white);
   border-radius: var(--radius-sm); padding: .5rem .875rem; font: inherit; font-weight: 600; cursor: pointer;
 }
 .cart-button[data-count]:not([data-count="0"])::after { content: " (" attr(data-count) ")"; }
@@ -123,14 +144,14 @@ a { color: inherit; }
    `.shelf { overflow-x: auto }` below never engaged, because there was nothing to overflow. */
 .workbench > * { min-width: 0; }
 .rail { position: sticky; top: 86px; }
-.rail h2, .shelf h2 { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--steel); margin: 0 0 .5rem; }
+.rail h2, .shelf h2 { font-size: var(--type-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--steel); margin: 0 0 .5rem; }
 .rail__list { display: flex; flex-direction: column; gap: .25rem; }
 .chip {
   border: 1px solid var(--hairline); background: var(--white); color: var(--ink);
-  border-radius: var(--radius-sm); padding: .5rem .75rem; font: inherit; font-size: .9375rem;
+  border-radius: var(--radius-sm); padding: .5rem .75rem; font: inherit; font-size: var(--type-base);
   text-align: left; cursor: pointer; text-decoration: none; display: block;
 }
-.chip[aria-pressed="true"], .chip.is-active { background: var(--navy); color: #fff; border-color: var(--navy); }
+.chip[aria-pressed="true"], .chip.is-active { background: var(--navy); color: var(--pure-white); border-color: var(--navy); }
 
 /* Hover states. The stylesheet previously had none at all — not on chips, buttons, cards, or nav —
    while focus was fully handled, which is the asymmetry that gave it away. On a catalog where the
@@ -156,15 +177,15 @@ a { color: inherit; }
 .card__media { aspect-ratio: 1; background: var(--paper); display: grid; place-items: center; padding: .75rem; }
 .card__media img { max-height: 100%; width: auto; object-fit: contain; }
 .card__body { padding: .75rem .875rem 1rem; display: flex; flex-direction: column; gap: .375rem; flex: 1; }
-.card__eyebrow { font-size: .6875rem; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); }
-.card__title { font-size: .9375rem; font-weight: 600; margin: 0; line-height: 1.35; }
+.card__eyebrow { font-size: var(--type-2xs); text-transform: uppercase; letter-spacing: .08em; color: var(--steel); }
+.card__title { font-size: var(--type-base); font-weight: 600; margin: 0; line-height: 1.35; }
 .card__title a { text-decoration: none; }
 .card__price { font-weight: 700; }
-.card__compare { color: var(--steel); text-decoration: line-through; font-weight: 500; font-size: .875rem; margin-left: .375rem; }
+.card__compare { color: var(--steel); text-decoration: line-through; font-weight: 500; font-size: var(--type-md); margin-left: .375rem; }
 .card__cta { margin-top: auto; }
 
 .btn {
-  display: inline-block; border: 1px solid var(--navy); background: var(--navy); color: #fff;
+  display: inline-block; border: 1px solid var(--navy); background: var(--navy); color: var(--pure-white);
   border-radius: var(--radius-sm); padding: .5625rem 1rem; font: inherit; font-weight: 600;
   cursor: pointer; text-decoration: none; text-align: center;
 }
@@ -176,23 +197,29 @@ a { color: inherit; }
 /* ---- Product page ---- */
 .product { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,420px); gap: 2rem; padding: 1.5rem 0 3rem; }
 .product__media img { border: 1px solid var(--hairline); border-radius: var(--radius); background: var(--white); }
-.product__title { font-size: 1.5rem; margin: 0 0 .25rem; line-height: 1.2; }
-.product__meta { color: var(--steel); font-size: .875rem; margin-bottom: 1rem; }
-.product__price { font-size: 1.375rem; font-weight: 700; margin-bottom: 1rem; }
+.product__title { font-size: var(--type-3xl); margin: 0 0 .25rem; line-height: 1.2; }
+.product__meta { color: var(--steel); font-size: var(--type-md); margin-bottom: 1rem; }
+.product__price { font-size: var(--type-2xl); font-weight: 700; margin-bottom: 1rem; }
 fieldset { border: 1px solid var(--hairline); border-radius: var(--radius-sm); padding: .75rem .875rem 1rem; margin: 0 0 1rem; }
-legend { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--steel); padding: 0 .375rem; }
+legend { font-size: var(--type-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--steel); padding: 0 .375rem; }
 .option-values { display: flex; flex-wrap: wrap; gap: .5rem; }
 .option-values .chip { padding: .4375rem .75rem; }
 .field { display: block; margin-bottom: 1rem; }
-.field > span { display: block; font-size: .8125rem; font-weight: 600; margin-bottom: .3125rem; }
+.field > span { display: block; font-size: var(--type-sm); font-weight: 600; margin-bottom: .3125rem; }
 .field input[type=text], .field textarea, .field select, .field input[type=number] {
   width: 100%; padding: .5625rem .75rem; border: 1px solid var(--hairline);
   border-radius: var(--radius-sm); font: inherit; background: var(--white); color: var(--ink);
 }
 .field textarea { min-height: 84px; resize: vertical; }
-.hint { font-size: .8125rem; color: var(--steel); }
-[aria-invalid="true"] { border-color: var(--orange) !important; }
-.error-text { color: var(--orange); font-size: .8125rem; font-weight: 600; }
+.hint { font-size: var(--type-sm); color: var(--steel); }
+/* Two rules rather than one forced declaration: `.field input[type=text]` and its siblings carry
+   (0,2,1) and set border, so the bare attribute selector at (0,1,0) lost the moment the
+   force was removed. The second rule matches that specificity and comes later in source. */
+[aria-invalid="true"] { border-color: var(--orange); }
+.field input[aria-invalid="true"],
+.field textarea[aria-invalid="true"],
+.field select[aria-invalid="true"] { border-color: var(--orange); }
+.error-text { color: var(--orange); font-size: var(--type-sm); font-weight: 600; }
 
 .decoration { border-left: 3px solid var(--orange); padding-left: .875rem; }
 
@@ -209,24 +236,24 @@ legend { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; co
 .drawer-scrim { position: fixed; inset: 0; background: rgba(11,29,52,.45); z-index: 50; border: 0; }
 .drawer-scrim[hidden] { display: none; }
 .line-item { display: grid; grid-template-columns: 56px 1fr auto; gap: .75rem; padding: .75rem 0; border-bottom: 1px solid var(--hairline); }
-.line-item__opts { font-size: .8125rem; color: var(--steel); }
+.line-item__opts { font-size: var(--type-sm); color: var(--steel); }
 /* The quantity stepper's buttons are `.chip`, which is `display: block` for the category rail — so
    in the drawer the minus, the count and the plus stacked vertically down the card and stopped
    reading as a stepper at all. Quantity is the control a department buyer touches most. */
 .line-item__opts .chip { display: inline-block; padding: .25rem .5rem; }
 
 /* ---- Service band + footer ---- */
-.service-band { background: var(--navy); color: #fff; padding: 1.5rem 0; }
+.service-band { background: var(--navy); color: var(--pure-white); padding: 1.5rem 0; }
 .service-band__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.25rem; }
-.service-band h3 { font-size: .875rem; margin: 0 0 .25rem; }
-.service-band p { margin: 0; color: #9fb0c4; font-size: .875rem; }
+.service-band h3 { font-size: var(--type-md); margin: 0 0 .25rem; }
+.service-band p { margin: 0; color: var(--on-navy-dim); font-size: var(--type-md); }
 /* ---- Reviews ----
    Real customer words, set quietly. No card shadows, no avatars, no stock photography: the
    Quartermaster direction earns trust by looking like a record rather than like marketing. */
 .reviews { padding: 2.5rem 0; border-top: 1px solid var(--hairline); }
 .reviews__head { max-width: var(--measure); margin-bottom: 1.5rem; }
-.reviews__head h2 { font-size: 1.25rem; margin: 0 0 .25rem; }
-.reviews__head p { margin: 0; color: var(--steel); font-size: .9375rem; }
+.reviews__head h2 { font-size: var(--type-xl); margin: 0 0 .25rem; }
+.reviews__head p { margin: 0; color: var(--steel); font-size: var(--type-base); }
 .reviews__grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--gap); list-style: none; margin: 0; padding: 0;
@@ -235,11 +262,11 @@ legend { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; co
   background: var(--white); border: 1px solid var(--hairline); border-radius: var(--radius);
   padding: 1.125rem 1.25rem; display: flex; flex-direction: column; gap: .625rem;
 }
-.review__stars { margin: 0; color: var(--orange); letter-spacing: .12em; font-size: .9375rem; }
-.review__body { margin: 0; font-size: .9375rem; line-height: 1.55; }
+.review__stars { margin: 0; color: var(--orange); letter-spacing: .12em; font-size: var(--type-base); }
+.review__body { margin: 0; font-size: var(--type-base); line-height: 1.55; }
 .review__meta {
   margin: 0; margin-top: auto; padding-top: .5rem; border-top: 1px solid var(--hairline);
-  color: var(--steel); font-size: .8125rem; display: grid; gap: .125rem .625rem;
+  color: var(--steel); font-size: var(--type-sm); display: grid; gap: .125rem .625rem;
   grid-template-columns: auto 1fr;
 }
 /* A wrapping flex row plus `margin-left: auto` on the date made this footer a function of string
@@ -249,14 +276,14 @@ legend { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; co
 .review__date { grid-column: 1 / -1; }
 .review__author { color: var(--ink); font-weight: 600; }
 
-.footer { background: var(--navy-soft); color: #cdd7e2; padding: 2rem 0; font-size: .875rem; }
+.footer { background: var(--navy-soft); color: var(--on-navy-footer); padding: 2rem 0; font-size: var(--type-md); }
 .footer__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; }
 .footer a { text-decoration: none; }
-.footer__legal { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.12); color: #93a3b5; }
+.footer__legal { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.12); color: var(--on-navy-muted); }
 
 .prototype-banner {
-  background: #2b2113; color: #ffd9a8; border: 1px solid #6b4d22;
-  border-radius: var(--radius-sm); padding: .625rem .875rem; font-size: .8125rem; margin: 1rem 0;
+  background: var(--warn-surface); color: var(--warn-ink); border: 1px solid var(--warn-line);
+  border-radius: var(--radius-sm); padding: .625rem .875rem; font-size: var(--type-sm); margin: 1rem 0;
 }
 
 /* ---- Responsive ---- */
