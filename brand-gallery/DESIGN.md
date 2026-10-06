@@ -61,6 +61,8 @@ components:
 
 # Design System: MT Uniforms Brand Direction Gallery
 
+> **Current system (2026-10-06):** the gallery's tokens, type and colour follow the root `DESIGN.md` section "Design system: Varsity Catalogue". The "Compliance record" at the end is current; the prose above it describes the earlier graphite and safety-orange specification wall and is retained as history until a later packet rewrites it.
+
 ## Overview
 
 **Creative North Star: "The Working Specification Wall"**
@@ -219,13 +221,13 @@ Keyboard users receive a skip link that appears on focus, visible three-pixel or
 
 Tokens are custom properties on `:root`; the dark block redefines the same names.
 
-- **Colours:** nine per scheme. Surface levels: page `--paper`, card `--card`, raised `--raised`, border `--rule`. Ink `--graphite`/`--ink`, navy, muted, one orange `#b8440c` (text and fills; it replaces the former bright, dark and pressed oranges), green for the verified state.
-- **Spacing scale:** 4, 8, 12, 16, 24, 32, 48, 64 (`--s-1` to `--s-8`); chapter breaks use `--s-section`, a multiple of the top step.
-- **Type scale:** 1rem, 1.5rem (ratio 1.5) and one fluid display step; three sizes and three weights (400, 600, 800) per screen.
-- **Motion:** `--ease` `cubic-bezier(0.22, 0.8, 0.24, 1)`, `--dur-fast` 160ms, `--dur` 360ms; reduced motion zeroes both durations, with no `!important`.
+- **Colours:** the root system's eleven named tokens, light and dark: `--surface-page`, `--surface-card`, `--surface-raised`, `--border`, `--ink`, `--ink-muted`, `--accent` (kelly fill with `--on-accent` ink text), `--accent-ink`, `--status-error`, `--status-success`, `--status-info`. The dark comparison band and header use `--inverse`.
+- **Spacing scale:** 4 to 64 (`--space-1` to `--space-8`); chapter breaks use `--space-section`, a multiple of the top step.
+- **Type scale:** `--fs-small`, `--fs-body`, `--fs-lead`, `--fs-title`, `--fs-display`; headings Archivo Narrow (self-hosted `assets/fonts/archivo-narrow-variable.woff2`, OFL-1.1) 700, body Archivo; sentence case, tracking -0.02em on display only.
+- **Radii and elevation:** `--radius-control` 6px, `--radius-card` 12px; `--elev-1` on the primary action when hovered.
+- **Motion:** `--ease-out` `cubic-bezier(0.22, 1, 0.36, 1)`, `--dur-fast` 120ms, `--dur-base` 200ms, `--dur-slow` 320ms; reduced motion zeroes the durations, with no `!important`.
 - **Container query:** the fact lists (`dl`) are reused in the wide recommendation column and the narrow alternate column and answer to their own container (`@container facts`).
 - **Formats:** no prices, dates or measured units appear; direction numbers are `Direction 01` to `Direction 03`.
-- **The one deliberate inversion:** the dark comparison band ("What each route prioritizes") between two light chapters is the page's single composition device. The graphite header and the navy recommendation sheet header are chrome and a card header, not section inversions.
+- **The one deliberate inversion:** the dark comparison band ("What each route prioritizes") between two light chapters is the page's single composition device. The ink header and the recommendation sheet header are chrome and a card header, not section inversions.
 - **Removed:** all-caps transforms, the eyebrow labels above headings, the `!important` rules, the working-paper line texture on `body`, and the decorative side borders on the opening and decision sections.
-- **Recorded exception:** the radius stays `0` (`--radius`) because the square specification wall is this gallery's committed identity; the universal 12-16px card guidance would change it.
-- **Identity:** favicon `assets/favicon.svg`, Open Graph image `assets/og-image.png` (relative path; no deployed origin is recorded), `theme-color` `#11151a`.
+- **Identity:** favicon `assets/favicon.svg`, Open Graph image `assets/og-image.png` (relative path; no deployed origin is recorded), `theme-color` `#0b1d34` (a literal hex, as the attribute cannot take a custom property).

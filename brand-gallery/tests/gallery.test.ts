@@ -111,11 +111,11 @@ test('holds the design-compliance floor in its stylesheet and markup', async () 
   assert.doesNotMatch(css, /!important/, 'no !important');
   assert.doesNotMatch(css, /transition[^;]*\b(linear|ease-in-out)\b/, 'transitions use the named easing token');
   assert.doesNotMatch(css, /box-shadow:\s*[^;]*\b\d+px \d+px 0\b/, 'no hard offset shadow');
-  assert.match(css, /--ease:\s*cubic-bezier/, 'named easing token');
+  assert.match(css, /--ease-out:\s*cubic-bezier/, 'named easing token');
   assert.match(css, /:focus-visible/, 'focus-visible is styled');
   assert.match(css, /@container/, 'the reused fact list answers to its container');
   assert.match(css, /prefers-reduced-motion/, 'reduced motion is respected');
-  assert.ok(hex.size <= 18, `colour literals stay within two nine-colour sets, found ${hex.size}`);
+  assert.ok(hex.size <= 20, `colour literals stay within the two Varsity Catalogue sets, found ${hex.size}`);
 
   const spacing = [...css.matchAll(/(?:margin|padding|gap)[a-z-]*:\s*([^;}]+)/g)].map((match) => match[1]);
   for (const value of spacing) {

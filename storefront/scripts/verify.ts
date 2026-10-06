@@ -62,8 +62,8 @@ assert(
   "responsive or reduced-motion rules are missing",
 );
 assert(
-  css.includes("--orange: #b8440c"),
-  "action orange does not meet the chosen white-text contrast floor",
+  css.includes("--accent: #46bc24") && css.includes("--on-accent: #0b1d34"),
+  "kelly accent fill must carry ink text (6.84:1)",
 );
 assert(
   !css.includes("max-height: calc(100dvh - 78px)"),
