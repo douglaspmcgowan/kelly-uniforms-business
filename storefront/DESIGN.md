@@ -24,9 +24,9 @@
 
 ## Responsive and accessible behavior
 
-- Desktop keeps the role rail, catalog, and configurator visible together. At `max-width: 1150px`, the configurator continues full width with image/body treatment; at `max-width: 800px`, the page becomes one stacked reading path, the role rail/category shelf can scroll horizontally, and the request drawer fills the viewport; at `max-width: 480px`, product cards become one column and the brand lockup compacts. Primary surfaces avoid horizontal page scrolling.
+- **Layout grid** (root `DESIGN.md` "Layout grid"): the workbench is a CSS grid. At 1440 it has 12 columns, 24px gutters and a 1320px content cap, centred: role rail spans 2, catalogue 6, configurator with the size chart 4 (the chart sits beside the image while the configurator is 380px wide or more). At 768 and up to 1150px it has 8 columns: the role rail becomes a horizontal chip row above the catalogue and scrolls inside its own row; the configurator is full width below the catalogue. At 640px and below it has 4 columns and a 16px side gutter in one column; below 800px the drawer fills the viewport; below 480px plates are one column and the brand lockup compacts. Section padding is `clamp(var(--space-6), 5vw, var(--space-8))`. Primary surfaces avoid horizontal page scrolling.
 - A skip link targets the catalog. Native buttons, links, labels, fieldsets/legends, `aria-pressed`, `aria-invalid`/descriptions, descriptive image alt text, visible `:focus-visible` outlines, and touch-sized controls carry the interaction without color-only state.
-- Drawer and size-guide dialogs are Base UI `Dialog`s (`@base-ui/react` 1.8.0): labelled titles, focus moves in, Tab wraps, Escape and the backdrop close, and focus returns to the opener. Reduced-motion preferences disable drawer/image transitions and use instant programmatic scrolling.
+- Drawer and size-guide dialogs are Base UI `Dialog`s (`@base-ui/react` 1.8.0): labelled titles, focus moves in, Tab wraps, Escape and the backdrop close, and focus returns to the opener. Reduced-motion preferences make every motion instant and use instant programmatic scrolling.
 
 ## Verification routes
 
@@ -42,7 +42,7 @@ All values live as custom properties on `:root` in `src/styles.css`; dark mode r
 - **Type scale:** `--fs-small`, `--fs-body`, `--fs-lead`, `--fs-title`, `--fs-display`; display Archivo Narrow 700 (`@fontsource-variable/archivo-narrow` 5.3.0), titles Archivo Narrow 600, body Archivo 400/600. At most three sizes and three weights per screen.
 - **Radii:** `--radius-control` 6px, `--radius-card` 12px, `--radius-pill` for count badges only.
 - **Elevation:** `--elev-1` (plate under the pointer or selected), `--elev-2` (request drawer and dialog); resting plates separate by surface tone.
-- **Motion:** `--ease-out`, `--ease-in`, `--dur-fast` 120ms, `--dur-base` 200ms, `--dur-slow` 320ms. Reduced motion zeroes the durations.
+- **Motion:** `--ease-out`, `--ease-in`, `--dur-fast` 120ms, `--dur-base` 200ms, `--dur-slow` 320ms. Reduced motion zeroes the durations. The motion inventory is recorded in the root `DESIGN.md` (control hover and press, size chip fill, request drawer slide, request count pulse); each is annotated beside its rule in `src/styles.css`, and the count pulse is triggered by `data-pulse` on the header badge in `src/App.tsx`. Nothing else animates.
 - **Focus:** a 3px `:focus-visible` ring in `--focus`, which flips to `--on-inverse` on the header, notice and service band.
 - **Containers:** `.product-card` is a size container; its layout answers to its own width (`@container product`).
 - **Formats:** prices are US dollars with two decimals and a leading `$` (`$159.98`), tabular numerals; quantities are `Qty 2`; there are no dates; inline lists use commas, never a middle dot.

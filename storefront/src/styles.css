@@ -55,6 +55,12 @@
   --space-7: 48px;
   --space-8: 64px;
   --gutter: clamp(var(--space-4), 4vw, var(--space-8));
+  /* Layout grid: 12 columns at 1440, 8 at 768, 4 at 375; 24px gutters; content
+     capped at 1320px; section padding clamps between space-6 and space-8. */
+  --grid-gap: var(--space-5);
+  --grid-max: 1320px;
+  --section-pad: clamp(var(--space-6), 5vw, var(--space-8));
+  --grid-side: clamp(var(--space-4), 4vw, var(--space-6));
 
   /* Type scale: perfect fourth from a 16px body, display fluid. Display is
      Archivo Narrow 700, titles Archivo Narrow 600, body Archivo 400/600. */
@@ -148,8 +154,9 @@ svg {
   scroll-margin-top: var(--header-h);
 }
 
-/* One transition recipe for every interactive element: hover, focus and active
-   all animate through the same easing and duration tokens. */
+/* Motion (a), control hover and press. Communicates: the control is live.
+   Colour change plus a 1px lift on hover, back to rest on press, all on
+   --dur-fast and --ease-out. Only colour, shadow and transform move. */
 a,
 button,
 input,
@@ -165,10 +172,15 @@ label,
     outline-color var(--dur-fast) var(--ease-out),
     transform var(--dur-fast) var(--ease-out);
 }
-button:active,
+button:not(:disabled):hover,
+.button:hover,
+.notice a:hover {
+  transform: translateY(-1px);
+}
+button:not(:disabled):active,
 .button:active,
 .notice a:active {
-  transform: scale(0.98);
+  transform: translateY(0);
 }
 
 /* Focus is visible on every focusable element and every surface. The ring
@@ -351,6 +363,23 @@ summary:focus-visible,
 .mobile-menu {
   display: none;
 }
+/* Motion (d), request count badge. Communicates: the add landed. One scale
+   pulse on --dur-slow, transform only, triggered by data-pulse when the count
+   grows; the badge is re-keyed so each add replays it. */
+.request-button b[data-pulse] {
+  animation: count-pulse var(--dur-slow) var(--ease-out) 1;
+}
+@keyframes count-pulse {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
 .intro {
   display: flex;
@@ -399,12 +428,17 @@ summary:focus-visible,
 
 .workbench {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr) clamp(380px, 32vw, 460px);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
   align-items: start;
+  width: min(100%, calc(var(--grid-max) + 2 * var(--grid-side)));
+  margin-inline: auto;
+  padding: 0 var(--grid-side) var(--section-pad);
   background: var(--surface-page);
 }
 .role-rail {
-  padding: var(--space-5) var(--space-3);
+  grid-column: span 2;
+  padding: var(--space-5) 0;
   position: sticky;
   top: var(--header-h);
 }
@@ -484,7 +518,8 @@ summary:focus-visible,
   cursor: not-allowed;
 }
 .catalog-pane {
-  padding: 0 clamp(var(--space-4), 2.5vw, var(--space-6)) var(--space-7);
+  grid-column: span 6;
+  padding: 0 0 var(--space-7);
   min-width: 0;
 }
 .catalog-search {
@@ -633,10 +668,6 @@ summary:focus-visible,
   height: 100%;
   object-fit: contain;
   padding: var(--space-3);
-  transition: transform var(--dur-base) var(--ease-out);
-}
-.product-card__hit:hover .product-card__media img {
-  transform: scale(1.025);
 }
 .product-card__body {
   flex: 1;
@@ -709,7 +740,11 @@ summary:focus-visible,
 }
 
 .configurator {
+  grid-column: span 4;
   position: relative;
+  margin-top: var(--space-5);
+  border-radius: var(--radius-card);
+  overflow: hidden;
   background: var(--surface-raised);
 }
 .configurator__top {
@@ -903,9 +938,8 @@ summary:focus-visible,
 .choice-grid button:hover {
   border-color: var(--ink);
 }
-.choice-grid button:active {
-  transform: scale(0.97);
-}
+/* Motion (b), size chip selection. Communicates: this size is chosen. The
+   kelly fill arrives on --dur-base (set in the chip transition above). */
 .choice-grid button[data-pressed] {
   background: var(--accent);
   color: var(--on-accent);
@@ -1134,6 +1168,9 @@ footer {
   padding: var(--space-5) var(--gutter);
   color: var(--ink-muted);
 }
+/* Motion (c), request drawer. Communicates: the request is a layer above the
+   catalogue. Slides in from the right on transform at 200ms --ease-out and
+   leaves on --ease-in. will-change applies only while it is open. */
 .drawer {
   position: fixed;
   right: 0;
@@ -1148,6 +1185,9 @@ footer {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+.drawer[data-open] {
+  will-change: transform;
 }
 .drawer[data-starting-style],
 .drawer[data-ending-style] {
@@ -1407,10 +1447,32 @@ footer {
     display: none;
   }
   .workbench {
-    grid-template-columns: 180px minmax(0, 1fr);
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+  /* 8 columns: the role rail becomes a chip row above the catalogue and
+     scrolls inside its own row; the configurator sits full width below. */
+  .role-rail {
+    grid-column: 1 / -1;
+    position: static;
+    display: flex;
+    gap: var(--space-2);
+    overflow-x: auto;
+    padding: var(--space-4) 0 var(--space-2);
+  }
+  .rail-heading,
+  .rail-help {
+    display: none;
+  }
+  .role-rail > button {
+    flex: 0 0 auto;
+    width: auto;
+    grid-template-columns: var(--icon) auto var(--icon);
+  }
+  .catalog-pane {
+    grid-column: 1 / -1;
   }
   .configurator {
-    grid-column: 1/-1;
+    grid-column: 1 / -1;
     position: static;
     display: grid;
     grid-template-columns: 42% 58%;
@@ -1477,27 +1539,6 @@ footer {
     width: auto;
     margin-top: var(--space-5);
   }
-  .workbench {
-    display: block;
-  }
-  .role-rail {
-    position: static;
-    display: flex;
-    overflow: auto;
-    padding: var(--space-3);
-  }
-  .rail-heading,
-  .rail-help {
-    display: none;
-  }
-  .role-rail > button {
-    flex: 0 0 auto;
-    width: auto;
-    grid-template-columns: var(--icon) auto var(--icon);
-  }
-  .catalog-pane {
-    padding-inline: var(--space-4);
-  }
   .product-grid {
     gap: var(--space-2);
   }
@@ -1533,6 +1574,15 @@ footer {
     padding: var(--space-3);
   }
 }
+@media (max-width: 640px) {
+  /* 4 columns, 16px side gutter, one column. */
+  :root {
+    --grid-side: var(--space-4);
+  }
+  .workbench {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
 @media (max-width: 480px) {
   .brand > span:last-child {
     display: none;
@@ -1556,10 +1606,13 @@ footer {
   html {
     scroll-behavior: auto;
   }
-  button:active,
-  .button:active,
-  .notice a:active {
+  button:not(:disabled):hover,
+  .button:hover,
+  .notice a:hover {
     transform: none;
+  }
+  .request-button b[data-pulse] {
+    animation: none;
   }
 }
 

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Dialog } from "@base-ui/react/dialog";
 import { Toggle } from "@base-ui/react/toggle";
 import { ToggleGroup } from "@base-ui/react/toggle-group";
@@ -320,6 +320,12 @@ export function App() {
   const [note, setNote] = useState("");
   const [fulfillment, setFulfillment] = useState("Pickup");
   const [items, setItems] = useState<RequestItem[]>([]);
+  // Motion (d) hook: the header badge pulses once when the count grows.
+  const prevCount = useRef(0);
+  const countGrew = items.length > prevCount.current;
+  useEffect(() => {
+    prevCount.current = items.length;
+  }, [items.length]);
   const [drawer, setDrawer] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
   const [sizeGuide, setSizeGuide] = useState(false);
@@ -451,7 +457,9 @@ export function App() {
           {mobileNav ? <X /> : <List />}
         </button>
         <button className="request-button" onClick={() => setDrawer(true)}>
-          <ClipboardText /> <span className="request-label">Request list</span> <b>{items.length}</b>
+          <ClipboardText /> <span className="request-label">Request list</span> <b key={items.length} data-pulse={countGrew ? "" : undefined}>
+            {items.length}
+          </b>
         </button>
       </header>
 

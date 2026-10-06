@@ -230,4 +230,63 @@ test.describe('order ticket storefront', () => {
     const text = await page.locator('body').innerText()
     expect(text).not.toMatch(/[→←↑↓▸►▶✓✔×]/)
   })
+
+  async function addFirstFixture(page: import('@playwright/test').Page) {
+    await page.goto('/')
+    await page.getByRole('button', { name: /^Configure USPS Letter Carrier/ }).click()
+    const configurator = page.locator('.configurator')
+    await configurator.getByRole('group', { name: 'Size' }).getByRole('button').first().click()
+    await configurator.getByRole('group', { name: 'Sleeve' }).getByRole('button').first().click()
+    await configurator.getByRole('button', { name: /^Add to request/ }).click()
+  }
+
+  test('the request count badge pulses once when an item is added', async ({ page }) => {
+    await page.goto('/')
+    const badge = page.locator('.request-button b')
+    expect(await badge.evaluate((el) => el.getAnimations().length)).toBe(0)
+    await addFirstFixture(page)
+    await expect(page.locator('.request-button b[data-pulse]')).toHaveCount(1)
+    const names = await page.locator('.request-button b').evaluate((el) =>
+      el.getAnimations().map((a) => (a as CSSAnimation).animationName),
+    )
+    expect(names).toContain('count-pulse')
+  })
+
+  test('the request count badge does not animate under reduced motion', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await addFirstFixture(page)
+    await expect(page.locator('.request-button b')).toHaveText('1')
+    expect(await page.locator('.request-button b').evaluate((el) => el.getAnimations().length)).toBe(0)
+  })
+
+  test('the layout is a 12-column grid at 1440 with the role rail, catalogue and configurator spanning 2, 6 and 4', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 950 })
+    await page.goto('/')
+    const cols = await page.locator('.workbench').evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(' ').length)
+    expect(cols).toBe(12)
+    const [rail, pane, config] = await Promise.all(
+      ['.role-rail', '.catalog-pane', '.configurator'].map((sel) => page.locator(sel).boundingBox()),
+    )
+    expect(rail!.width).toBeLessThan(pane!.width)
+    expect(pane!.width).toBeGreaterThan(config!.width)
+    expect(config!.x).toBeGreaterThanOrEqual(pane!.x + pane!.width)
+    const content = await page.locator('.workbench').evaluate((el) => {
+      const cs = getComputedStyle(el)
+      return el.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight)
+    })
+    expect(content).toBeLessThanOrEqual(1320)
+  })
+
+  test('at 768 the role rail is a chip row above the catalogue and the configurator is full width below it', async ({ page }) => {
+    await page.setViewportSize({ width: 768, height: 900 })
+    await page.goto('/')
+    const cols = await page.locator('.workbench').evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(' ').length)
+    expect(cols).toBe(8)
+    const [rail, pane, config] = await Promise.all(
+      ['.role-rail', '.catalog-pane', '.configurator'].map((sel) => page.locator(sel).boundingBox()),
+    )
+    expect(rail!.y + rail!.height).toBeLessThanOrEqual(pane!.y + 1)
+    expect(config!.y).toBeGreaterThanOrEqual(pane!.y + pane!.height - 1)
+    expect(Math.abs(config!.width - pane!.width)).toBeLessThan(2)
+  })
 })
