@@ -7,7 +7,7 @@ import { extname, join, normalize } from 'node:path';
 import test from 'node:test';
 
 const root = new URL('../', import.meta.url).pathname.replace(/^\/(.:\/)/, '$1');
-const types: Record<string, string> = { '.css': 'text/css', '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png' };
+const types: Record<string, string> = { '.css': 'text/css', '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.svg': 'image/svg+xml' };
 
 let server: Server;
 let baseUrl: string;
@@ -100,4 +100,36 @@ test('ships the responsive focal fix and a self-hosted display face', async () =
   assert.doesNotMatch(css, /Bahnschrift|Aptos/);
   assert.equal(font.status, 200);
   assert.ok((await font.arrayBuffer()).byteLength > 50_000);
+});
+
+test('holds the design-compliance floor in its stylesheet and markup', async () => {
+  const html = await (await fetch(`${baseUrl}/`)).text();
+  const css = await (await fetch(`${baseUrl}/styles.css`)).text();
+  const hex = new Set((css.match(/#[0-9a-f]{3,8}\b/gi) ?? []).map((value) => value.toLowerCase()));
+
+  assert.doesNotMatch(css, /text-transform:\s*uppercase/, 'no all-caps headings or labels');
+  assert.doesNotMatch(css, /!important/, 'no !important');
+  assert.doesNotMatch(css, /transition[^;]*\b(linear|ease-in-out)\b/, 'transitions use the named easing token');
+  assert.doesNotMatch(css, /box-shadow:\s*[^;]*\b\d+px \d+px 0\b/, 'no hard offset shadow');
+  assert.match(css, /--ease:\s*cubic-bezier/, 'named easing token');
+  assert.match(css, /:focus-visible/, 'focus-visible is styled');
+  assert.match(css, /@container/, 'the reused fact list answers to its container');
+  assert.match(css, /prefers-reduced-motion/, 'reduced motion is respected');
+  assert.ok(hex.size <= 18, `colour literals stay within two nine-colour sets, found ${hex.size}`);
+
+  const spacing = [...css.matchAll(/(?:margin|padding|gap)[a-z-]*:\s*([^;}]+)/g)].map((match) => match[1]);
+  for (const value of spacing) {
+    assert.doesNotMatch(value, /\d+(?:\.\d+)?(?:px|rem)\b/, `spacing must come from the scale tokens: ${value}`);
+  }
+
+  assert.doesNotMatch(html, /class="direction-index"[^>]*>[^<]*<\/p>\s*<h[23]/, 'no kicker above a heading');
+  assert.match(html, /rel="icon"/, 'favicon');
+  assert.match(html, /property="og:image"/, 'Open Graph image');
+  assert.match(html, /name="theme-color"/, 'theme-color');
+  for (const image of html.matchAll(/<img\b[^>]*>/g)) {
+    assert.match(image[0], /width="\d+"[^>]*height="\d+"/, 'every image declares its size');
+  }
+  for (const asset of ['assets/og-image.png', 'assets/favicon.svg']) {
+    assert.equal((await fetch(`${baseUrl}/${asset}`)).status, 200, `${asset} must resolve`);
+  }
 });
