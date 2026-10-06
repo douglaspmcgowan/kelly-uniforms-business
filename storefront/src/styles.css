@@ -1560,7 +1560,8 @@ footer {
     width: 100%;
   }
   footer {
-    display: block;
+    flex-direction: column;
+    gap: var(--space-2);
   }
   .drawer {
     width: 100%;
