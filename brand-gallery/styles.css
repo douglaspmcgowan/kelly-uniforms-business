@@ -303,6 +303,21 @@ h1 { max-width: 16ch; margin-bottom: var(--space-5); }
   .alternate-copy dl div { grid-template-columns: 1fr; gap: var(--space-1); }
 }
 
+/* Swatch cards: one per direction, 12px radius, elevation declared once (on
+   hover). Chips carry the palette names printed on each board; the record
+   holds no colour codes, fabric or care lines, so none are shown. */
+.swatches { padding: var(--space-section) var(--pad) 0; background: var(--surface-page); }
+.swatches .section-heading { margin-bottom: var(--space-6); }
+.swatch-grid { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-5); }
+.swatch-card { padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-3); background: var(--surface-card); border-radius: var(--radius-card); transition: box-shadow var(--dur-fast) var(--ease-out); }
+.swatch-card:hover { box-shadow: var(--elev-1); }
+.swatch-card h3 { margin: 0; font-size: var(--fs-title); line-height: 1.1; }
+.swatch-card .direction-index { margin: 0; }
+.swatch-card-lead { outline: 2px solid var(--accent-ink); outline-offset: -2px; }
+.chips { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.chips li { padding: var(--space-1) var(--space-3); background: var(--surface-raised); border-radius: var(--radius-control); font-weight: var(--fw-medium); }
+.swatch-card a { margin-top: auto; font-weight: var(--fw-medium); }
+
 .alternatives { padding: var(--space-section) var(--pad); background: var(--surface-page); }
 .section-heading { max-width: 850px; margin-bottom: clamp(var(--space-7), 7vw, var(--space-8)); }
 .section-heading h2 { margin: 0; }

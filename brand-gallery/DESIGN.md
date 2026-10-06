@@ -1,233 +1,103 @@
 ---
 name: MT Uniforms Brand Direction Gallery
-description: A neutral technical specification wall for reviewing three exploratory MT Uniforms brand directions.
+description: A Varsity Catalogue selection room for reviewing three exploratory MT Uniforms brand directions.
 colors:
-  graphite-ink: "#11151a"
-  recommendation-navy: "#081d34"
-  warm-paper: "#f3f0e9"
-  bright-paper: "#fbfaf7"
-  status-paper: "#e8e4db"
-  muted-graphite: "#5d636a"
-  technical-rule: "#c9c5bc"
-  safety-orange: "#b8440c"
-  verified-green: "#1f6752"
+  surface-page: "#f3f2ee"
+  surface-card: "#fbfaf7"
+  ink: "#0b1d34"
+  ink-muted: "#4f5a63"
+  accent: "#46bc24"
+  accent-ink: "#1f6b12"
+  status-error: "#a52819"
+  status-success: "#175b31"
+  surface-page-dark: "#111820"
+  surface-card-dark: "#18212b"
+  ink-dark: "#eeede8"
+  ink-muted-dark: "#a9b3bc"
+  accent-ink-dark: "#6fd64c"
+  status-error-dark: "#ff8a78"
+  status-success-dark: "#7fd39b"
 typography:
   display:
-    fontFamily: "Archivo Gallery, Arial Narrow, sans-serif"
-    fontSize: "clamp(3.2rem, 6vw, 5.5rem)"
-    fontWeight: 800
-    lineHeight: 0.9
-    letterSpacing: "-0.035em"
-  headline:
-    fontFamily: "Archivo Gallery, Arial Narrow, sans-serif"
-    fontSize: "clamp(3rem, 5.5vw, 5rem)"
-    fontWeight: 800
-    lineHeight: 0.9
-    letterSpacing: "-0.035em"
+    fontFamily: "Archivo Narrow Gallery, Arial Narrow, sans-serif"
+    fontSize: "clamp(2.375rem, 5vw + 0.75rem, 4.1875rem)"
+    fontWeight: 700
+    lineHeight: 0.95
+    letterSpacing: "-0.02em"
+  title:
+    fontFamily: "Archivo Narrow Gallery, Arial Narrow, sans-serif"
+    fontSize: "clamp(1.5rem, 2.2vw + 0.875rem, 1.75rem)"
+    fontWeight: 600
+    lineHeight: 1.1
   body:
-    fontFamily: "Archivo Gallery, Segoe UI, sans-serif"
+    fontFamily: "Archivo Gallery, Arial, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.5
-  label:
-    fontFamily: "Archivo Gallery, Arial Narrow, sans-serif"
-    fontSize: "0.78rem"
-    fontWeight: 800
-    lineHeight: 1
-    letterSpacing: "0.1em"
 rounded:
-  square: "0"
+  control: "6px"
+  card: "12px"
 spacing:
-  page-gutter: "clamp(1.1rem, 3vw, 3rem)"
-  section-block: "clamp(5rem, 11vw, 10rem)"
-  panel-padding: "clamp(1.5rem, 4vw, 3.5rem)"
+  scale: "4, 8, 12, 16, 24, 32, 48, 64"
+  page-gutter: "clamp(1rem, 3vw, 3rem)"
 components:
   primary-action:
-    backgroundColor: "{colors.safety-orange}"
-    textColor: "{colors.bright-paper}"
-    rounded: "{rounded.square}"
-    padding: "1.2rem"
-    width: "210px"
-    height: "118px"
-  status-rail:
-    backgroundColor: "{colors.status-paper}"
-    textColor: "{colors.graphite-ink}"
-    rounded: "{rounded.square}"
-    padding: "clamp(2rem, 4vw, 4rem) clamp(1.3rem, 3vw, 2.5rem)"
-  board-frame:
-    backgroundColor: "{colors.technical-rule}"
-    rounded: "{rounded.square}"
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.control}"
+  swatch-card:
+    backgroundColor: "{colors.surface-card}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.card}"
 ---
 
-# Design System: MT Uniforms Brand Direction Gallery
+# Design system: MT Uniforms Brand Direction Gallery
 
-> **Current system (2026-10-06):** the gallery's tokens, type and colour follow the root `DESIGN.md` section "Design system: Varsity Catalogue". The "Compliance record" at the end is current; the prose above it describes the earlier graphite and safety-orange specification wall and is retained as history until a later packet rewrites it.
+The gallery follows the root `DESIGN.md` section "Design system: Varsity Catalogue", which owns every token value (colour, type, spacing, radius, elevation, motion). This file records only how the gallery applies it. History: until 2026-10-06 the gallery used a graphite and safety-orange specification wall; the Varsity Catalogue recut replaced it (design-audit-20261003, packet 3).
 
 ## Overview
 
-**Creative North Star: "The Working Specification Wall"**
+A calm selection room for three exploratory directions: Service Standard, Quartermaster (recommended) and One Mission. It is not a fourth identity. The frame stays neutral so the boards can be judged: ink and paper, kelly green only on the primary action and the status marker accent, Archivo Narrow headings over Archivo body, sentence case, no eyebrow labels.
 
-The gallery is a calm, technical selection room for evaluating work. Its visual world borrows from work orders, pinned specification sheets, and production-review walls: graphite rails establish authority, warm paper keeps the room human, squared rules organize evidence, and safety orange marks decisions and active states. The density is editorial rather than app-like; large boards and decisive headings carry the reading path.
+## Colour
 
-This system belongs to the gallery interface only. It is not a fourth MT Uniforms identity, and it does not adopt the logo, colors, typography, photography, or application language shown inside Quartermaster, Service Standard, or One Mission. Those boards remain three exploratory directions. Quartermaster receives stronger placement because it is the recommendation, while the frame stays visually neutral enough to judge all three.
-
-**Key Characteristics:**
-
-- Technical specification-wall composition with a narrow operational status rail.
-- Warm paper fields bounded by graphite structure and fine rules.
-- Safety orange reserved for decisions, indexing, focus, and active emphasis.
-- Oversized, condensed-feeling Archivo headlines paired with plain proportional copy.
-- Flat, square board frames that present concept artwork without ornamental treatment.
-- Responsive editorial reordering that keeps the recommendation first on narrow screens.
-
-## Colors
-
-The palette behaves like a marked-up production document: warm neutral stock carries most content, graphite supplies structure, and orange appears where attention or action is required.
-
-### Primary
-
-- **Safety Orange** (`#b8440c`): Marks the primary review action, active dividers, the footer disclaimer field, monogram detail, and visible keyboard focus.
-- Orange also carries direction states and unresolved operational text on light surfaces; one value serves fills and text (white or paper text on it passes AA).
-
-### Secondary
-
-- **Recommendation Navy** (`#081d34`): Identifies the featured Quartermaster sheet header and separates the recommendation from the otherwise neutral gallery frame. It supports the recommendation hierarchy without becoming the gallery's general background.
-- **Verified Green** (`#1f6752`): Appears only for the verified operational state in the status rail.
-
-### Neutral
-
-- **Graphite Ink** (`#11151a`): Primary text, navigation rail, and the dark comparison field.
-- **Warm Paper** (`#f3f0e9`): Main gallery canvas with a subtle horizontal working-paper grid.
-- **Bright Paper** (`#fbfaf7`): Clear content sheets and high-contrast light surfaces.
-- **Status Paper** (`#e8e4db`): Distinguishes the status rail through tonal layering.
-- **Muted Graphite** (`#5d636a`): Supporting copy, labels, and lower-emphasis information.
-- **Technical Rule** (`#c9c5bc`): One-pixel borders, dividers, and board boundaries.
-
-### Named Rules
-
-**The Neutral Frame Rule.** Gallery tokens frame the three concept boards; colors sampled from a board never migrate into the gallery interface unless the selected production identity is later approved and the gallery is deliberately redesigned.
-
-**The Orange Means Decision Rule.** Safety orange marks action, status, indexing, focus, or a deliberate structural break. It is never ambient decoration.
+Eight literal colours per scheme (light and dark), defined as custom properties on `:root` and redefined under `prefers-color-scheme: dark` and `[data-theme="dark"]`. Raised surface and border are mixes of ink into the page. Kelly (`--accent`) fills the review action and the closing disclaimer field with ink text; `--accent-ink` carries accent as text or a rule. Status colours are separate from the accent and always pair with a bar and a word. Colours sampled from a board never enter the gallery frame.
 
 ## Typography
 
-**Display Font:** Archivo Gallery (self-hosted variable Archivo, with Arial Narrow and sans-serif fallbacks)
-
-**Body Font:** Archivo Gallery (self-hosted variable Archivo, with Segoe UI and sans-serif fallbacks)
-
-**Character:** One proportional variable family spans compressed-feeling, work-order headlines and calm readable prose. Weight, scale, spacing, and case produce hierarchy; the gallery does not introduce a decorative display face or monospace layer.
-
-### Hierarchy
-
-- **Display** (weight `800`, `clamp(2.5rem, 1rem + 5vw, 5rem)`, line-height `0.95`): One fluid step used for the opening statement and every section and direction heading, in sentence case.
-- **Headline** (weight `800`, `clamp(3rem, 5.5vw, 5rem)`, line-height `0.9`): Major section and recommendation titles.
-- **Title** (heavy, responsive, line-height approximately `0.9–0.95`): Direction names and status-rail heading.
-- **Body** (weight `400`, base `1rem`, line-height `1.5`): Rationale, status explanations, and comparison content. Long introductory copy stays near `63ch`.
-- **Lead** (weight `600`, `1.5rem`): Lede, case line and status heading.
-- **Direction numbers** sit below the direction heading in muted body text; there are no eyebrow labels.
-
-### Named Rules
-
-**The One-Family Rule.** Use the self-hosted Archivo file for every gallery role; hierarchy comes from weight, width impression, and scale rather than font mixing.
-
-**The Display Is a Sign Rule.** Large headings are short, tightly led, and sentence case. Paragraphs remain sentence case and comfortably spaced.
+Display and titles: Archivo Narrow Gallery (self-hosted `assets/fonts/archivo-narrow-variable.woff2`, OFL-1.1), weight 700 for display and 600 for titles, tracking -0.02em on display only. Body: Archivo Gallery (self-hosted `assets/fonts/archivo-variable.woff2`), 400 and 600. Both declare `font-display: swap` with Arial Narrow and Arial fallbacks. Scale tokens: `--fs-small`, `--fs-body`, `--fs-lead`, `--fs-title`, `--fs-display`.
 
 ## Layout
 
-The page is a bounded editorial wall with a maximum width of `1540px` and a fluid page gutter (`clamp(1.1rem, 3vw, 3rem)`). Fine vertical rules hold the opening and decision sections together. Generous vertical intervals separate reading chapters, while content inside each sheet uses denser grids and dividers.
-
-At wide sizes, the recommendation is a two-column work order: a narrow status rail (`minmax(240px, 0.25fr)`) beside the flexible featured sheet. The recommendation notes split into two balanced columns. Alternative directions use unequal copy-and-board grids, and the second reverses that relationship to sustain an editorial sequence without reducing the concepts to three equal cards.
-
-At `900px` and below, multi-column regions stack, the status list becomes two columns, and the primary action expands to the full available width. At `600px` and below, navigation text is removed, the recommendation moves before the full status rail, and a compact status summary is repeated inside the recommendation header so decision context remains available. Alternatives return to source order, status rows become one column, and the footer stacks. The recommendation must remain the first concept encountered on narrow screens.
-
-**The Unequal Evidence Rule.** Recommendation, alternatives, and operational status receive space according to decision importance. Do not flatten them into equal cards or a symmetric three-up gallery.
-
-## Elevation & Depth
-
-The gallery is flat by design. Elevation is declared once per surface: a hairline on mounted boards, a wide soft tinted shadow on the primary action when hovered. Depth comes from adjacent paper tones, graphite or navy fields, one-pixel rules, and the orange structural edge beneath dark rails. Board artwork sits flush within clipped rectangular frames; it should feel mounted for inspection, not floated as a product card.
-
-**The Flat Board Rule.** Boards carry a low-opacity hairline (`--elev-rest`) and nothing else; never add drop shadows, glass effects, or floating panels to them. The only soft shadow (`--elev-raised`, wide, navy-tinted) belongs to the primary action on hover. Separation otherwise comes from tonal contrast and spacing.
-
-## Shapes
-
-The form language is square and mechanical (`0` corner radius). Frames, status marks, the monogram, recommendation badge, primary action, table, and section boundaries all use straight edges. Thin one-pixel rules organize information, while the featured recommendation gains a six-pixel orange lower rule. Status markers use short horizontal bars rather than dots so state is visible through both shape and color.
-
-**The Squared Hardware Rule.** Keep every gallery control and container rectilinear. Rounded pills or soft cards would weaken the specification-wall character.
+A bounded wall, `--max` 1540px, with a fluid gutter (`--pad`). The recommendation is a two-column work order: a status rail beside the featured Quartermaster sheet. Below it, the swatch cards sit in an auto-fit grid of three. Alternatives use unequal copy-and-board pairs, not equal cards. At 900px and below regions stack; at 600px and below navigation text is removed, the recommendation moves first and a compact status sentence repeats in its header.
 
 ## Components
 
-### Primary Review Action
+- **Swatch card.** One per direction: name in Archivo Narrow, direction number below in muted text, palette chips, and a link to the board. Radius 12px (`--radius-card`), plain card surface, `--elev-1` once, on hover. The recommended card carries a 2px `--accent-ink` outline.
+- **Palette chips.** Radius 6px, raised surface. They carry the palette names printed on each board (Charcoal and Signal red; Deep navy; Civic blue and Clay). The record holds no colour codes, fabric or care lines for any direction, so none are shown; colour codes and a fabric and care line are proposed for later, once the client supplies verified garment and palette specs.
+- **Primary action.** Kelly fill, ink text, 6px radius; hover lifts 4px and shows `--elev-1`.
+- **Board frames.** 12px radius, flush mounts for the concept art; no overlay, caption badge or palette reinterpretation.
+- **Status rail.** Raised surface, divided definition rows; each state pairs a horizontal bar, a colour and a word (Verified, Remain, Pending, Separate).
+- **Comparison table.** The page's single deliberate dark band; `--inverse` ground with a keyboard-focusable horizontal scroller below 780px.
 
-The action is a safety-orange rectangular work-order stamp with a label and oversized direction number.
+## Motion and accessibility
 
-- **Shape:** Square (`0` radius), fixed at `210px` wide and at least `118px` high on wide screens.
-- **Layout:** Label and direction number sit on opposite vertical ends; at medium and narrow widths the action becomes full-width and horizontal with a `90px` minimum height.
-- **Hover:** Lift by `5px` and deepen the orange over `360ms` with `cubic-bezier(.22,.8,.24,1)` to signal direct interaction.
-- **Focus:** Use the shared three-pixel safety-orange outline with a four-pixel offset.
+Tokens `--ease-out`, `--dur-fast` 120ms, `--dur-base` 200ms. Motion marks feedback only: link and action hover, swatch-card shadow, native smooth anchor scrolling. Reduced motion zeroes the durations without `!important`. Skip link, landmarks, descriptive board alt text, visible 3px focus rings, a labelled scrollable table region.
 
-### Navigation Rail
+## Do's and don'ts
 
-The top rail is graphite with white identity text, muted navigation links, and a four-pixel safety-orange lower rule. The bordered MT monogram is an interface identifier for this gallery and must not be mistaken for an approved production logo.
+- Do keep Quartermaster primary and present the other two as credible alternatives, not equal cards.
+- Do keep the recommendation-first mobile order and the compact mobile status line.
+- Don't present the monogram as an approved logo; it is a gallery identifier.
+- Don't import a board's palette, type or marks into the frame.
+- Don't add uppercase text, eyebrow labels, extra dark bands, or a second elevation on a surface.
 
-- **Default:** Compact proportional text with generous horizontal spacing.
-- **Hover / Current:** Shift links to white and underline them in safety orange; the current state is synchronized to section visibility.
-- **Mobile:** Hide navigation labels and the wordmark text below `600px`, retaining the compact monogram and rail.
+## Compliance record
 
-### Status Rail
-
-The status rail is the operational context layer: a warm-gray paper panel with a large compact heading, divided definition-list rows, and a short explanatory note.
-
-- **Structure:** Place labels above states at wide sizes, separated by one-pixel rules.
-- **State:** Pair every color with a horizontal bar and explicit word such as “Verified,” “Remain,” “Pending,” or “Separate.”
-- **Responsive behavior:** The rail sits left of the recommendation on wide screens, below it on narrow screens, and yields a concise duplicate status sentence inside the featured header below `600px`.
-
-### Board Frames
-
-Board frames are flat, square image mounts that preserve the concept work as the dominant evidence.
-
-- **Featured board:** Fill the available sheet width and crop to a `3 / 2` ratio where required.
-- **Alternative boards:** Preserve the full responsive image and use a one-pixel technical-rule border.
-- **Treatment:** No overlay, caption badge, rounded clipping, shadow, or palette reinterpretation may obscure or visually merge with the board.
-
-### Comparison Table
-
-The comparison is a dense, graphite field that turns qualitative differences into a sober decision aid. Header labels are subdued, direction names use orange, and horizontal rules carry scanning across rows. On narrow screens the table retains its `780px` minimum width inside a keyboard-focusable horizontal scroller.
-
-### Motion and Accessibility Behavior
-
-Motion communicates navigation and direct feedback only. Native smooth scrolling supports anchor navigation, the primary action lifts on hover, and the current navigation state follows the most visible observed section. When reduced motion is requested, scrolling becomes immediate and transitions or animations collapse to `0.01ms` with a single iteration.
-
-Keyboard users receive a skip link that appears on focus, visible three-pixel orange focus outlines with four-pixel offsets, semantic landmarks, scoped headings, native links, descriptive board alt text, and a labeled focusable region for the horizontally scrollable comparison table. Operational states always combine color, a bar shape, and text.
-
-## Do's and Don'ts
-
-### Do:
-
-- **Do** preserve the graphite, warm-paper, and safety-orange gallery frame when adding review content.
-- **Do** keep Quartermaster visually primary while describing Service Standard and One Mission as credible alternatives.
-- **Do** use full-scale board imagery, unequal editorial layouts, and technical dividers to make comparison feel consequential.
-- **Do** maintain wide, medium, and narrow ordering behavior, including recommendation-first mobile flow and the compact mobile status summary.
-- **Do** retain semantic structure, visible focus, non-color status cues, descriptive alt text, and reduced-motion behavior.
-
-### Don't:
-
-- **Don't** present the gallery interface as an approved MT Uniforms identity or treat its MT monogram as a production-ready logo.
-- **Don't** import a concept board's palette, type, mark, photography, or visual motifs into the neutral gallery frame.
-- **Don't** turn the three directions into equal cards; recommendation hierarchy is part of the decision experience.
-- **Don't** add rounded corners, shadows, glass effects, gradients, or decorative motion to the flat specification-wall system.
-- **Don't** let orange become general decoration; reserve it for action, state, indexing, focus, and deliberate structural emphasis.
-
-## Compliance record (design pass)
-
-Tokens are custom properties on `:root`; the dark block redefines the same names.
-
-- **Colours:** the root system's eleven named tokens, light and dark: `--surface-page`, `--surface-card`, `--surface-raised`, `--border`, `--ink`, `--ink-muted`, `--accent` (kelly fill with `--on-accent` ink text), `--accent-ink`, `--status-error`, `--status-success`, `--status-info`. The dark comparison band and header use `--inverse`.
-- **Spacing scale:** 4 to 64 (`--space-1` to `--space-8`); chapter breaks use `--space-section`, a multiple of the top step.
-- **Type scale:** `--fs-small`, `--fs-body`, `--fs-lead`, `--fs-title`, `--fs-display`; headings Archivo Narrow (self-hosted `assets/fonts/archivo-narrow-variable.woff2`, OFL-1.1) 700, body Archivo; sentence case, tracking -0.02em on display only.
-- **Radii and elevation:** `--radius-control` 6px, `--radius-card` 12px; `--elev-1` on the primary action when hovered.
-- **Motion:** `--ease-out` `cubic-bezier(0.22, 1, 0.36, 1)`, `--dur-fast` 120ms, `--dur-base` 200ms, `--dur-slow` 320ms; reduced motion zeroes the durations, with no `!important`.
-- **Container query:** the fact lists (`dl`) are reused in the wide recommendation column and the narrow alternate column and answer to their own container (`@container facts`).
+- **Colours:** the root system's tokens, light and dark; the dark comparison band and header use `--inverse`.
+- **Spacing scale:** 4 to 64 (`--space-1` to `--space-8`); chapter breaks use `--space-section`.
+- **Radii and elevation:** `--radius-control` 6px, `--radius-card` 12px; `--elev-1` on the primary action and swatch cards on hover.
+- **Container query:** the fact lists answer to their own container (`@container facts`).
 - **Formats:** no prices, dates or measured units appear; direction numbers are `Direction 01` to `Direction 03`.
-- **The one deliberate inversion:** the dark comparison band ("What each route prioritizes") between two light chapters is the page's single composition device. The ink header and the recommendation sheet header are chrome and a card header, not section inversions.
-- **Removed:** all-caps transforms, the eyebrow labels above headings, the `!important` rules, the working-paper line texture on `body`, and the decorative side borders on the opening and decision sections.
-- **Identity:** favicon `assets/favicon.svg`, Open Graph image `assets/og-image.png` (relative path; no deployed origin is recorded), `theme-color` `#0b1d34` (a literal hex, as the attribute cannot take a custom property).
+- **The one deliberate inversion:** the comparison band "What each route prioritizes". The ink header and the recommendation sheet header are chrome and a card header.
+- **Identity:** favicon `assets/favicon.svg`, Open Graph image `assets/og-image.png` (relative path; no deployed origin recorded), `theme-color` `#0b1d34` (a literal hex because the attribute cannot take a custom property).
