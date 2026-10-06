@@ -113,21 +113,22 @@ Ruled for the storefront and the brand gallery on 2026-10-06 under design-audit-
 
 ### Colour tokens
 
-One accent, one gray family (cool navy-gray, derived from the shipped ink). Surface levels are named; status tokens are separate from the accent.
+One accent, one gray family (cool navy-gray, derived from the shipped ink). Surface levels are named; status tokens are separate from the accent. Eight literal colours per scheme; raised and border are mixes of ink into the page so they cannot drift.
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
 | `--surface-page` | `#f3f2ee` paper | `#111820` | page ground |
 | `--surface-card` | `#fbfaf7` | `#18212b` | garment plates, configurator |
-| `--surface-raised` | `#e9e8e2` | `#223040` | rails, chart rows, hover fills |
-| `--border` | `#c8c8c2` | `#344354` | input edges, table rules only |
+| `--surface-raised` | `color-mix(--ink 6%, --surface-page)` | same mix | rails, chart rows, hover fills |
+| `--border` | `color-mix(--ink 20%, --surface-page)` | same mix | input edges, table rules only |
 | `--ink` | `#0b1d34` | `#eeede8` | text, filled header |
 | `--ink-muted` | `#4f5a63` | `#a9b3bc` | secondary text |
 | `--accent` | `#46bc24` kelly | `#46bc24` | add-to-request fill, selection fill (ink text on it, 6.84:1) |
 | `--accent-ink` | `#1f6b12` | `#6fd64c` | accent as text or 2px rule on paper (5.91:1) |
 | `--status-error` | `#a52819` | `#ff8a78` | error text and icon |
 | `--status-success` | `#175b31` | `#7fd39b` | confirmations |
-| `--status-info` | `#0b1d34` | `#bcd0e4` | snapshot notices |
+| `--status-info` | `var(--ink)` | `var(--ink)` | snapshot notices; words and an icon carry the meaning |
+| `--on-accent` | `#0b1d34` | `#0b1d34` | text on kelly fills; not redefined in dark, so it holds 6.84:1 |
 
 Dark mode is the same tokens redefined under `prefers-color-scheme: dark`; `body` carries `background: var(--surface-page)`.
 
