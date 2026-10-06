@@ -49,8 +49,11 @@ assert(
   "required choices must block an incomplete request on submit and identify the missing field",
 );
 assert(
-  app.includes("useDialogFocus") && app.includes('event.key === "Escape"'),
-  "drawer and dialog keyboard behavior is missing",
+  app.includes('from "@base-ui/react/dialog"') &&
+    app.includes("<Dialog.Popup") &&
+    app.includes("<Dialog.Close") &&
+    app.includes("finalFocus"),
+  "drawer and dialog must use the Base UI Dialog (focus in, Tab wrap, Escape, focus return); keyboard behavior is proved by the Playwright suite",
 );
 assert(
   app.includes("matchMedia") && app.includes("(prefers-reduced-motion: reduce)"),

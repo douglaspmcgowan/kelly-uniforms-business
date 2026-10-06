@@ -142,4 +142,92 @@ test.describe('order ticket storefront', () => {
     await expect(page.locator('meta[name="theme-color"]')).toHaveCount(1)
     expect((await request.get('/og-image.png')).ok()).toBe(true)
   })
+
+  test('size choices are a single-selection toggle group driven by the arrow keys', async ({ page }) => {
+    await page.goto('/')
+    await page.getByRole('button', { name: /^Configure USPS Letter Carrier/ }).click()
+    const group = page.getByRole('group', { name: 'Size' })
+    const chips = group.getByRole('button')
+    await expect(chips).toHaveCount(6)
+    await chips.first().focus()
+    await page.keyboard.press('ArrowRight')
+    await expect(chips.nth(1)).toBeFocused()
+    await page.keyboard.press('Space')
+    await expect(chips.nth(1)).toHaveAttribute('aria-pressed', 'true')
+    await expect(chips.nth(1).locator('svg')).toHaveCount(1)
+    await chips.nth(3).click()
+    await expect(chips.nth(3)).toHaveAttribute('aria-pressed', 'true')
+    await expect(chips.nth(1)).toHaveAttribute('aria-pressed', 'false')
+  })
+
+  test('the request drawer holds focus, closes on Escape and returns focus to its trigger', async ({ page }) => {
+    await page.goto('/')
+    const trigger = page.getByRole('button', { name: /^Request list/ })
+    await trigger.click()
+    const drawer = page.getByRole('dialog', { name: /Request list/ })
+    await expect(drawer).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Close request list' })).toBeFocused()
+    for (let i = 0; i < 6; i += 1) await page.keyboard.press('Tab')
+    expect(await drawer.evaluate((el) => el.contains(document.activeElement))).toBe(true)
+    await page.keyboard.press('Escape')
+    await expect(page.locator('.drawer')).toHaveCount(0)
+    await expect(trigger).toBeFocused()
+  })
+
+  test('the empty order sheet says what belongs there and sends the shopper to the catalogue', async ({ page }) => {
+    await page.goto('/')
+    await page.getByRole('button', { name: /^Request list/ }).click()
+    const drawer = page.locator('.drawer')
+    await expect(drawer).toContainText('Configure a garment and add it to build the order sheet')
+    await drawer.getByRole('button', { name: 'Browse the catalogue' }).click()
+    await expect(page.locator('.drawer')).toHaveCount(0)
+    await expect(page.locator('.product-card__hit').first()).toBeFocused()
+  })
+
+  test('a filled request reads as an order sheet with garment, size, quantity and notes columns', async ({ page }) => {
+    await page.goto('/')
+    await page.getByRole('button', { name: /^Configure USPS Letter Carrier/ }).click()
+    const configurator = page.locator('.configurator')
+    await configurator.getByRole('group', { name: 'Size' }).getByRole('button').first().click()
+    await configurator.getByRole('group', { name: 'Sleeve' }).getByRole('button').first().click()
+    await configurator.getByLabel(/Personalization or order notes/).fill('Dispatch')
+    await configurator.getByRole('button', { name: /^Add to request/ }).click()
+    const sheet = page.locator('.drawer .order-sheet')
+    await expect(sheet.getByRole('heading', { name: 'Order sheet' })).toBeVisible()
+    for (const name of ['Garment', 'Size and options', 'Qty', 'Notes']) {
+      await expect(sheet.getByRole('columnheader', { name })).toBeVisible()
+    }
+    await expect(sheet).toContainText('Dispatch')
+    await expect(sheet).toContainText('$42.99')
+    await expect(page.getByText('Request preview. No payment is processed.').first()).toBeVisible()
+  })
+
+  test('the size chart sits beside the garment image on wide screens and below it on phones', async ({ page }) => {
+    for (const [width, beside] of [[1440, true], [375, false]] as const) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+      const chart = page.locator('.size-chart')
+      await expect(chart).toBeVisible()
+      await expect(chart.getByRole('columnheader', { name: 'Size' })).toBeVisible()
+      await expect(chart).toContainText('Measurements on file with the shop; call (814) 536-2390')
+      const [c, img] = await Promise.all([chart.boundingBox(), page.locator('.configurator__image').boundingBox()])
+      if (beside) expect(c!.x).toBeGreaterThanOrEqual(img!.x + img!.width - 1)
+      else expect(c!.y).toBeGreaterThanOrEqual(img!.y + img!.height - 1)
+    }
+  })
+
+  test('an empty search names the query and offers Clear search', async ({ page }) => {
+    await page.goto('/')
+    await page.getByLabel('Search products').fill('zzzznotathing')
+    await expect(page.getByRole('heading', { name: /zzzznotathing/ })).toBeVisible()
+    await page.getByRole('button', { name: 'Clear search' }).click()
+    await expect(page.getByLabel('Search products')).toHaveValue('')
+    await expect(page.locator('.product-card__hit').first()).toBeVisible()
+  })
+
+  test('the interface uses Phosphor icons only: no glyph arrows in the rendered text', async ({ page }) => {
+    await page.goto('/')
+    const text = await page.locator('body').innerText()
+    expect(text).not.toMatch(/[→←↑↓▸►▶✓✔×]/)
+  })
 })

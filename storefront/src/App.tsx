@@ -1,5 +1,7 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { RefObject } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { Dialog } from "@base-ui/react/dialog";
+import { Toggle } from "@base-ui/react/toggle";
+import { ToggleGroup } from "@base-ui/react/toggle-group";
 import {
   ArrowRight,
   Buildings,
@@ -50,52 +52,49 @@ function money(value: number) {
   }).format(value);
 }
 
-function useDialogFocus(
-  open: boolean,
-  onClose: () => void,
-  container: RefObject<HTMLElement | null>,
-) {
-  const restoreFocus = useRef<HTMLElement | null>(null);
-  useEffect(() => {
-    if (!open || !container.current) return;
-    restoreFocus.current =
-      document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
-    const root = container.current;
-    const focusable = () =>
-      Array.from(
-        root.querySelectorAll<HTMLElement>(
-          'a[href],button:not([disabled]),textarea,input,select,[tabindex]:not([tabindex="-1"])',
-        ),
-      );
-    const timer = window.setTimeout(() => focusable()[0]?.focus(), 0);
-    const handleKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        onClose();
-        return;
-      }
-      if (event.key !== "Tab") return;
-      const controls = focusable();
-      if (!controls.length) return;
-      const first = controls[0];
-      const last = controls[controls.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-    document.addEventListener("keydown", handleKey);
-    return () => {
-      window.clearTimeout(timer);
-      document.removeEventListener("keydown", handleKey);
-      restoreFocus.current?.focus();
-    };
-  }, [container, onClose, open]);
+const FIT_OPTION_IDS = ["size", "waist", "inseam"];
+
+function SizeChart({ product }: { product: Product }) {
+  const fit = product.options.filter((option) =>
+    FIT_OPTION_IDS.includes(option.id),
+  );
+  const rows = Math.max(0, ...fit.map((option) => option.values.length));
+  return (
+    <section className="size-chart" aria-labelledby="size-chart-title">
+      <h3 id="size-chart-title">Size chart</h3>
+      {fit.length ? (
+        <table>
+          <caption className="sr-only">
+            Sizes listed in the public snapshot for {product.name}
+          </caption>
+          <thead>
+            <tr>
+              {fit.map((option) => (
+                <th scope="col" key={option.id}>
+                  {option.label}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {Array.from({ length: rows }, (_, index) => (
+              <tr key={index}>
+                {fit.map((option) => (
+                  <td key={option.id}>{option.values[index] ?? ""}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>This item lists no sizes in the public snapshot.</p>
+      )}
+      <p className="size-chart__note">
+        Measurements on file with the shop; call{" "}
+        <a href="tel:+18145362390">{PHONE}</a>
+      </p>
+    </section>
+  );
 }
 
 function ProductCard({
@@ -117,13 +116,13 @@ function ProductCard({
         <span className="product-card__media">
           <img src={product.image} alt={product.name} />
         </span>
-        <strong>{product.name}</strong>
-        <span className="product-card__meta">
-          <span>{product.category}</span>
-          <span>{product.model}</span>
-        </span>
-        <span className="product-card__foot">
-          <span>{money(product.price)}</span>
+        <span className="product-card__body">
+          <strong className="product-card__title">{product.name}</strong>
+          <span className="product-card__category">{product.category}</span>
+          <span className="product-card__row">
+            <span>{product.model}</span>
+            <span className="product-card__price">{money(product.price)}</span>
+          </span>
           <span className="text-action">
             Configure <ArrowRight aria-hidden />
           </span>
@@ -134,19 +133,56 @@ function ProductCard({
 }
 
 function RequestDrawer({
+  open,
   items,
   onClose,
   onRemove,
   onClear,
+  onBrowse,
+  finalFocus,
 }: {
+  open: boolean;
   items: RequestItem[];
   onClose: () => void;
   onRemove: (key: string) => void;
   onClear: () => void;
+  onBrowse: () => void;
+  finalFocus: () => boolean | HTMLElement | null | void;
+}) {
+  return (
+    <Dialog.Root
+      open={open}
+      onOpenChange={(next) => {
+        if (!next) onClose();
+      }}
+    >
+      <Dialog.Portal>
+        <Dialog.Backdrop className="scrim" />
+        <Dialog.Popup className="drawer" finalFocus={finalFocus}>
+          <DrawerBody
+            items={items}
+            onRemove={onRemove}
+            onClear={onClear}
+            onBrowse={onBrowse}
+          />
+        </Dialog.Popup>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}
+
+function DrawerBody({
+  items,
+  onRemove,
+  onClear,
+  onBrowse,
+}: {
+  items: RequestItem[];
+  onRemove: (key: string) => void;
+  onClear: () => void;
+  onBrowse: () => void;
 }) {
   const [sent, setSent] = useState(false);
-  const drawerRef = useRef<HTMLElement>(null);
-  useDialogFocus(true, onClose, drawerRef);
   const draft = useMemo(() => {
     const lines = items.flatMap((item, index) => [
       `${index + 1}. ${item.product.name} (${item.product.model})`,
@@ -159,26 +195,16 @@ function RequestDrawer({
   }, [items]);
   const href = `mailto:${EMAIL}?subject=${encodeURIComponent("M.T. Uniforms order request")}&body=${encodeURIComponent(draft)}`;
   return (
-    <aside
-      className="drawer is-open"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="request-title"
-      ref={drawerRef}
-    >
+    <>
       <div className="drawer__head">
         <div>
-          <h2 id="request-title">
+          <Dialog.Title id="request-title">
             Request list <b>{items.length}</b>
-          </h2>
+          </Dialog.Title>
         </div>
-        <button
-          className="icon-button"
-          onClick={onClose}
-          aria-label="Close request list"
-        >
+        <Dialog.Close className="icon-button" aria-label="Close request list">
           <X />
-        </button>
+        </Dialog.Close>
       </div>
       <p className="boundary">
         <ClipboardText /> Request preview. No payment is processed.
@@ -188,45 +214,82 @@ function RequestDrawer({
         <div className="empty-state">
           <ShoppingBagOpen />
           <h3>Your request is empty</h3>
-          <p>
-            Configure a product to keep its fit and option details together.
-          </p>
+          <p>Configure a garment and add it to build the order sheet.</p>
+          <button className="button secondary" onClick={onBrowse}>
+            Browse the catalogue
+          </button>
         </div>
       ) : (
         <>
-          <div className="request-items">
-            {items.map((item) => (
-              <article className="request-item" key={item.key}>
-                <img src={item.product.image} alt="" />
-                <div>
-                  <strong>{item.product.name}</strong>
-                  <span>
-                    {item.product.model}, Qty {item.quantity}
-                  </span>
-                  <small>{Object.values(item.selections).join(", ")}</small>
-                  {item.note && (
-                    <small className="request-note">
-                      <b>Notes:</b> {item.note}
-                    </small>
-                  )}
-                </div>
-                <button
-                  className="icon-button small"
-                  onClick={() => onRemove(item.key)}
-                  aria-label={`Remove ${item.product.name}`}
-                >
-                  <Trash />
-                </button>
-              </article>
-            ))}
-          </div>
+          <section className="order-sheet" aria-labelledby="order-sheet-title">
+            <h3 id="order-sheet-title">Order sheet</h3>
+            <p className="order-sheet__note">
+              One row per garment. Put the department name in the notes so the
+              shop can group the order.
+            </p>
+            <div className="order-sheet__scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Garment</th>
+                    <th scope="col">Size and options</th>
+                    <th scope="col" className="num">
+                      Qty
+                    </th>
+                    <th scope="col">Notes</th>
+                    <th scope="col">
+                      <span className="sr-only">Remove</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {items.map((item) => (
+                    <tr key={item.key}>
+                      <td data-label="Garment">
+                        <span className="order-garment">
+                          <img src={item.product.image} alt="" />
+                          <span>
+                            <strong>{item.product.name}</strong>
+                            <small>
+                              {item.product.model},{" "}
+                              <span className="num">
+                                {money(item.product.price)}
+                              </span>
+                            </small>
+                          </span>
+                        </span>
+                      </td>
+                      <td data-label="Size and options">
+                        {Object.values(item.selections).join(", ")}
+                      </td>
+                      <td data-label="Qty" className="num">
+                        {item.quantity}
+                      </td>
+                      <td data-label="Notes" className="request-note">
+                        {item.note || "No notes"}
+                      </td>
+                      <td className="order-remove">
+                        <button
+                          className="icon-button small"
+                          onClick={() => onRemove(item.key)}
+                          aria-label={`Remove ${item.product.name}`}
+                        >
+                          <Trash />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
           <div className="drawer__actions">
             <a
-              className="button primary full"
+              className="button secondary full"
               href={href}
               onClick={() => setSent(true)}
             >
-              <EnvelopeSimple /> Draft email request <ArrowRight />
+              <EnvelopeSimple /> Draft email request
             </a>
             <a className="button secondary full" href="tel:+18145362390">
               <Phone /> Call {PHONE}
@@ -243,7 +306,7 @@ function RequestDrawer({
           </div>
         </>
       )}
-    </aside>
+    </>
   );
 }
 
@@ -262,10 +325,28 @@ export function App() {
   const [sizeGuide, setSizeGuide] = useState(false);
   const [attempted, setAttempted] = useState(false);
   const optionsRef = useRef<HTMLDivElement>(null);
-  const sizeDialogRef = useRef<HTMLElement>(null);
+  const browseRef = useRef(false);
   const closeDrawer = useCallback(() => setDrawer(false), []);
-  const closeSizeGuide = useCallback(() => setSizeGuide(false), []);
-  useDialogFocus(sizeGuide, closeSizeGuide, sizeDialogRef);
+  const browseCatalogue = useCallback(() => {
+    browseRef.current = true;
+    setDrawer(false);
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    document
+      .getElementById("catalog")
+      ?.scrollIntoView({
+        behavior: reducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
+  }, []);
+  // After the drawer closes, focus returns to the control that opened it,
+  // unless the shopper asked to browse: then it lands on the first plate.
+  const drawerFinalFocus = useCallback(() => {
+    if (!browseRef.current) return true;
+    browseRef.current = false;
+    return document.querySelector<HTMLElement>(".product-card__hit") ?? true;
+  }, []);
 
   const filtered = useMemo(
     () =>
@@ -353,15 +434,6 @@ export function App() {
             M.T. Uniforms<small>Professional outfitters</small>
           </span>
         </a>
-        <label className="header-search">
-          <MagnifyingGlass />
-          <span className="sr-only">Search products</span>
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search product, category, or model"
-          />
-        </label>
         <nav
           className={mobileNav ? "is-open" : ""}
           aria-label="Main navigation"
@@ -445,6 +517,18 @@ export function App() {
           </aside>
 
           <div className="catalog-pane">
+            <div className="catalog-search">
+              <label htmlFor="catalog-search-input">Search products</label>
+              <div className="catalog-search__field">
+                <MagnifyingGlass aria-hidden />
+                <input
+                  id="catalog-search-input"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Product, category, or model"
+                />
+              </div>
+            </div>
             <div className="category-tabs" aria-label="Filter by category">
               {CATEGORIES.map((item) => (
                 <button
@@ -480,12 +564,24 @@ export function App() {
             ) : (
               <div className="empty-state catalog-empty">
                 <MagnifyingGlass />
-                <h3>No products match those filters</h3>
+                <h3>
+                  {query
+                    ? `No products match \u201c${query}\u201d`
+                    : "No products match those filters"}
+                </h3>
                 <p>
                   Try a broader search, clear the filters, or ask the team
                   directly.
                 </p>
                 <div className="no-results-actions">
+                  {query && (
+                    <button
+                      className="button secondary"
+                      onClick={() => setQuery("")}
+                    >
+                      Clear search
+                    </button>
+                  )}
                   <button className="button secondary" onClick={resetFilters}>
                     Clear filters
                   </button>
@@ -506,8 +602,13 @@ export function App() {
             aria-label="Configure selected product"
           >
             <div className="configurator__top">
-              <img src={selected.image} alt={selected.name} />
-              <span className="source-stamp">Public snapshot</span>
+              <div className="configurator__figure">
+                <div className="configurator__image">
+                  <img src={selected.image} alt={selected.name} />
+                  <span className="source-stamp">Public snapshot</span>
+                </div>
+                <SizeChart product={selected} />
+              </div>
             </div>
             <div className="configurator__body">
               <h2>{selected.name}</h2>
@@ -547,27 +648,32 @@ export function App() {
                     <legend>
                       {option.label} {option.required && <span>Required</span>}
                     </legend>
-                    <div className="choice-grid">
+                    <ToggleGroup
+                      className="choice-grid"
+                      aria-label={option.label}
+                      value={
+                        selections[option.id] ? [selections[option.id]] : []
+                      }
+                      onValueChange={(next) => {
+                        // Single selection that stays chosen: pressing the
+                        // chosen value again leaves it selected.
+                        const chosen = next[0];
+                        if (chosen)
+                          setSelections((current) => ({
+                            ...current,
+                            [option.id]: chosen,
+                          }));
+                      }}
+                    >
                       {option.values.map((value) => (
-                        <button
-                          type="button"
-                          key={value}
-                          className={
-                            selections[option.id] === value ? "is-selected" : ""
-                          }
-                          aria-pressed={selections[option.id] === value}
-                          onClick={() =>
-                            setSelections((current) => ({
-                              ...current,
-                              [option.id]: value,
-                            }))
-                          }
-                        >
-                          {selections[option.id] === value && <Check />}
+                        <Toggle key={value} value={value} className="choice">
+                          {selections[option.id] === value && (
+                            <Check weight="bold" aria-hidden />
+                          )}
                           {value}
-                        </button>
+                        </Toggle>
                       ))}
-                    </div>
+                    </ToggleGroup>
                     {attempted && option.required && !selections[option.id] && (
                       <small
                         className="field-help"
@@ -668,48 +774,33 @@ export function App() {
         <span>M.T. Uniforms, 525 Franklin St, Johnstown, PA 15901</span>
         <span>Prototype built from recovered public evidence</span>
       </footer>
-      {drawer && (
-        <>
-          <RequestDrawer
-            items={items}
-            onClose={closeDrawer}
-            onRemove={(key) =>
-              setItems((current) => current.filter((item) => item.key !== key))
-            }
-            onClear={() => setItems([])}
-          />
-          <button
-            className="scrim"
-            onClick={closeDrawer}
-            aria-label="Close request list overlay"
-          />
-        </>
-      )}
-      {sizeGuide && (
-        <div className="modal-wrap" role="presentation">
-          <button
-            className="scrim"
-            onClick={closeSizeGuide}
-            aria-label="Close size guide"
-          />
-          <section
-            className="modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="size-title"
-            ref={sizeDialogRef}
-          >
+      <RequestDrawer
+        open={drawer}
+        items={items}
+        onClose={closeDrawer}
+        onRemove={(key) =>
+          setItems((current) => current.filter((item) => item.key !== key))
+        }
+        onClear={() => setItems([])}
+        onBrowse={browseCatalogue}
+        finalFocus={drawerFinalFocus}
+      />
+      <Dialog.Root open={sizeGuide} onOpenChange={setSizeGuide}>
+        <Dialog.Portal>
+          <Dialog.Backdrop className="scrim" />
+          <Dialog.Popup className="modal">
             <div className="drawer__head">
               <div>
-                <h2 id="size-title">Confirm before you order</h2>
+                <Dialog.Title id="size-title">
+                  Confirm before you order
+                </Dialog.Title>
               </div>
-              <button
+              <Dialog.Close
                 className="icon-button"
-                onClick={closeSizeGuide}
                 aria-label="Close size guide"
               >
                 <X />
-              </button>
+              </Dialog.Close>
             </div>
             <p>{selected.fit}</p>
             <ol>
@@ -724,9 +815,9 @@ export function App() {
             <a className="button primary full" href="tel:+18145362390">
               <Phone /> Call for fit help
             </a>
-          </section>
-        </div>
-      )}
+          </Dialog.Popup>
+        </Dialog.Portal>
+      </Dialog.Root>
     </div>
   );
 }
