@@ -111,11 +111,11 @@ test('holds the design-compliance floor in its stylesheet and markup', async () 
   assert.doesNotMatch(css, /!important/, 'no !important');
   assert.doesNotMatch(css, /transition[^;]*\b(linear|ease-in-out)\b/, 'transitions use the named easing token');
   assert.doesNotMatch(css, /box-shadow:\s*[^;]*\b\d+px \d+px 0\b/, 'no hard offset shadow');
-  assert.match(css, /--ease:\s*cubic-bezier/, 'named easing token');
+  assert.match(css, /--ease-out:\s*cubic-bezier/, 'named easing token');
   assert.match(css, /:focus-visible/, 'focus-visible is styled');
   assert.match(css, /@container/, 'the reused fact list answers to its container');
   assert.match(css, /prefers-reduced-motion/, 'reduced motion is respected');
-  assert.ok(hex.size <= 18, `colour literals stay within two nine-colour sets, found ${hex.size}`);
+  assert.ok(hex.size <= 20, `colour literals stay within the two Varsity Catalogue sets, found ${hex.size}`);
 
   const spacing = [...css.matchAll(/(?:margin|padding|gap)[a-z-]*:\s*([^;}]+)/g)].map((match) => match[1]);
   for (const value of spacing) {
@@ -132,4 +132,25 @@ test('holds the design-compliance floor in its stylesheet and markup', async () 
   for (const asset of ['assets/og-image.png', 'assets/favicon.svg']) {
     assert.equal((await fetch(`${baseUrl}/${asset}`)).status, 200, `${asset} must resolve`);
   }
+});
+
+test('presents each direction as a swatch card with its named palette and no invented codes', async () => {
+  const html = await (await fetch(`${baseUrl}/`)).text();
+  const css = await (await fetch(`${baseUrl}/styles.css`)).text();
+  const cards = [...html.matchAll(/<li class="swatch-card[^"]*">([\s\S]*?)<\/li>\s*(?=<li class="swatch-card|<\/ul>)/g)].map((m) => m[0]);
+  assert.equal(cards.length, 3, 'one swatch card per direction');
+  const palettes: Record<string, string[]> = {
+    'Service Standard': ['Charcoal', 'Signal red'],
+    Quartermaster: ['Deep navy'],
+    'One Mission': ['Civic blue', 'Clay'],
+  };
+  for (const [name, chips] of Object.entries(palettes)) {
+    const card = cards.find((c) => c.includes(`<h3>${name}</h3>`));
+    assert.ok(card, `${name} has a swatch card`);
+    for (const chip of chips) assert.match(card, new RegExp(`<li>${chip}</li>`), `${name} shows ${chip}`);
+  }
+  assert.doesNotMatch(html.replace(/<meta[^>]*>/g, ''), /#[0-9a-f]{6}\b/i, 'no hex code appears in the body');
+  assert.match(css, /\.swatch-card \{[^}]*border-radius: var\(--radius-card\)/, 'swatch cards use the card radius token');
+  assert.match(css, /--radius-card:\s*12px/, 'card radius is 12px');
+  assert.doesNotMatch(css, /\.swatch-card[^{]*\{[^}]*(text-transform|border-radius:\s*\d)/, 'no uppercase or literal radius on swatch cards');
 });
