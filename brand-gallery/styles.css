@@ -19,15 +19,15 @@
 :root {
   --surface-page: #f3f2ee;
   --surface-card: #fbfaf7;
-  --surface-raised: #e9e8e2;
-  --border: #c8c8c2;
+  --surface-raised: color-mix(in srgb, var(--ink) 6%, var(--surface-page));
+  --border: color-mix(in srgb, var(--ink) 20%, var(--surface-page));
   --ink: #0b1d34;
   --ink-muted: #4f5a63;
   --accent: #46bc24;
   --accent-ink: #1f6b12;
   --status-error: #a52819;
   --status-success: #175b31;
-  --status-info: #0b1d34;
+  --status-info: var(--ink);
 
   /* Text on the kelly fill stays dark in both schemes (6.84:1). */
   --on-accent: #0b1d34;
@@ -376,15 +376,12 @@ tbody th { font-size: var(--fs-title); font-weight: var(--fw-medium); }
   :root:not([data-theme="light"]) {
     --surface-page: #111820;
     --surface-card: #18212b;
-    --surface-raised: #223040;
-    --border: #344354;
     --ink: #eeede8;
     --ink-muted: #a9b3bc;
     --accent: #46bc24;
     --accent-ink: #6fd64c;
     --status-error: #ff8a78;
     --status-success: #7fd39b;
-    --status-info: #bcd0e4;
     --inverse: var(--surface-card);
     --on-inverse: var(--ink);
     --focus: var(--ink);
@@ -399,15 +396,12 @@ tbody th { font-size: var(--fs-title); font-weight: var(--fw-medium); }
 :root[data-theme="dark"] {
   --surface-page: #111820;
   --surface-card: #18212b;
-  --surface-raised: #223040;
-  --border: #344354;
   --ink: #eeede8;
   --ink-muted: #a9b3bc;
   --accent: #46bc24;
   --accent-ink: #6fd64c;
   --status-error: #ff8a78;
   --status-success: #7fd39b;
-  --status-info: #bcd0e4;
   --inverse: var(--surface-card);
   --on-inverse: var(--ink);
   --focus: var(--ink);
