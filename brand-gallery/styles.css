@@ -66,7 +66,7 @@
   --fs-display: clamp(2.375rem, 5vw + 0.75rem, 4.1875rem);
   --fw-regular: 400;
   --fw-medium: 600;
-  --fw-medium: 700;
+  --fw-bold: 700;
 
   --radius-control: 6px;
   --radius-card: 12px;

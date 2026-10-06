@@ -65,7 +65,7 @@
   --fs-display: clamp(2.375rem, 5vw + 0.75rem, 4.1875rem);
   --fw-regular: 400;
   --fw-medium: 600;
-  --fw-medium: 700;
+  --fw-bold: 700;
 
   /* Radii follow the object's size class. */
   --radius-control: 6px;
