@@ -79,4 +79,67 @@ test.describe('order ticket storefront', () => {
       blocking.map((v) => `${v.impact} ${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(' | ')}`),
     ).toEqual([])
   })
+
+  for (const width of [375, 768, 1440]) {
+    test(`no horizontal scroll at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+      await page.locator('.product-card__hit').first().waitFor()
+      const { sw, cw } = await page.evaluate(() => ({
+        sw: document.documentElement.scrollWidth,
+        cw: document.documentElement.clientWidth,
+      }))
+      expect(sw).toBeLessThanOrEqual(cw)
+    })
+  }
+
+  for (const width of [375, 768, 1440]) {
+    test(`the configurator title is not overlapped by the product image at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+      const title = page.locator('.configurator h2')
+      await title.waitFor()
+      const [t, img] = await Promise.all([
+        title.boundingBox(),
+        page.locator('.configurator__top').boundingBox(),
+      ])
+      expect(t).not.toBeNull()
+      expect(img).not.toBeNull()
+      // The title sits wholly below the image panel, or wholly beside it; never underneath.
+      const below = t!.y >= img!.y + img!.height - 1
+      const beside = t!.x >= img!.x + img!.width - 1
+      expect(below || beside).toBe(true)
+      const clipped = await title.evaluate((el) => el.scrollHeight > el.clientHeight + 1)
+      expect(clipped).toBe(false)
+    })
+  }
+
+  test('an incomplete request keeps the button enabled and explains the gap on submit', async ({ page }) => {
+    await page.goto('/')
+    const add = page.getByRole('button', { name: /^Add to request/ })
+    await expect(add).toBeEnabled()
+    await expect(page.getByText('Choose a size to continue')).toHaveCount(0)
+    await add.click()
+    await expect(page.getByText('Choose a size to continue')).toBeVisible()
+    await expect(page.locator('.drawer')).toHaveCount(0)
+    await expect(page.locator('.choice-grid button').first()).toBeFocused()
+  })
+
+  test('no element renders with an all-caps text transform', async ({ page }) => {
+    await page.goto('/')
+    const found = await page.evaluate(() =>
+      [...document.querySelectorAll('body *')].filter((el) => getComputedStyle(el).textTransform === 'uppercase').length,
+    )
+    expect(found).toBe(0)
+  })
+
+  test('the page carries its own identity: favicon, Open Graph image, theme colour', async ({ page, request }) => {
+    await page.goto('/')
+    const icon = await page.locator('link[rel=icon]').getAttribute('href')
+    expect((await request.get(icon!)).ok()).toBe(true)
+    await expect(page.locator('meta[property="og:image"]')).toHaveCount(1)
+    await expect(page.locator('meta[property="og:title"]')).toHaveCount(1)
+    await expect(page.locator('meta[name="theme-color"]')).toHaveCount(1)
+    expect((await request.get('/og-image.png')).ok()).toBe(true)
+  })
 })

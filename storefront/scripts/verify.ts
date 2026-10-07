@@ -43,9 +43,10 @@ assert(
   "request review must expose personalization notes",
 );
 assert(
-  app.includes("disabled={!isComplete}") &&
-    app.includes("aria-invalid={option.required && !selections[option.id]}"),
-  "required choices must prevent incomplete requests and identify missing fields",
+  app.includes("setAttempted(true)") &&
+    app.includes("attempted && option.required && !selections[option.id]") &&
+    app.includes("if (!isComplete)"),
+  "required choices must block an incomplete request on submit and identify the missing field",
 );
 assert(
   app.includes("useDialogFocus") && app.includes('event.key === "Escape"'),
