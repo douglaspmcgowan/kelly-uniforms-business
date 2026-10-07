@@ -117,11 +117,11 @@ function ProductCard({
         <span className="product-card__media">
           <img src={product.image} alt={product.name} />
         </span>
+        <strong>{product.name}</strong>
         <span className="product-card__meta">
           <span>{product.category}</span>
           <span>{product.model}</span>
         </span>
-        <strong>{product.name}</strong>
         <span className="product-card__foot">
           <span>{money(product.price)}</span>
           <span className="text-action">
@@ -168,7 +168,6 @@ function RequestDrawer({
     >
       <div className="drawer__head">
         <div>
-          <span className="section-label">Order request</span>
           <h2 id="request-title">
             Request list <b>{items.length}</b>
           </h2>
@@ -202,9 +201,9 @@ function RequestDrawer({
                 <div>
                   <strong>{item.product.name}</strong>
                   <span>
-                    {item.product.model} · Qty {item.quantity}
+                    {item.product.model}, Qty {item.quantity}
                   </span>
-                  <small>{Object.values(item.selections).join(" · ")}</small>
+                  <small>{Object.values(item.selections).join(", ")}</small>
                   {item.note && (
                     <small className="request-note">
                       <b>Notes:</b> {item.note}
@@ -261,6 +260,8 @@ export function App() {
   const [drawer, setDrawer] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
   const [sizeGuide, setSizeGuide] = useState(false);
+  const [attempted, setAttempted] = useState(false);
+  const optionsRef = useRef<HTMLDivElement>(null);
   const sizeDialogRef = useRef<HTMLElement>(null);
   const closeDrawer = useCallback(() => setDrawer(false), []);
   const closeSizeGuide = useCallback(() => setSizeGuide(false), []);
@@ -285,6 +286,7 @@ export function App() {
     setSelections({});
     setQuantity(1);
     setNote("");
+    setAttempted(false);
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -301,7 +303,16 @@ export function App() {
   );
   const isComplete = missingOptions.length === 0;
   const addRequest = () => {
-    if (!isComplete) return;
+    if (!isComplete) {
+      // The button stays enabled; the reason arrives on submit and focus moves to it.
+      setAttempted(true);
+      window.setTimeout(() => {
+        optionsRef.current
+          ?.querySelector<HTMLElement>('fieldset[aria-invalid="true"] button')
+          ?.focus();
+      }, 0);
+      return;
+    }
     setItems((current) => [
       ...current,
       {
@@ -339,7 +350,7 @@ export function App() {
             M<span>T</span>
           </span>
           <span>
-            M&amp;T UNIFORMS<small>Professional outfitters</small>
+            M.T. Uniforms<small>Professional outfitters</small>
           </span>
         </a>
         <label className="header-search">
@@ -368,7 +379,7 @@ export function App() {
           {mobileNav ? <X /> : <List />}
         </button>
         <button className="request-button" onClick={() => setDrawer(true)}>
-          <ClipboardText /> Request list <b>{items.length}</b>
+          <ClipboardText /> <span className="request-label">Request list</span> <b>{items.length}</b>
         </button>
       </header>
 
@@ -376,9 +387,9 @@ export function App() {
         <section className="intro" aria-labelledby="intro-title">
           <div>
             <h1 id="intro-title">
-              Find the right uniform.
+              Find the right uniform
               <br />
-              Get the fit right.
+              Get the fit right
             </h1>
             <p>
               Browse the recovered public catalog, capture every option, then
@@ -447,7 +458,6 @@ export function App() {
             </div>
             <div className="catalog-heading">
               <div>
-                <span className="section-label">Recovered public catalog</span>
                 <h2>
                   {role === "All roles" ? "Uniforms and equipment" : role}
                 </h2>
@@ -500,10 +510,10 @@ export function App() {
               <span className="source-stamp">Public snapshot</span>
             </div>
             <div className="configurator__body">
-              <span className="section-label">
-                {selected.brand} · {selected.model}
-              </span>
               <h2>{selected.name}</h2>
+              <p className="product-meta">
+                {selected.brand}, {selected.model}
+              </p>
               <p>{selected.description}</p>
               <div className="price-line">
                 <strong>{money(selected.price)}</strong>
@@ -521,13 +531,15 @@ export function App() {
                 </span>
                 <ArrowRight />
               </button>
-              <div className="options">
+              <div className="options" ref={optionsRef}>
                 {selected.options.map((option) => (
                   <fieldset
                     key={option.id}
-                    aria-invalid={option.required && !selections[option.id]}
+                    aria-invalid={
+                      attempted && option.required && !selections[option.id]
+                    }
                     aria-describedby={
-                      option.required && !selections[option.id]
+                      attempted && option.required && !selections[option.id]
                         ? `${option.id}-help`
                         : undefined
                     }
@@ -556,8 +568,12 @@ export function App() {
                         </button>
                       ))}
                     </div>
-                    {option.required && !selections[option.id] && (
-                      <small className="field-help" id={`${option.id}-help`}>
+                    {attempted && option.required && !selections[option.id] && (
+                      <small
+                        className="field-help"
+                        id={`${option.id}-help`}
+                        role="alert"
+                      >
                         Choose a {option.label.toLowerCase()} to continue.
                       </small>
                     )}
@@ -619,7 +635,6 @@ export function App() {
               <button
                 className="button primary full"
                 onClick={addRequest}
-                disabled={!isComplete}
               >
                 Add to request <ClipboardText />
               </button>
@@ -632,7 +647,7 @@ export function App() {
 
         <section className="service-band">
           <div>
-            <h2>Ordering still works while the new site is being built.</h2>
+            <h2>Ordering still works while the new site is being built</h2>
             <p>
               Send the request list by email, or call the Johnstown team to
               confirm fit, customization, and fulfillment.
@@ -650,7 +665,7 @@ export function App() {
       </main>
 
       <footer>
-        <span>M.T. Uniforms · 525 Franklin St, Johnstown, PA 15901</span>
+        <span>M.T. Uniforms, 525 Franklin St, Johnstown, PA 15901</span>
         <span>Prototype built from recovered public evidence</span>
       </footer>
       {drawer && (
@@ -686,7 +701,6 @@ export function App() {
           >
             <div className="drawer__head">
               <div>
-                <span className="section-label">Fit guidance</span>
                 <h2 id="size-title">Confirm before you order</h2>
               </div>
               <button

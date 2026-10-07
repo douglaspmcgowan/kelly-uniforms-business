@@ -1,6 +1,6 @@
 STATUS: superseded — implemented by `storefront/`; the shipped behavior and visual contract are owned by `storefront/DESIGN.md`, with durable architecture and data boundaries in `MAP.md`.
 
-# M&T Uniforms replacement storefront prototype
+# M.T. Uniforms replacement storefront prototype
 
 This document defines the product behavior and proof bar for the first client-first storefront slice. It is the technology-agnostic WHAT; implementation choices belong in the build plan and surface documentation.
 

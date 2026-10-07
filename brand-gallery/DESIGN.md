@@ -9,8 +9,7 @@ colors:
   status-paper: "#e8e4db"
   muted-graphite: "#5d636a"
   technical-rule: "#c9c5bc"
-  safety-orange: "#e85d0f"
-  safety-orange-dark: "#a83c00"
+  safety-orange: "#b8440c"
   verified-green: "#1f6752"
 typography:
   display:
@@ -85,8 +84,8 @@ The palette behaves like a marked-up production document: warm neutral stock car
 
 ### Primary
 
-- **Safety Orange** (`#e85d0f`): Marks the primary review action, active dividers, the footer disclaimer field, monogram detail, and visible keyboard focus.
-- **Deep Safety Orange** (`#a83c00`): Carries direction indices and unresolved operational states on light surfaces where the brighter accent would lose text contrast.
+- **Safety Orange** (`#b8440c`): Marks the primary review action, active dividers, the footer disclaimer field, monogram detail, and visible keyboard focus.
+- Orange also carries direction states and unresolved operational text on light surfaces; one value serves fills and text (white or paper text on it passes AA).
 
 ### Secondary
 
@@ -118,17 +117,18 @@ The palette behaves like a marked-up production document: warm neutral stock car
 
 ### Hierarchy
 
-- **Display** (weight `800`, `clamp(3.2rem, 6vw, 5.5rem)`, line-height `0.9`): Uppercase opening statement and other dominant calls to action; keep the measure tight enough to read as a specification-wall headline.
+- **Display** (weight `800`, `clamp(2.5rem, 1rem + 5vw, 5rem)`, line-height `0.95`): One fluid step used for the opening statement and every section and direction heading, in sentence case.
 - **Headline** (weight `800`, `clamp(3rem, 5.5vw, 5rem)`, line-height `0.9`): Major section and recommendation titles.
 - **Title** (heavy, responsive, line-height approximately `0.9–0.95`): Direction names and status-rail heading.
 - **Body** (weight `400`, base `1rem`, line-height `1.5`): Rationale, status explanations, and comparison content. Long introductory copy stays near `63ch`.
-- **Label** (weight `800`, `0.78rem`, tracking `0.1em`, uppercase): Direction numbers and compact technical labels.
+- **Lead** (weight `600`, `1.5rem`): Lede, case line and status heading.
+- **Direction numbers** sit below the direction heading in muted body text; there are no eyebrow labels.
 
 ### Named Rules
 
-**The One-Family Rule.** Use the self-hosted Archivo file for every gallery role; hierarchy comes from weight, width impression, case, and scale rather than font mixing.
+**The One-Family Rule.** Use the self-hosted Archivo file for every gallery role; hierarchy comes from weight, width impression, and scale rather than font mixing.
 
-**The Display Is a Sign Rule.** Large headings are short, tightly led, and usually uppercase. Paragraphs remain sentence case and comfortably spaced.
+**The Display Is a Sign Rule.** Large headings are short, tightly led, and sentence case. Paragraphs remain sentence case and comfortably spaced.
 
 ## Layout
 
@@ -142,9 +142,9 @@ At `900px` and below, multi-column regions stack, the status list becomes two co
 
 ## Elevation & Depth
 
-The gallery is flat by design and uses no box shadows. Depth comes from adjacent paper tones, graphite or navy fields, one-pixel rules, and the orange structural edge beneath dark rails. Board artwork sits flush within clipped rectangular frames; it should feel mounted for inspection, not floated as a product card.
+The gallery is flat by design. Elevation is declared once per surface: a hairline on mounted boards, a wide soft tinted shadow on the primary action when hovered. Depth comes from adjacent paper tones, graphite or navy fields, one-pixel rules, and the orange structural edge beneath dark rails. Board artwork sits flush within clipped rectangular frames; it should feel mounted for inspection, not floated as a product card.
 
-**The Flat Board Rule.** Never add drop shadows, glass effects, floating panels, or soft elevation to the gallery boards. Separation comes from tonal contrast and technical borders.
+**The Flat Board Rule.** Boards carry a low-opacity hairline (`--elev-rest`) and nothing else; never add drop shadows, glass effects, or floating panels to them. The only soft shadow (`--elev-raised`, wide, navy-tinted) belongs to the primary action on hover. Separation otherwise comes from tonal contrast and spacing.
 
 ## Shapes
 
@@ -214,3 +214,18 @@ Keyboard users receive a skip link that appears on focus, visible three-pixel or
 - **Don't** turn the three directions into equal cards; recommendation hierarchy is part of the decision experience.
 - **Don't** add rounded corners, shadows, glass effects, gradients, or decorative motion to the flat specification-wall system.
 - **Don't** let orange become general decoration; reserve it for action, state, indexing, focus, and deliberate structural emphasis.
+
+## Compliance record (design pass)
+
+Tokens are custom properties on `:root`; the dark block redefines the same names.
+
+- **Colours:** nine per scheme. Surface levels: page `--paper`, card `--card`, raised `--raised`, border `--rule`. Ink `--graphite`/`--ink`, navy, muted, one orange `#b8440c` (text and fills; it replaces the former bright, dark and pressed oranges), green for the verified state.
+- **Spacing scale:** 4, 8, 12, 16, 24, 32, 48, 64 (`--s-1` to `--s-8`); chapter breaks use `--s-section`, a multiple of the top step.
+- **Type scale:** 1rem, 1.5rem (ratio 1.5) and one fluid display step; three sizes and three weights (400, 600, 800) per screen.
+- **Motion:** `--ease` `cubic-bezier(0.22, 0.8, 0.24, 1)`, `--dur-fast` 160ms, `--dur` 360ms; reduced motion zeroes both durations, with no `!important`.
+- **Container query:** the fact lists (`dl`) are reused in the wide recommendation column and the narrow alternate column and answer to their own container (`@container facts`).
+- **Formats:** no prices, dates or measured units appear; direction numbers are `Direction 01` to `Direction 03`.
+- **The one deliberate inversion:** the dark comparison band ("What each route prioritizes") between two light chapters is the page's single composition device. The graphite header and the navy recommendation sheet header are chrome and a card header, not section inversions.
+- **Removed:** all-caps transforms, the eyebrow labels above headings, the `!important` rules, the working-paper line texture on `body`, and the decorative side borders on the opening and decision sections.
+- **Recorded exception:** the radius stays `0` (`--radius`) because the square specification wall is this gallery's committed identity; the universal 12-16px card guidance would change it.
+- **Identity:** favicon `assets/favicon.svg`, Open Graph image `assets/og-image.png` (relative path; no deployed origin is recorded), `theme-color` `#11151a`.

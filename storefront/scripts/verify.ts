@@ -4,9 +4,10 @@ import { join } from "node:path";
 import { spawnSync } from "node:child_process";
 
 const root = new URL("..", import.meta.url).pathname.replace(/^\/(.:)/, "$1");
-const text = async (path) => readFile(join(root, path), "utf8");
-const failures = [];
-const assert = (condition, message) => {
+const text = async (path: string): Promise<string> =>
+  readFile(join(root, path), "utf8");
+const failures: string[] = [];
+const assert = (condition: unknown, message: string): void => {
   if (!condition) failures.push(message);
 };
 
@@ -42,9 +43,10 @@ assert(
   "request review must expose personalization notes",
 );
 assert(
-  app.includes("disabled={!isComplete}") &&
-    app.includes("aria-invalid={option.required && !selections[option.id]}"),
-  "required choices must prevent incomplete requests and identify missing fields",
+  app.includes("setAttempted(true)") &&
+    app.includes("attempted && option.required && !selections[option.id]") &&
+    app.includes("if (!isComplete)"),
+  "required choices must block an incomplete request on submit and identify the missing field",
 );
 assert(
   app.includes("useDialogFocus") && app.includes('event.key === "Escape"'),
@@ -140,7 +142,7 @@ assert(
   "direction contract was stripped from production output",
 );
 assert(
-  (await stat(join(root, "dist/index.html")).catch(() => null))?.size > 500,
+  ((await stat(join(root, "dist/index.html")).catch(() => null))?.size ?? 0) > 500,
   "production entry is missing or empty",
 );
 
